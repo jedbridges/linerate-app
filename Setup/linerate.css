@@ -1,24 +1,27 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-
 /*
- * LineRate design system — Tailwind v4 theme + semantic layer.
+ * LineRate design system — Tailwind v4 theme + semantic layer
  *
- * Merged into the app stylesheet. Canonical source of truth is Setup/tokens.json
- * (W3C format); Setup/linerate.css is its web reference. Fonts are self-hosted
- * via next/font in app/layout.tsx, exposed as --font-schibsted / --font-jetbrains-mono.
+ * Import once at the top of your global stylesheet:
+ *   @import "tailwindcss";
+ *   @import "./linerate.css";
  *
- * Use semantic utilities throughout the app:
+ * Then use semantic utilities throughout the app:
  *   <div class="bg-surface text-foreground border-border">
  *   <span class="font-mono">$127,492,851.50</span>
  *
  * Raw scale utilities (bg-neutral-100, text-amber-500) exist as escape hatches,
- * but the reskin protocol forbids them in product code. See Setup/CLAUDE.md.
+ * but the reskin protocol forbids them in product code. See CLAUDE.md.
  */
 
-/* Dark mode keys off the .dark class so shadcn dark: utilities and the
-   LineRate :root.dark layer toggle together. */
-@custom-variant dark (&:is(.dark *));
+/* ─────────────────────────────────────────────────────────────────────────
+   Fonts
+   Self-host in production for performance. Fontsource is fine for prototyping.
+   ───────────────────────────────────────────────────────────────────────── */
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/schibsted-grotesk@5.2.0/400.css");
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/schibsted-grotesk@5.2.0/500.css");
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/schibsted-grotesk@5.2.0/600.css");
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.2.0/400.css");
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.2.0/500.css");
 
 /* ─────────────────────────────────────────────────────────────────────────
    Tailwind v4 theme tokens
@@ -74,9 +77,9 @@
   --color-danger-600: #8e2d24;
   --color-danger-700: #6b1f18;
 
-  /* Typography — families resolve to the self-hosted next/font variables */
-  --font-sans: var(--font-schibsted), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Typography */
+  --font-sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --text-xs: 11px;
   --text-sm: 13px;
@@ -113,6 +116,8 @@
 /* ─────────────────────────────────────────────────────────────────────────
    Semantic layer
    These are the variables product code references. They re-point per theme.
+   Use them like: background: var(--surface); color: var(--foreground);
+   Or via the @theme aliases below for Tailwind utilities.
    ───────────────────────────────────────────────────────────────────────── */
 :root {
   /* Backgrounds */
@@ -244,27 +249,6 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   shadcn/ui compatibility bridge
-   Maps shadcn's variable names onto LineRate semantics so its components
-   resolve. Accent stays amber (LineRate's meaning); component hover states
-   that lean on bg-accent get rewritten to bg-muted per phase.
-   ───────────────────────────────────────────────────────────────────────── */
-@theme inline {
-  --color-background: var(--page);
-  --color-card: var(--surface);
-  --color-card-foreground: var(--foreground);
-  --color-popover: var(--raised);
-  --color-popover-foreground: var(--foreground);
-  --color-secondary: var(--muted);
-  --color-secondary-foreground: var(--foreground);
-  --color-muted-foreground: var(--foreground-muted);
-  --color-destructive: var(--color-danger-500);
-  --color-destructive-foreground: var(--color-neutral-100);
-  --color-input: var(--border);
-  --color-ring: var(--ring);
-}
-
-/* ─────────────────────────────────────────────────────────────────────────
    Base styles
    ───────────────────────────────────────────────────────────────────────── */
 @layer base {
@@ -293,14 +277,6 @@
   ::selection {
     background: var(--accent-surface);
     color: var(--accent-foreground);
-  }
-
-  /* shadcn component defaults */
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
 
