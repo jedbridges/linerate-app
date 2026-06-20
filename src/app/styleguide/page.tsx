@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 
+import { Alert, AlertActions, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Card,
   CardAction,
@@ -67,6 +70,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Wordmark } from "@/components/wordmark";
 import { SettlementSummary } from "@/components/patterns/settlement-summary";
 import { AuditPackDrawer } from "@/components/patterns/audit-pack-drawer";
+import { ConfirmDestructive } from "@/components/patterns/confirm-destructive";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -565,17 +569,17 @@ export default function StyleguidePage() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Confirm settlement</DialogTitle>
+                <DialogTitle>Reschedule cycle window</DialogTitle>
                 <DialogDescription>
-                  Releasing $127,492,851.50 to 38 counterparties. This action
-                  is recorded in the audit log and cannot be reversed.
+                  Cycle 4271 opens at 14:32 UTC. Pick a new window to defer
+                  this cycle to. Affected counterparties are notified.
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
                 <DialogClose asChild>
                   <Button variant="ghost">Cancel</Button>
                 </DialogClose>
-                <Button>Release funds</Button>
+                <Button>Reschedule</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -634,6 +638,75 @@ export default function StyleguidePage() {
               </span>
             </TooltipContent>
           </Tooltip>
+        </div>
+      </Section>
+
+      {/* Resilience: Alert, EmptyState, Skeleton */}
+      <Section
+        eyebrow="Primitives"
+        title="Resilience"
+        description="Three primitives for when things go wrong, are empty, or are loading. Voice convention for any error copy: what happened, why, what to do next."
+      >
+        <div className="space-y-8">
+          <div className="space-y-3">
+            <Alert>
+              <AlertTitle>Audit pack ready for cycle 4271.</AlertTitle>
+              <AlertDescription>
+                Signed and hash-chained. Download from the cycle summary or
+                from your scheduled export folder.
+              </AlertDescription>
+            </Alert>
+
+            <Alert tone="warning">
+              <AlertTitle>Cascade Datacenter has not acknowledged.</AlertTitle>
+              <AlertDescription>
+                Acknowledgement is due at 14:34 UTC. The cycle will hold for
+                90 seconds past the window before flagging as failed.
+              </AlertDescription>
+              <AlertActions>
+                <Button variant="ghost" size="sm">
+                  View counterparty
+                </Button>
+                <Button size="sm">Send reminder</Button>
+              </AlertActions>
+            </Alert>
+
+            <Alert tone="danger">
+              <AlertTitle>Helix Networks settlement failed.</AlertTitle>
+              <AlertDescription>
+                Wire returned 0x12 (insufficient counterparty balance).
+                Funds remain in the escrow account. Retry or mark as manual.
+              </AlertDescription>
+              <AlertActions>
+                <Button variant="ghost" size="sm">
+                  View diagnostic
+                </Button>
+                <Button size="sm">Retry settlement</Button>
+              </AlertActions>
+            </Alert>
+          </div>
+
+          <div className="rounded-lg border border-border bg-surface">
+            <EmptyState
+              eyebrow="No exceptions"
+              title="Every counterparty cleared in this cycle."
+              description="The next window opens at 14:32 UTC. Failures will appear here."
+              action={
+                <Button variant="ghost" size="sm">
+                  View cycle history
+                </Button>
+              }
+            />
+          </div>
+
+          <div className="rounded-lg border border-border bg-surface p-6">
+            <p className="eyebrow mb-4">Loading state, sample</p>
+            <Skeleton className="h-3 w-32" />
+            <Skeleton className="mt-3 h-10 w-64" />
+            <Skeleton className="mt-6 h-4 w-full max-w-lg" />
+            <Skeleton className="mt-2 h-4 w-full max-w-md" />
+            <Skeleton className="mt-2 h-4 w-full max-w-sm" />
+          </div>
         </div>
       </Section>
 
@@ -696,6 +769,27 @@ export default function StyleguidePage() {
             cleared: "99.4%",
             hash: "a91f3c2b8e9a7f44d11c5e6b73d8c4e2d1f0a3b5c9e8d7f6a4b2c0d9e8f7a6b5",
           }}
+        />
+      </Section>
+
+      {/* Destructive confirmation pattern */}
+      <Section
+        eyebrow="Patterns"
+        title="Destructive confirmation"
+        description="For irreversible action at meaningful stakes. The operator types a match string (cycle number, token) before the primary confirm enables. Composes Dialog + Input."
+      >
+        <ConfirmDestructive
+          trigger={<Button>Release funds</Button>}
+          title="Confirm settlement, cycle 4271"
+          description="Releasing $127,492,851.50 to 38 counterparties. Recorded in the audit log and cannot be reversed."
+          confirmToken="4271"
+          tokenLabel={
+            <>
+              Type the cycle number{" "}
+              <span className="font-mono text-foreground">4271</span> to confirm
+            </>
+          }
+          confirmLabel="Release funds"
         />
       </Section>
     </main>

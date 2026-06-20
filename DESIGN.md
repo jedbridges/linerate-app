@@ -56,6 +56,8 @@ Eight hard rules. Violations are defects, not preferences.
 - Mention concrete artifacts (audit pack, ledger, cycle, counterparty) over abstractions ("workflow," "experience").
 - Headlines can be declarative or precise statements of fact. "Settle nine-figure obligations the same day." beats "The future of hosting payments."
 
+**Error copy convention.** Any time something fails, the surface must answer three questions, in this order: **what happened, why, what to do next.** "Wire returned 0x12 (insufficient counterparty balance). Funds remain in escrow. Retry or mark as manual." Not "Something went wrong, please try again."
+
 ---
 
 ## Tokens
@@ -225,6 +227,14 @@ All share the floating surface vocabulary: `bg-raised`, `border-border`, `shadow
 
 `<TooltipProvider/>` is wrapped at the root layout.
 
+### Resilience (Alert, EmptyState, Skeleton)
+
+For the moments when the system is failing, has nothing to show, or is fetching. All three follow the error-copy convention (what happened, why, what to do next) when copy is involved.
+
+- **Alert.** Three tones: `neutral`, `warning` (amber), `danger`. Compose `AlertTitle`, `AlertDescription`, and `AlertActions` for inline tasks. Use `role="alert"` automatically on danger.
+- **EmptyState.** Eyebrow + heading + body + optional action. No illustration. The documentary aesthetic prefers a quiet, prose-led empty state.
+- **Skeleton.** Pulsing tonal block on `bg-muted`. Compose multiple to mirror the shape of the eventual content. Prefer skeletons over spinners; spinners feel anxious, skeletons feel intentional.
+
 ---
 
 ## Patterns
@@ -238,6 +248,10 @@ Card + Table + Badge. Eyebrow + title row, big mono total, counterparty list wit
 ### AuditPackDrawer
 
 Sheet (right side) + Badge + Button. Header with eyebrow and title, body with `<dl>` of mono figures, footer with `Copy hash` (ghost) and `Download audit pack` (primary).
+
+### ConfirmDestructive
+
+For irreversible action at meaningful stakes (releasing funds, closing a cycle, archiving an audit pack). Composes Dialog + Input. The operator types a match string (cycle number, token) before the primary confirm enables. Description copy stays plain ("Releasing $X to N counterparties. Recorded in the audit log and cannot be reversed.") Do not soften.
 
 ### Patterns still to build
 
