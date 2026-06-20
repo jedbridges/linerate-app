@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 
 /*
- * LineRate design system — Tailwind v4 theme + semantic layer.
+ * LineRate design system: Tailwind v4 theme and semantic layer.
  *
  * Merged into the app stylesheet. Canonical source of truth is Setup/tokens.json
  * (W3C format); Setup/linerate.css is its web reference. Fonts are self-hosted
@@ -74,7 +74,7 @@
   --color-danger-600: #8e2d24;
   --color-danger-700: #6b1f18;
 
-  /* Typography — families resolve to the self-hosted next/font variables */
+  /* Typography. Families resolve to the self-hosted next/font variables. */
   --font-sans: var(--font-schibsted), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -140,7 +140,7 @@
   --primary-active: var(--color-neutral-800);
   --primary-foreground: var(--color-neutral-100);
 
-  /* Accent (Amber — signal only) */
+  /* Accent (Amber, signal only) */
   --accent: var(--color-amber-500);
   --accent-hover: var(--color-amber-600);
   --accent-surface: var(--color-amber-50);
@@ -276,7 +276,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Tabular numerals on by default for mono — settlement amounts must align */
+  /* Tabular numerals on by default for mono so settlement amounts align */
   .font-mono,
   [class*="font-mono"] {
     font-feature-settings: "tnum" 1, "ss01" 1;
@@ -305,7 +305,7 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Component primitives — minimal helpers Claude Code can lean on
+   Component primitives. Minimal helpers Claude Code can lean on.
    ───────────────────────────────────────────────────────────────────────── */
 @layer components {
   /* Ledger numerals: any numeric value in product UI */
