@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -14,8 +23,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SettlementSummary } from "@/components/patterns/settlement-summary";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -331,6 +350,214 @@ export default function StyleguidePage() {
             <p className="ledger text-foreground">$76,372,851.50</p>
           </div>
         </div>
+      </Section>
+
+      {/* Card */}
+      <Section
+        eyebrow="Primitives"
+        title="Card"
+        description="Surface for grouped information. bg-surface, 1px border, 8px radius, p-6 default. Cards lift via tone, not shadow."
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <div>
+                <CardTitle>Audit pack</CardTitle>
+                <CardDescription>
+                  Quarterly export, signed and timestamped.
+                </CardDescription>
+              </div>
+              <CardAction>
+                <Badge variant="success">Ready</Badge>
+              </CardAction>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-foreground-subtle">Generated</p>
+                  <p className="font-mono text-sm text-foreground">
+                    2026-06-19 14:32 UTC
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-foreground-subtle">Hash</p>
+                  <p className="font-mono text-sm text-foreground">a91f3c…d8</p>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="ghost" size="sm">
+                View ledger
+              </Button>
+              <Button size="sm">Export</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <div>
+                <CardTitle>Cycle 4271</CardTitle>
+                <CardDescription>
+                  Counterparties cleared in this window.
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="ledger text-3xl font-medium text-foreground">
+                $42,180,000.00
+              </p>
+              <p className="mt-1 text-sm text-foreground-subtle">
+                38 counterparties, 99.4% cleared
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
+      {/* Table */}
+      <Section
+        eyebrow="Primitives"
+        title="Table"
+        description="Header cells use the eyebrow style. Pass numeric on TableHead and TableCell to mark a column as mono, tabular, right-aligned. Subtle row dividers, no zebra."
+      >
+        <div className="overflow-hidden rounded-lg border border-border bg-surface">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Counterparty</TableHead>
+                <TableHead>Reference</TableHead>
+                <TableHead numeric>Notional</TableHead>
+                <TableHead numeric>Cleared</TableHead>
+                <TableHead className="text-right">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Acme Hosting</TableCell>
+                <TableCell className="font-mono text-xs text-foreground-subtle">
+                  A-7142
+                </TableCell>
+                <TableCell numeric>42,180,000.00</TableCell>
+                <TableCell numeric>42,180,000.00</TableCell>
+                <TableCell className="text-right">
+                  <Badge variant="success">Settled</Badge>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Northwind Compute</TableCell>
+                <TableCell className="font-mono text-xs text-foreground-subtle">
+                  N-3318
+                </TableCell>
+                <TableCell numeric>18,640,000.00</TableCell>
+                <TableCell numeric>18,640,000.00</TableCell>
+                <TableCell className="text-right">
+                  <Badge variant="success">Settled</Badge>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Cascade Datacenter</TableCell>
+                <TableCell className="font-mono text-xs text-foreground-subtle">
+                  C-9920
+                </TableCell>
+                <TableCell numeric>8,940,000.00</TableCell>
+                <TableCell numeric>0.00</TableCell>
+                <TableCell className="text-right">
+                  <Badge variant="pending">Pending</Badge>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Helix Networks</TableCell>
+                <TableCell className="font-mono text-xs text-foreground-subtle">
+                  H-5571
+                </TableCell>
+                <TableCell numeric>3,212,851.50</TableCell>
+                <TableCell numeric>0.00</TableCell>
+                <TableCell className="text-right">
+                  <Badge variant="danger">Failed</Badge>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </Section>
+
+      {/* Tabs */}
+      <Section
+        eyebrow="Primitives"
+        title="Tabs"
+        description="Underline style only. Active trigger gets border-foreground. No segmented pill variant."
+      >
+        <Tabs defaultValue="overview">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="counterparties">Counterparties</TabsTrigger>
+            <TabsTrigger value="audit">Audit pack</TabsTrigger>
+            <TabsTrigger value="settings" disabled>
+              Settings
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview">
+            <p className="text-sm text-foreground-muted">
+              Overview content. Today the system cleared 38 counterparties at
+              99.4%, totalling $127.4M.
+            </p>
+          </TabsContent>
+          <TabsContent value="counterparties">
+            <p className="text-sm text-foreground-muted">
+              Counterparties content. A list of every party in the active
+              window with reference, notional, and status.
+            </p>
+          </TabsContent>
+          <TabsContent value="audit">
+            <p className="text-sm text-foreground-muted">
+              Audit pack content. Signed export, hash chain, and the operator
+              note attached to this cycle.
+            </p>
+          </TabsContent>
+        </Tabs>
+      </Section>
+
+      {/* LineRate-specific pattern */}
+      <Section
+        eyebrow="Patterns"
+        title="Settlement summary"
+        description="Bespoke LineRate pattern. Composes Card + Table + Badge to render a cycle and its counterparty breakdown. Lives in components/patterns/."
+      >
+        <SettlementSummary
+          cycle="4271"
+          windowLabel="14:32 UTC"
+          totalAmount="$127,492,851.50"
+          counterparties={[
+            {
+              party: "Acme Hosting",
+              reference: "A-7142",
+              amount: "42,180,000.00",
+              status: "success",
+              statusLabel: "Settled",
+            },
+            {
+              party: "Northwind Compute",
+              reference: "N-3318",
+              amount: "18,640,000.00",
+              status: "success",
+              statusLabel: "Settled",
+            },
+            {
+              party: "Cascade Datacenter",
+              reference: "C-9920",
+              amount: "8,940,000.00",
+              status: "pending",
+              statusLabel: "Pending",
+            },
+            {
+              party: "Helix Networks",
+              reference: "H-5571",
+              amount: "3,212,851.50",
+              status: "danger",
+              statusLabel: "Failed",
+            },
+          ]}
+        />
       </Section>
     </main>
   );
