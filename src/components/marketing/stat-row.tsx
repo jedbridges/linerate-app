@@ -16,9 +16,11 @@ type Stat = {
 type StatRowProps = {
   eyebrow?: string;
   stats: Stat[];
+  /* Methodology / source line. Strong claims should say where they came from. */
+  footnote?: string;
 };
 
-export function StatRow({ eyebrow, stats }: StatRowProps) {
+export function StatRow({ eyebrow, stats, footnote }: StatRowProps) {
   return (
     <section className="mx-auto max-w-5xl border-y border-border-subtle px-6 py-12">
       {eyebrow && <p className="eyebrow mb-8">{eyebrow}</p>}
@@ -32,6 +34,11 @@ export function StatRow({ eyebrow, stats }: StatRowProps) {
           </div>
         ))}
       </dl>
+      {footnote && (
+        <p className="mt-10 max-w-[70ch] text-sm text-foreground-subtle">
+          {footnote}
+        </p>
+      )}
     </section>
   );
 }

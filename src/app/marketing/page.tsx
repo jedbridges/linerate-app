@@ -4,12 +4,13 @@ import { FeatureGrid } from "@/components/marketing/feature-grid";
 import { Hero } from "@/components/marketing/hero";
 import { LogoCloud } from "@/components/marketing/logo-cloud";
 import { PricingTable } from "@/components/marketing/pricing-table";
+import { PullQuote } from "@/components/marketing/pull-quote";
 import { StatRow } from "@/components/marketing/stat-row";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Wordmark } from "@/components/wordmark";
 
 export const metadata: Metadata = {
-  title: "LineRate, treasury and settlement",
+  title: "LineRate, daily settlement for nine-figure hosting",
   description:
     "Daily settlement, automated counterparty payments, and audit-ready reporting for nine-figure hosting agreements.",
 };
@@ -34,6 +35,7 @@ export default function MarketingPage() {
         subhead="Automated counterparty payments, real-time collateral, and an audit pack ready before close. Built for hosting infrastructure at the scale where late settlement is a board-level event."
         primaryCta="Talk to settlement"
         secondaryCta="Read the spec"
+        primaryCtaNote="A settlement engineer responds within one business day."
       />
 
       <LogoCloud
@@ -55,6 +57,7 @@ export default function MarketingPage() {
           { value: "99.4%", label: "Cleared on first attempt" },
           { value: "T+0", label: "Standard settlement window" },
         ]}
+        footnote="Measured across 1,140 settlement cycles, Q1 2026, all production counterparties. First-attempt clearance excludes counterparty-side holds. Methodology available on request."
       />
 
       <FeatureGrid
@@ -78,6 +81,12 @@ export default function MarketingPage() {
             body: "Posted and held positions update with each settled cycle. Reserve thresholds are enforced before the next window opens.",
           },
         ]}
+      />
+
+      <PullQuote
+        quote="We closed our first cycle on LineRate the day we switched. The audit pack landed before our controller asked for it."
+        name="Dana Okonkwo"
+        title="VP Treasury, Northwind Compute"
       />
 
       <PricingTable

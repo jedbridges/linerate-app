@@ -16,6 +16,8 @@ type HeroProps = {
   subhead: string;
   primaryCta: string;
   secondaryCta?: string;
+  /* Sets expectations for what the primary CTA leads to (e.g. response time). */
+  primaryCtaNote?: string;
 };
 
 export function Hero({
@@ -24,6 +26,7 @@ export function Hero({
   subhead,
   primaryCta,
   secondaryCta,
+  primaryCtaNote,
 }: HeroProps) {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-24">
@@ -42,6 +45,11 @@ export function Hero({
           </Button>
         )}
       </div>
+      {primaryCtaNote && (
+        <p className="mt-4 font-mono text-xs uppercase tracking-widest text-foreground-subtle">
+          {primaryCtaNote}
+        </p>
+      )}
     </section>
   );
 }
