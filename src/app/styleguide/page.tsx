@@ -33,8 +33,39 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SettlementSummary } from "@/components/patterns/settlement-summary";
+import { AuditPackDrawer } from "@/components/patterns/audit-pack-drawer";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -517,6 +548,91 @@ export default function StyleguidePage() {
         </Tabs>
       </Section>
 
+      {/* Overlays */}
+      <Section
+        eyebrow="Primitives"
+        title="Overlays"
+        description="Floating surfaces all share bg-raised + 1px border + subtle shadow. Highlighted items use bg-muted, never bg-accent (amber)."
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="secondary">Open dialog</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Confirm settlement</DialogTitle>
+                <DialogDescription>
+                  Releasing $127,492,851.50 to 38 counterparties. This action
+                  is recorded in the audit log and cannot be reversed.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="ghost">Cancel</Button>
+                </DialogClose>
+                <Button>Release funds</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary">Cycle actions</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuLabel>Cycle 4271</DropdownMenuLabel>
+              <DropdownMenuItem>
+                Open cycle
+                <DropdownMenuShortcut>⌘O</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Export audit pack
+                <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuCheckboxItem checked>
+                Notify counterparties
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem>
+                Include reconciliation memo
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Archive cycle</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="secondary">Window details</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <p className="eyebrow mb-2">Cycle 4271</p>
+              <p className="ledger text-2xl font-medium text-foreground">
+                14:32 UTC
+              </p>
+              <p className="mt-2 text-sm text-foreground-muted">
+                Opens at 14:30, closes at 14:35. Counterparty acknowledgements
+                must arrive within the window or the cycle reschedules.
+              </p>
+            </PopoverContent>
+          </Popover>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost">
+                <span className="font-mono">a91f3c…d8</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span className="font-mono">
+                a91f3c2b8e9a7f44d11c5e6b73d8
+              </span>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      </Section>
+
       {/* LineRate-specific pattern */}
       <Section
         eyebrow="Patterns"
@@ -557,6 +673,25 @@ export default function StyleguidePage() {
               statusLabel: "Failed",
             },
           ]}
+        />
+      </Section>
+
+      {/* Audit pack drawer pattern */}
+      <Section
+        eyebrow="Patterns"
+        title="Audit pack drawer"
+        description="Slide-in from right. Summary at top in mono figures, action row at bottom with primary export. Composes Sheet + Button + Badge."
+      >
+        <AuditPackDrawer
+          trigger={<Button>Export audit pack</Button>}
+          summary={{
+            cycle: "4271",
+            window: "14:32 UTC",
+            total: "$127,492,851.50",
+            counterparties: 38,
+            cleared: "99.4%",
+            hash: "a91f3c2b8e9a7f44d11c5e6b73d8c4e2d1f0a3b5c9e8d7f6a4b2c0d9e8f7a6b5",
+          }}
         />
       </Section>
     </main>
