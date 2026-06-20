@@ -30,7 +30,7 @@ export function PricingTable({ eyebrow, headline, tiers }: PricingTableProps) {
   return (
     <section className="mx-auto max-w-5xl px-6 py-20">
       <p className="eyebrow mb-4">{eyebrow}</p>
-      <h2 className="max-w-2xl text-4xl font-medium tracking-tight text-foreground leading-tight sm:text-5xl">
+      <h2 className="max-w-[28ch] text-display-md font-medium tracking-tight text-foreground leading-tight">
         {headline}
       </h2>
       <div className="mt-12 grid gap-6 sm:grid-cols-3">

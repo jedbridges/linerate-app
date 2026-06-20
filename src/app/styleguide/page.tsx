@@ -148,7 +148,7 @@ export default function StyleguidePage() {
       {/* Masthead */}
       <header>
         <p className="eyebrow mb-3">Design system</p>
-        <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-foreground leading-[1.05]">
+        <h1 className="max-w-[28ch] text-display-md font-semibold tracking-tight text-foreground leading-[1.05]">
           The voice of the brand, and the voice of the ledger.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-foreground-muted">

@@ -79,19 +79,35 @@
   --font-sans: var(--font-general-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --text-xs: 11px;
-  --text-sm: 13px;
-  --text-base: 15px;
-  --text-md: 16px;
-  --text-lg: 18px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;
-  --text-4xl: 36px;
-  --text-5xl: 48px;
-  --text-6xl: 64px;
-  --text-7xl: 80px;
-  --text-8xl: 96px;
+  /*
+   * Type scale, rem-based so the system scales with user font preferences
+   * and browser zoom. Sizes assume a 16px root: 0.6875rem = 11px, etc.
+   * --text-base stays at 0.9375rem (15px equivalent) for the editorial
+   * tighter read; tweak to 1rem if you prefer the 16px readability floor.
+   */
+  --text-xs:   0.6875rem;
+  --text-sm:   0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md:   1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  4rem;
+  --text-7xl:  5rem;
+  --text-8xl:  6rem;
+
+  /*
+   * Fluid display sizes for marketing surfaces only. Use these on hero
+   * headlines and big marketing display heads so type scales smoothly with
+   * viewport instead of jumping at breakpoints. Product UI keeps the fixed
+   * rem scale above for predictable density.
+   */
+  --text-display-sm: clamp(1.875rem, 1.25rem + 2.5vw, 3rem);    /* ~30 to 48 */
+  --text-display-md: clamp(2.25rem, 1.25rem + 4vw, 4rem);       /* ~36 to 64 */
+  --text-display-lg: clamp(3rem,    1.25rem + 6vw, 5rem);       /* ~48 to 80 */
 
   --tracking-tight:  -0.02em;
   --tracking-snug:   -0.01em;
@@ -282,6 +298,24 @@
     background: var(--page);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  /*
+   * Light-on-dark text reads better with slightly looser leading. We pick
+   * up an extra 0.05 on the body when .dark is set.
+   */
+  :root.dark body {
+    line-height: 1.55;
+  }
+
+  /*
+   * Display headings balance across lines for better ragged-right shape.
+   * Browsers that don't support text-wrap: balance ignore this silently.
+   */
+  h1, h2, h3 {
+    text-wrap: balance;
   }
 
   /* Tabular numerals on by default for mono so settlement amounts align */

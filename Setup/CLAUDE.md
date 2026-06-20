@@ -47,7 +47,9 @@ This file is the source of truth for design decisions. The values live in `token
 | Eyebrows above section heads | JetBrains Mono, `tracking-widest`, UPPERCASE, `text-foreground-subtle` | One per section, never more. |
 | Wordmark | General Sans Semibold, `uppercase`, `tracking-tight` | Use the `<Wordmark/>` component, not raw text. |
 
-Display headings: `tracking-tight`, `font-medium`, `leading-[1.05]`. Body: `leading-normal`, `font-regular`.
+Display headings: `tracking-tight`, `font-medium` (`font-semibold` for hero h1), `leading-[1.05]`. Body: `leading-normal`, `font-regular`.
+
+**Type scale.** Rem-based so the system scales with browser zoom. Sizes use `text-xs` through `text-8xl`. Marketing display heads use the fluid tokens `text-display-sm`, `text-display-md`, `text-display-lg` (clamp-based, no breakpoint jumps). Product UI keeps the fixed rem scale for predictable density.
 
 Mono numerals at display size get `tracking-snug` (-0.01em) to keep them from looking loose.
 

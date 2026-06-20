@@ -114,9 +114,19 @@ Light (the inverse) flips the page and the primary CTA: page = Paper, primary = 
 
 Fonts are self-hosted via `next/font/local` for General Sans (files under `/public/fonts/`) and `next/font/google` for JetBrains Mono. They are exposed as `--font-general-sans` and `--font-jetbrains-mono`, mapped to `--font-sans` and `--font-mono` in `globals.css @theme`.
 
-**Size scale** (px)
+**Size scale** (rem, sizes shown at 16px root)
 
 `xs 11` · `sm 13` · `base 15` · `md 16` · `lg 18` · `xl 20` · `2xl 24` · `3xl 30` · `4xl 36` · `5xl 48` · `6xl 64` · `7xl 80` · `8xl 96`
+
+The tokens are authored in `rem` (`0.6875rem` through `6rem`) so the scale follows browser zoom and user font preferences. `--text-base` is `0.9375rem` (15px) for the editorial tighter read; bump to `1rem` if you want the 16px readability floor.
+
+**Display scale** (fluid, marketing surfaces only)
+
+`display-sm` `clamp(1.875rem, 1.25rem + 2.5vw, 3rem)` — section heads
+`display-md` `clamp(2.25rem, 1.25rem + 4vw, 4rem)` — mid hero, h1 on inner pages
+`display-lg` `clamp(3rem, 1.25rem + 6vw, 5rem)` — marketing hero
+
+Product UI never uses the display scale; it keeps the fixed `rem` sizes so dense layouts stay predictable.
 
 **Weight**
 
