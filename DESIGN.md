@@ -166,6 +166,22 @@ Mostly flat on dark; elevation comes from tonal lift, not shadow. Reserved:
 
 ---
 
+## Grid
+
+A structural backdrop of vertical 1px hairlines runs behind every surface,
+aligned to the content container (`max-w-5xl`, `px-6` inset) and dividing it
+into four equal columns (five rules counting both framed edges). Drawn in
+`border-subtle` so the rules read as a quiet ledger-paper grid: present in
+the page-color gutters, covered by opaque surfaces (cards, tables, sheets)
+that sit on top.
+
+Implemented as `<GridLines />` (`src/components/grid-lines.tsx`), mounted once
+in the root layout at `-z-10`. It depends on `body` being transparent (the
+page color is painted by `<html>`) so the backdrop shows through. The column
+count is a prop (`columns`, default 4) if the grid ever needs to change.
+
+---
+
 ## Wordmark
 
 The wordmark sits in mastheads, footers, OOH-style surfaces, and anywhere the brand stamps itself. Always `LINERATE` in ALL CAPS, General Sans Semibold, tracking-tight. Use the `<Wordmark/>` component (`src/components/wordmark.tsx`). When the custom-wordmark SVG is delivered, swap the span for the inline SVG and keep the same className API.

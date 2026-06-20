@@ -350,8 +350,12 @@
   * {
     @apply border-border;
   }
+  /*
+   * Body stays transparent so the fixed GridLines backdrop (-z-10) shows
+   * through the page-color gutters. The page color is painted by <html>.
+   */
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }
 

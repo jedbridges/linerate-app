@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 
+import { GridLines } from "@/components/grid-lines";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
       className={`${generalSans.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <GridLines />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
