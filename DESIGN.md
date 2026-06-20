@@ -116,9 +116,9 @@ Fonts are self-hosted via `next/font/local` for General Sans (files under `/publ
 
 **Size scale** (rem, sizes shown at 16px root)
 
-`xs 11` · `sm 13` · `base 15` · `md 16` · `lg 18` · `xl 20` · `2xl 24` · `3xl 30` · `4xl 36` · `5xl 48` · `6xl 64` · `7xl 80` · `8xl 96`
+`xs 11` · `sm 13` · `base 16` · `md 16` · `lg 18` · `xl 20` · `2xl 24` · `3xl 30` · `4xl 36` · `5xl 48` · `6xl 64` · `7xl 80` · `8xl 96`
 
-The tokens are authored in `rem` (`0.6875rem` through `6rem`) so the scale follows browser zoom and user font preferences. `--text-base` is `0.9375rem` (15px) for the editorial tighter read; bump to `1rem` if you want the 16px readability floor.
+The tokens are authored in `rem` (`0.6875rem` through `6rem`) so the scale follows browser zoom and user font preferences. `--text-base` is `1rem` (16px), the WCAG readability floor. Dense product surfaces still feel editorial via `tracking-tight` and snug leading where appropriate.
 
 **Display scale** (fluid, marketing surfaces only)
 

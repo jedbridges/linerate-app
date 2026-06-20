@@ -81,13 +81,14 @@
 
   /*
    * Type scale, rem-based so the system scales with user font preferences
-   * and browser zoom. Sizes assume a 16px root: 0.6875rem = 11px, etc.
-   * --text-base stays at 0.9375rem (15px equivalent) for the editorial
-   * tighter read; tweak to 1rem if you prefer the 16px readability floor.
+   * and browser zoom. Sizes assume a 16px root: 0.6875rem = 11px, 1rem = 16px.
+   * --text-base sits at 1rem (16px) for the WCAG readability floor;
+   * dense product surfaces can still feel editorial via tracking-tight
+   * and tighter leading where appropriate.
    */
   --text-xs:   0.6875rem;
   --text-sm:   0.8125rem;
-  --text-base: 0.9375rem;
+  --text-base: 1rem;
   --text-md:   1rem;
   --text-lg:   1.125rem;
   --text-xl:   1.25rem;
