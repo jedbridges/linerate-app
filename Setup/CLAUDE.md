@@ -16,15 +16,17 @@ This file is the source of truth for design decisions. The values live in `token
 
 3. **Amber is the brand accent and appears VERY rarely.** Status pending pill, occasional brand-accent line under nav, one or two intentional appearances per marketing page. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. If a screen has more than one or two amber elements, something is wrong.
 
-4. **Sentence case for product copy.** Button labels, headings, navigation, table headers. ALL CAPS is reserved for the **wordmark** (`LINERATE`) and **mono eyebrows** with wide tracking. The legal name "LineRate" (sentence case with capital L and R) appears in body copy and accessibility text.
+4. **Case is role-bound.** Sentence case for prose, headings, navigation. UPPERCASE is reserved for exactly four roles: the **wordmark** (`LINERATE`), **mono eyebrows**, **status pills**, and **button labels** (uppercase with `tracking-wide`). Everything else is sentence case. The legal name "LineRate" appears in body copy and accessibility text.
 
-5. **No em dashes in copy.** Use commas, periods, parentheses, or restructure. (Brand voice. The rule extends to code comments and commit messages.)
+5. **Ampersands in headlines.** Display and heading text use `&`, never the spelled-out word "and". Running prose, descriptions, and labels keep "and".
 
-6. **Two weights as the default: 400 regular, 500 medium.** Use 600 only for true display moments (hero headlines, the wordmark). Never bold for UI emphasis; use color and size instead.
+6. **No em dashes in copy.** Use commas, periods, parentheses, or restructure. (Brand voice. The rule extends to code comments and commit messages.)
 
-7. **Flat surfaces. 1px borders. Tonal lift, not shadow.** On dark, elevation comes from stepping the surface color up (`bg-surface` → `bg-raised`). Reach for tonal contrast or `border-border` before `shadow-md`. Shadows exist for raised modals and floating menus only.
+7. **Two weights as the default: 400 regular, 500 medium.** Use 600 only for true display moments (hero headlines, the wordmark). Never bold for UI emphasis; use color and size instead.
 
-8. **Comfortable density.** Default padding on a card is `p-6` (24px). Default row padding in a list is `py-3.5` (14px). Don't go below `p-4` on a card without a reason.
+8. **Flat surfaces. 1px borders. Tonal lift, not shadow.** On dark, elevation comes from stepping the surface color up (`bg-surface` → `bg-raised`). Reach for tonal contrast or `border-border` before `shadow-md`. Shadows exist for raised modals and floating menus only.
+
+9. **Comfortable density.** Default padding on a card is `p-6` (24px). Default row padding in a list is `py-3.5` (14px). Don't go below `p-4` on a card without a reason.
 
 ---
 

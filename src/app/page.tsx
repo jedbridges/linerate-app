@@ -227,7 +227,7 @@ export default function DesignSystemPage() {
             General Sans, regular, 20px
           </p>
           <p className="text-base text-foreground-muted">
-            Body copy at 15px in foreground-muted. Direct, factual, precise.
+            Body copy at 16px in foreground-muted. Direct, factual, precise.
             The product handles real money, so the copy reads like it.
           </p>
           <p className="font-mono text-base text-foreground">
