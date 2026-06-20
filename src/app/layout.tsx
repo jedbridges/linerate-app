@@ -64,7 +64,7 @@ export default function RootLayout({
       lang="en"
       className={`${generalSans.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full">
         <GridLines />
         <TooltipProvider>{children}</TooltipProvider>
       </body>

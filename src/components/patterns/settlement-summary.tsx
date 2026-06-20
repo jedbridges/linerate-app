@@ -56,7 +56,7 @@ export function SettlementSummary({
             </Badge>
           </CardAction>
         </CardHeader>
-        <p className="ledger text-5xl font-medium text-foreground">
+        <p className="ledger text-3xl font-medium text-foreground sm:text-5xl">
           {totalAmount}
         </p>
       </div>

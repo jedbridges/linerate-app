@@ -1,19 +1,20 @@
 "use client";
 
 import * as React from "react";
+import { Moon, Sun } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 /*
  * Theme toggle
  *
- * Adds/removes the `.dark` class on <html> so the LineRate :root.dark layer
- * and any shadcn `dark:` utilities switch together. Dark is the canonical
- * default (set in layout); this flips to the light inverse.
+ * Icon-led switch between the canonical dark surface and the light inverse.
+ * Toggles `.dark` on <html> so the LineRate :root.dark layer and shadcn
+ * `dark:` utilities switch together. Reads state via useSyncExternalStore
+ * (no setState-in-effect, no hydration flash; server snapshot is dark).
  *
- * Reads the current theme via useSyncExternalStore so there's no
- * setState-in-effect and no hydration flash: the server snapshot is the
- * dark default, and the client subscribes to class changes on <html>.
+ * The two icons are stacked; on theme change they crossfade and rotate so
+ * the swap feels mechanical and intentional rather than abrupt.
  */
 
 function subscribe(callback: () => void) {
@@ -37,15 +38,38 @@ export function ThemeToggle() {
   );
 
   const toggle = () => {
-    // Read live DOM state so the toggle is correct regardless of React
-    // render timing (the snapshot updates async via the observer).
     const root = document.documentElement;
     root.classList.toggle("dark", !root.classList.contains("dark"));
   };
 
   return (
-    <Button variant="ghost" size="sm" onClick={toggle}>
-      {isDark ? "Light mode" : "Dark mode"}
-    </Button>
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      title={isDark ? "Light mode" : "Dark mode"}
+      className={cn(
+        "relative inline-flex size-9 items-center justify-center rounded-md",
+        "text-foreground-muted transition-colors outline-none",
+        "hover:bg-muted hover:text-foreground active:scale-95"
+      )}
+    >
+      <Sun
+        className={cn(
+          "absolute size-4 transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]",
+          isDark
+            ? "rotate-0 scale-100 opacity-100"
+            : "-rotate-90 scale-0 opacity-0"
+        )}
+      />
+      <Moon
+        className={cn(
+          "absolute size-4 transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]",
+          isDark
+            ? "rotate-90 scale-0 opacity-0"
+            : "rotate-0 scale-100 opacity-100"
+        )}
+      />
+    </button>
   );
 }

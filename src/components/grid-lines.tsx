@@ -22,7 +22,7 @@ function GridLines({ columns = 4 }: { columns?: number }) {
       className="pointer-events-none fixed inset-0 -z-10 flex justify-center"
     >
       <div
-        className="grid h-full w-full max-w-5xl px-6"
+        className="grid h-full w-full max-w-6xl px-6"
         style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
       >
         {Array.from({ length: columns }).map((_, i) => (

@@ -123,13 +123,13 @@ export function PreFlight({
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <p className="text-sm text-foreground-subtle">Opens in</p>
-            <p className="ledger mt-1 text-6xl font-medium tabular-nums text-foreground leading-none">
+            <p className="ledger mt-1 text-4xl font-medium tabular-nums text-foreground leading-none sm:text-6xl">
               {formatCountdown(seconds)}
             </p>
           </div>
           <div>
             <p className="text-sm text-foreground-subtle">Total queued</p>
-            <p className="ledger mt-1 text-5xl font-medium text-foreground leading-tight">
+            <p className="ledger mt-1 text-3xl font-medium text-foreground leading-tight sm:text-5xl">
               {totalQueued}
             </p>
           </div>

@@ -17,7 +17,10 @@ import { cn } from "@/lib/utils";
  * Every color references a semantic token. Change tokens, the button follows.
  */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap " +
+  // Labels are uppercase with wide tracking for an editorial, audit-grade
+  // feel. Uppercase reads larger, so sizes step down a notch versus the
+  // sentence-case equivalent and padding opens up to give the tracking room.
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium uppercase tracking-wide leading-none whitespace-nowrap " +
     "transition-colors outline-none select-none " +
     "disabled:pointer-events-none disabled:opacity-50 " +
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -31,9 +34,9 @@ const buttonVariants = cva(
         ghost: "bg-transparent text-foreground hover:bg-muted",
       },
       size: {
-        sm: "h-8 px-3 text-sm",
-        md: "h-10 px-4 text-sm",
-        lg: "h-12 px-5 text-base",
+        sm: "h-8 gap-1.5 px-3.5 text-xs",
+        md: "h-10 gap-2 px-5 text-xs",
+        lg: "h-12 gap-2.5 px-6 text-sm",
       },
     },
     defaultVariants: {

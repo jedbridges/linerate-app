@@ -301,6 +301,18 @@
     text-rendering: optimizeLegibility;
     font-kerning: normal;
     font-feature-settings: "kern" 1, "liga" 1;
+    scroll-behavior: smooth;
+    /* Clip page-level horizontal overflow (fixed grid backdrop, wide
+       specimens) without breaking sticky; tables scroll within their own
+       overflow-x-auto containers. */
+    overflow-x: clip;
+  }
+
+  /* Respect users who ask for less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   /*
@@ -310,6 +322,10 @@
    */
   body {
     line-height: 1.55;
+    /* Clip stray horizontal overflow (wide ledger tables, big figures on
+       small screens) without creating a scroll container, so position:sticky
+       keeps working. */
+    overflow-x: clip;
   }
 
   /*
