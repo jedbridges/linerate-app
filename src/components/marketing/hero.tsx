@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 /*
  * Marketing Hero
  *
- * Big Schibsted Grotesk headline (medium weight, tight tracking), short
+ * Big General Sans headline (medium weight, tight tracking), short
  * factual subhead in foreground-muted. Two CTAs: primary Ink, secondary
  * outline. Eyebrow above per protocol.
  */

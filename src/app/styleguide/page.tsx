@@ -64,6 +64,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Wordmark } from "@/components/wordmark";
 import { SettlementSummary } from "@/components/patterns/settlement-summary";
 import { AuditPackDrawer } from "@/components/patterns/audit-pack-drawer";
 
@@ -137,7 +138,10 @@ export default function StyleguidePage() {
     <main className="mx-auto max-w-5xl px-6 py-10">
       {/* Top bar with theme toggle */}
       <div className="flex items-center justify-between pb-8">
-        <p className="eyebrow">LineRate / styleguide</p>
+        <div className="flex items-baseline gap-3">
+          <Wordmark className="text-base" />
+          <span className="eyebrow">styleguide</span>
+        </div>
         <ThemeToggle />
       </div>
 
@@ -149,7 +153,7 @@ export default function StyleguidePage() {
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-foreground-muted">
           A documentary, audit-grade system for treasury and settlement.
-          Schibsted Grotesk carries the language; JetBrains Mono carries every
+          General Sans carries the language; JetBrains Mono carries every
           number that represents real-world data.
         </p>
         <p className="mt-3 max-w-2xl text-sm text-foreground-subtle">
@@ -168,10 +172,10 @@ export default function StyleguidePage() {
             Settle nine-figure obligations the same day.
           </p>
           <p className="text-3xl font-medium tracking-snug text-foreground">
-            Schibsted Grotesk, medium, 30px
+            General Sans, medium, 30px
           </p>
           <p className="text-xl text-foreground">
-            Schibsted Grotesk, regular, 20px
+            General Sans, regular, 20px
           </p>
           <p className="text-base text-foreground-muted">
             Body copy at 15px in foreground-muted. Direct, factual, precise.

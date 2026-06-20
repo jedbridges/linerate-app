@@ -6,6 +6,7 @@ import { LogoCloud } from "@/components/marketing/logo-cloud";
 import { PricingTable } from "@/components/marketing/pricing-table";
 import { StatRow } from "@/components/marketing/stat-row";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Wordmark } from "@/components/wordmark";
 
 export const metadata: Metadata = {
   title: "LineRate, treasury and settlement",
@@ -17,7 +18,7 @@ export default function MarketingPage() {
   return (
     <>
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
-        <p className="eyebrow">LineRate</p>
+        <Wordmark className="text-base" />
         <ThemeToggle />
       </header>
 

@@ -2,80 +2,81 @@
 @import "tw-animate-css";
 
 /*
- * LineRate design system: Tailwind v4 theme and semantic layer.
+ * LineRate design system, Brand v3.
  *
- * Merged into the app stylesheet. Canonical source of truth is Setup/tokens.json
- * (W3C format); Setup/linerate.css is its web reference. Fonts are self-hosted
- * via next/font in app/layout.tsx, exposed as --font-schibsted / --font-jetbrains-mono.
+ * Tailwind v4 theme + semantic layer. Canonical source of truth is
+ * Setup/tokens.json (W3C format). Fonts self-hosted via next/font/local
+ * in app/layout.tsx and exposed as --font-general-sans / --font-jetbrains-mono.
  *
- * Use semantic utilities throughout the app:
+ * The brand is DARK-FIRST: the canonical surface is Onyx (page) with Paper
+ * (text). Light mode is shipped as the inverse for accessibility and
+ * reading-heavy product screens, and is opt-in via removing the .dark class
+ * on <html>. Layout sets .dark by default.
+ *
+ * Use semantic utilities everywhere:
  *   <div class="bg-surface text-foreground border-border">
  *   <span class="font-mono">$127,492,851.50</span>
  *
- * Raw scale utilities (bg-neutral-100, text-amber-500) exist as escape hatches,
- * but the reskin protocol forbids them in product code. See Setup/CLAUDE.md.
+ * Raw scale utilities (bg-neutral-100, text-amber-500) are escape hatches;
+ * using them in product code is a defect.
  */
 
-/* Dark mode keys off the .dark class so shadcn dark: utilities and the
-   LineRate :root.dark layer toggle together. */
+/* Dark mode keys off the .dark class. Layout sets it on <html> by default. */
 @custom-variant dark (&:is(.dark *));
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Tailwind v4 theme tokens
-   Anything declared in @theme becomes a utility class:
-     --color-foo-500 → bg-foo-500, text-foo-500, border-foo-500
-     --font-mono     → font-mono
-     --radius-lg     → rounded-lg
+   Tailwind v4 theme tokens — Brand v3 palette
    ───────────────────────────────────────────────────────────────────────── */
 @theme {
   /* Brand */
-  --color-ink: #14151a;
-  --color-bone: #f2efe9;
-  --color-parchment: #c2c0bd;
-  --color-amber: #be7818;
+  --color-onyx:     #101010;
+  --color-paper:    #ffffff;
+  --color-chalk:    #e5e5e5;
+  --color-graphite: #838383;
+  --color-amber:    #df8e2a;
 
-  /* Neutral scale (Ink family) */
-  --color-neutral-0: #ffffff;
-  --color-neutral-50: #faf8f4;
-  --color-neutral-100: #f2efe9;
-  --color-neutral-200: #e6e3dc;
-  --color-neutral-300: #d4d1cb;
-  --color-neutral-400: #c2c0bd;
-  --color-neutral-500: #9f9d9a;
-  --color-neutral-600: #7c7a77;
-  --color-neutral-700: #5a5957;
-  --color-neutral-800: #3f3e40;
-  --color-neutral-900: #1f2024;
-  --color-neutral-950: #14151a;
+  /* Neutral scale (Onyx <-> Paper ramp, cool grayscale) */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #fafafa;
+  --color-neutral-100: #f4f4f4;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #838383;
+  --color-neutral-600: #5c5c5c;
+  --color-neutral-700: #3f3f3f;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #1a1a1a;
+  --color-neutral-950: #101010;
 
-  /* Amber scale */
-  --color-amber-50: #fcf4e5;
-  --color-amber-100: #f8e3b9;
-  --color-amber-200: #f3cc80;
-  --color-amber-300: #e8b14c;
-  --color-amber-400: #d29128;
-  --color-amber-500: #be7818;
-  --color-amber-600: #9e6213;
-  --color-amber-700: #7b4d10;
-  --color-amber-800: #5a380c;
-  --color-amber-900: #3d2607;
-  --color-amber-950: #261805;
+  /* Amber ramp, derived from #DF8E2A */
+  --color-amber-50:  #fbf1e3;
+  --color-amber-100: #f4dcb1;
+  --color-amber-200: #edc684;
+  --color-amber-300: #e7af52;
+  --color-amber-400: #e29a35;
+  --color-amber-500: #df8e2a;
+  --color-amber-600: #b07120;
+  --color-amber-700: #84551a;
+  --color-amber-800: #5a3b12;
+  --color-amber-900: #392408;
+  --color-amber-950: #1f1404;
 
-  /* Status (extended palette) */
-  --color-success-50: #eaf1ec;
-  --color-success-100: #cbdfd0;
-  --color-success-500: #3d7a57;
-  --color-success-600: #2f6244;
-  --color-success-700: #244b34;
+  /* Status, brand-tone */
+  --color-success-50:  #e8ede6;
+  --color-success-100: #c9d3c3;
+  --color-success-500: #6b7a5c;
+  --color-success-600: #525e47;
+  --color-success-700: #3a4232;
 
-  --color-danger-50: #f7e8e5;
-  --color-danger-100: #efc9c3;
-  --color-danger-500: #b33f33;
-  --color-danger-600: #8e2d24;
-  --color-danger-700: #6b1f18;
+  --color-danger-50:  #f2e4e1;
+  --color-danger-100: #e3bfb9;
+  --color-danger-500: #9c5650;
+  --color-danger-600: #7a4039;
+  --color-danger-700: #582c27;
 
-  /* Typography. Families resolve to the self-hosted next/font variables. */
-  --font-sans: var(--font-schibsted), system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Typography. Families resolve through the self-hosted next/font variables. */
+  --font-sans: var(--font-general-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --text-xs: 11px;
@@ -92,18 +93,18 @@
   --text-7xl: 80px;
   --text-8xl: 96px;
 
-  --tracking-tight: -0.02em;
-  --tracking-snug: -0.01em;
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
   --tracking-normal: 0;
-  --tracking-wide: 0.08em;
+  --tracking-wide:   0.08em;
   --tracking-widest: 0.14em;
 
   /* Radius */
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-xs:  2px;
+  --radius-sm:  4px;
+  --radius-md:  6px;
+  --radius-lg:  8px;
+  --radius-xl:  12px;
   --radius-2xl: 16px;
 
   /* Motion */
@@ -112,40 +113,41 @@
 
 /* ─────────────────────────────────────────────────────────────────────────
    Semantic layer
-   These are the variables product code references. They re-point per theme.
+   Light values live in :root; dark (the canonical brand surface) overrides
+   in :root.dark. Layout puts .dark on <html> by default.
    ───────────────────────────────────────────────────────────────────────── */
 :root {
   /* Backgrounds */
-  --page: var(--color-neutral-100);
+  --page: var(--color-neutral-0);
   --surface: var(--color-neutral-50);
   --raised: var(--color-neutral-0);
-  --muted: var(--color-neutral-200);
+  --muted: var(--color-neutral-100);
   --inverse: var(--color-neutral-950);
 
   /* Foregrounds */
   --foreground: var(--color-neutral-950);
   --foreground-muted: var(--color-neutral-700);
-  --foreground-subtle: var(--color-neutral-600);
-  --foreground-disabled: var(--color-neutral-500);
-  --foreground-inverse: var(--color-neutral-100);
+  --foreground-subtle: var(--color-neutral-500);
+  --foreground-disabled: var(--color-neutral-400);
+  --foreground-inverse: var(--color-neutral-0);
 
   /* Borders */
-  --border: var(--color-neutral-300);
-  --border-strong: var(--color-neutral-400);
-  --border-subtle: var(--color-neutral-200);
+  --border: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+  --border-subtle: var(--color-neutral-100);
 
-  /* Primary (always Ink, never Amber) */
+  /* Primary (Onyx fill on light) */
   --primary: var(--color-neutral-950);
   --primary-hover: var(--color-neutral-900);
   --primary-active: var(--color-neutral-800);
-  --primary-foreground: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-0);
 
-  /* Accent (Amber, signal only) */
+  /* Accent (Amber, used very rarely) */
   --accent: var(--color-amber-500);
   --accent-hover: var(--color-amber-600);
   --accent-surface: var(--color-amber-50);
   --accent-foreground: var(--color-amber-700);
-  --accent-on-color: var(--color-neutral-100);
+  --accent-on-color: var(--color-neutral-0);
 
   /* Status surfaces */
   --success-surface: var(--color-success-50);
@@ -155,42 +157,47 @@
   --pending-surface: var(--color-amber-50);
   --pending-foreground: var(--color-amber-700);
 
-  /* Focus ring */
-  --ring: rgba(190, 120, 24, 0.32);
+  /* Focus ring: Onyx at low opacity on light */
+  --ring: rgba(16, 16, 16, 0.20);
 
-  /* Default chrome */
   color-scheme: light;
 }
 
 :root.dark,
 :root[data-theme="dark"] {
+  /* Backgrounds */
   --page: var(--color-neutral-950);
   --surface: var(--color-neutral-900);
   --raised: var(--color-neutral-800);
   --muted: var(--color-neutral-800);
-  --inverse: var(--color-neutral-100);
+  --inverse: var(--color-neutral-0);
 
-  --foreground: var(--color-neutral-100);
+  /* Foregrounds */
+  --foreground: var(--color-neutral-0);
   --foreground-muted: var(--color-neutral-400);
   --foreground-subtle: var(--color-neutral-500);
   --foreground-disabled: var(--color-neutral-600);
   --foreground-inverse: var(--color-neutral-950);
 
+  /* Borders */
   --border: var(--color-neutral-800);
   --border-strong: var(--color-neutral-700);
   --border-subtle: var(--color-neutral-900);
 
-  --primary: var(--color-neutral-100);
-  --primary-hover: var(--color-neutral-200);
-  --primary-active: var(--color-neutral-300);
+  /* Primary (Paper fill on dark) */
+  --primary: var(--color-neutral-0);
+  --primary-hover: var(--color-neutral-100);
+  --primary-active: var(--color-neutral-200);
   --primary-foreground: var(--color-neutral-950);
 
+  /* Accent */
   --accent: var(--color-amber-500);
   --accent-hover: var(--color-amber-400);
   --accent-surface: var(--color-amber-900);
-  --accent-foreground: var(--color-amber-200);
+  --accent-foreground: var(--color-amber-300);
   --accent-on-color: var(--color-neutral-950);
 
+  /* Status surfaces (dark variants) */
   --success-surface: var(--color-success-700);
   --success-foreground: var(--color-success-100);
   --danger-surface: var(--color-danger-700);
@@ -198,7 +205,8 @@
   --pending-surface: var(--color-amber-900);
   --pending-foreground: var(--color-amber-200);
 
-  --ring: rgba(232, 177, 76, 0.38);
+  /* Focus ring: Paper at low opacity on dark */
+  --ring: rgba(255, 255, 255, 0.18);
 
   color-scheme: dark;
 }
@@ -246,8 +254,8 @@
 /* ─────────────────────────────────────────────────────────────────────────
    shadcn/ui compatibility bridge
    Maps shadcn's variable names onto LineRate semantics so its components
-   resolve. Accent stays amber (LineRate's meaning); component hover states
-   that lean on bg-accent get rewritten to bg-muted per phase.
+   resolve. Accent stays amber but appears very rarely; hover states in
+   nova components are routed to bg-muted per component.
    ───────────────────────────────────────────────────────────────────────── */
 @theme inline {
   --color-background: var(--page);
@@ -259,7 +267,7 @@
   --color-secondary-foreground: var(--foreground);
   --color-muted-foreground: var(--foreground-muted);
   --color-destructive: var(--color-danger-500);
-  --color-destructive-foreground: var(--color-neutral-100);
+  --color-destructive-foreground: var(--color-neutral-0);
   --color-input: var(--border);
   --color-ring: var(--ring);
 }
@@ -282,17 +290,17 @@
     font-feature-settings: "tnum" 1, "ss01" 1;
   }
 
-  /* Focus rings use the brand ring */
+  /* Focus rings */
   *:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px var(--ring);
     border-radius: var(--radius-sm);
   }
 
-  /* Selection uses amber tint, not the browser default */
+  /* Selection on dark uses Paper at low opacity; on light, Onyx tint. */
   ::selection {
-    background: var(--accent-surface);
-    color: var(--accent-foreground);
+    background: var(--muted);
+    color: var(--foreground);
   }
 
   /* shadcn component defaults */

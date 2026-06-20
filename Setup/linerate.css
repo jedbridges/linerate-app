@@ -1,84 +1,75 @@
 /*
- * LineRate design system — Tailwind v4 theme + semantic layer
+ * LineRate design system (Brand v3): Tailwind v4 theme and semantic layer.
+ *
+ * Portable form, suitable as a drop-in for any Tailwind v4 project. For this
+ * repo's live wiring (Next.js + next/font + ThemeToggle), see
+ * src/app/globals.css.
  *
  * Import once at the top of your global stylesheet:
  *   @import "tailwindcss";
  *   @import "./linerate.css";
  *
- * Then use semantic utilities throughout the app:
- *   <div class="bg-surface text-foreground border-border">
- *   <span class="font-mono">$127,492,851.50</span>
- *
- * Raw scale utilities (bg-neutral-100, text-amber-500) exist as escape hatches,
- * but the reskin protocol forbids them in product code. See CLAUDE.md.
+ * Dark canonical, light inverse. Set class="dark" on <html> for the
+ * canonical surface.
  */
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Fonts
-   Self-host in production for performance. Fontsource is fine for prototyping.
-   ───────────────────────────────────────────────────────────────────────── */
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/schibsted-grotesk@5.2.0/400.css");
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/schibsted-grotesk@5.2.0/500.css");
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/schibsted-grotesk@5.2.0/600.css");
+/* Fonts. Self-host in production for performance and privacy. */
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.2.0/400.css");
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.2.0/500.css");
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Tailwind v4 theme tokens
-   Anything declared in @theme becomes a utility class:
-     --color-foo-500 → bg-foo-500, text-foo-500, border-foo-500
-     --font-mono     → font-mono
-     --radius-lg     → rounded-lg
-   ───────────────────────────────────────────────────────────────────────── */
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   /* Brand */
-  --color-ink: #14151a;
-  --color-bone: #f2efe9;
-  --color-parchment: #c2c0bd;
-  --color-amber: #be7818;
+  --color-onyx:     #101010;
+  --color-paper:    #ffffff;
+  --color-chalk:    #e5e5e5;
+  --color-graphite: #838383;
+  --color-amber:    #df8e2a;
 
-  /* Neutral scale (Ink family) */
-  --color-neutral-0: #ffffff;
-  --color-neutral-50: #faf8f4;
-  --color-neutral-100: #f2efe9;
-  --color-neutral-200: #e6e3dc;
-  --color-neutral-300: #d4d1cb;
-  --color-neutral-400: #c2c0bd;
-  --color-neutral-500: #9f9d9a;
-  --color-neutral-600: #7c7a77;
-  --color-neutral-700: #5a5957;
-  --color-neutral-800: #3f3e40;
-  --color-neutral-900: #1f2024;
-  --color-neutral-950: #14151a;
+  /* Neutral scale */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #fafafa;
+  --color-neutral-100: #f4f4f4;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #838383;
+  --color-neutral-600: #5c5c5c;
+  --color-neutral-700: #3f3f3f;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #1a1a1a;
+  --color-neutral-950: #101010;
 
-  /* Amber scale */
-  --color-amber-50: #fcf4e5;
-  --color-amber-100: #f8e3b9;
-  --color-amber-200: #f3cc80;
-  --color-amber-300: #e8b14c;
-  --color-amber-400: #d29128;
-  --color-amber-500: #be7818;
-  --color-amber-600: #9e6213;
-  --color-amber-700: #7b4d10;
-  --color-amber-800: #5a380c;
-  --color-amber-900: #3d2607;
-  --color-amber-950: #261805;
+  /* Amber ramp */
+  --color-amber-50:  #fbf1e3;
+  --color-amber-100: #f4dcb1;
+  --color-amber-200: #edc684;
+  --color-amber-300: #e7af52;
+  --color-amber-400: #e29a35;
+  --color-amber-500: #df8e2a;
+  --color-amber-600: #b07120;
+  --color-amber-700: #84551a;
+  --color-amber-800: #5a3b12;
+  --color-amber-900: #392408;
+  --color-amber-950: #1f1404;
 
-  /* Status (extended palette) */
-  --color-success-50: #eaf1ec;
-  --color-success-100: #cbdfd0;
-  --color-success-500: #3d7a57;
-  --color-success-600: #2f6244;
-  --color-success-700: #244b34;
+  /* Status, brand-tone */
+  --color-success-50:  #e8ede6;
+  --color-success-100: #c9d3c3;
+  --color-success-500: #6b7a5c;
+  --color-success-600: #525e47;
+  --color-success-700: #3a4232;
 
-  --color-danger-50: #f7e8e5;
-  --color-danger-100: #efc9c3;
-  --color-danger-500: #b33f33;
-  --color-danger-600: #8e2d24;
-  --color-danger-700: #6b1f18;
+  --color-danger-50:  #f2e4e1;
+  --color-danger-100: #e3bfb9;
+  --color-danger-500: #9c5650;
+  --color-danger-600: #7a4039;
+  --color-danger-700: #582c27;
 
   /* Typography */
-  --font-sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "General Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --text-xs: 11px;
@@ -95,64 +86,51 @@
   --text-7xl: 80px;
   --text-8xl: 96px;
 
-  --tracking-tight: -0.02em;
-  --tracking-snug: -0.01em;
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
   --tracking-normal: 0;
-  --tracking-wide: 0.08em;
+  --tracking-wide:   0.08em;
   --tracking-widest: 0.14em;
 
-  /* Radius */
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-xs:  2px;
+  --radius-sm:  4px;
+  --radius-md:  6px;
+  --radius-lg:  8px;
+  --radius-xl:  12px;
   --radius-2xl: 16px;
 
-  /* Motion */
   --ease-brand: cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Semantic layer
-   These are the variables product code references. They re-point per theme.
-   Use them like: background: var(--surface); color: var(--foreground);
-   Or via the @theme aliases below for Tailwind utilities.
-   ───────────────────────────────────────────────────────────────────────── */
+/* Light semantic layer (the inverse) */
 :root {
-  /* Backgrounds */
-  --page: var(--color-neutral-100);
+  --page: var(--color-neutral-0);
   --surface: var(--color-neutral-50);
   --raised: var(--color-neutral-0);
-  --muted: var(--color-neutral-200);
+  --muted: var(--color-neutral-100);
   --inverse: var(--color-neutral-950);
 
-  /* Foregrounds */
   --foreground: var(--color-neutral-950);
   --foreground-muted: var(--color-neutral-700);
-  --foreground-subtle: var(--color-neutral-600);
-  --foreground-disabled: var(--color-neutral-500);
-  --foreground-inverse: var(--color-neutral-100);
+  --foreground-subtle: var(--color-neutral-500);
+  --foreground-disabled: var(--color-neutral-400);
+  --foreground-inverse: var(--color-neutral-0);
 
-  /* Borders */
-  --border: var(--color-neutral-300);
-  --border-strong: var(--color-neutral-400);
-  --border-subtle: var(--color-neutral-200);
+  --border: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+  --border-subtle: var(--color-neutral-100);
 
-  /* Primary (always Ink, never Amber) */
   --primary: var(--color-neutral-950);
   --primary-hover: var(--color-neutral-900);
   --primary-active: var(--color-neutral-800);
-  --primary-foreground: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-0);
 
-  /* Accent (Amber — signal only) */
   --accent: var(--color-amber-500);
   --accent-hover: var(--color-amber-600);
   --accent-surface: var(--color-amber-50);
   --accent-foreground: var(--color-amber-700);
-  --accent-on-color: var(--color-neutral-100);
+  --accent-on-color: var(--color-neutral-0);
 
-  /* Status surfaces */
   --success-surface: var(--color-success-50);
   --success-foreground: var(--color-success-700);
   --danger-surface: var(--color-danger-50);
@@ -160,22 +138,21 @@
   --pending-surface: var(--color-amber-50);
   --pending-foreground: var(--color-amber-700);
 
-  /* Focus ring */
-  --ring: rgba(190, 120, 24, 0.32);
+  --ring: rgba(16, 16, 16, 0.20);
 
-  /* Default chrome */
   color-scheme: light;
 }
 
+/* Dark semantic layer (canonical brand surface) */
 :root.dark,
 :root[data-theme="dark"] {
   --page: var(--color-neutral-950);
   --surface: var(--color-neutral-900);
   --raised: var(--color-neutral-800);
   --muted: var(--color-neutral-800);
-  --inverse: var(--color-neutral-100);
+  --inverse: var(--color-neutral-0);
 
-  --foreground: var(--color-neutral-100);
+  --foreground: var(--color-neutral-0);
   --foreground-muted: var(--color-neutral-400);
   --foreground-subtle: var(--color-neutral-500);
   --foreground-disabled: var(--color-neutral-600);
@@ -185,15 +162,15 @@
   --border-strong: var(--color-neutral-700);
   --border-subtle: var(--color-neutral-900);
 
-  --primary: var(--color-neutral-100);
-  --primary-hover: var(--color-neutral-200);
-  --primary-active: var(--color-neutral-300);
+  --primary: var(--color-neutral-0);
+  --primary-hover: var(--color-neutral-100);
+  --primary-active: var(--color-neutral-200);
   --primary-foreground: var(--color-neutral-950);
 
   --accent: var(--color-amber-500);
   --accent-hover: var(--color-amber-400);
   --accent-surface: var(--color-amber-900);
-  --accent-foreground: var(--color-amber-200);
+  --accent-foreground: var(--color-amber-300);
   --accent-on-color: var(--color-neutral-950);
 
   --success-surface: var(--color-success-700);
@@ -203,15 +180,11 @@
   --pending-surface: var(--color-amber-900);
   --pending-foreground: var(--color-amber-200);
 
-  --ring: rgba(232, 177, 76, 0.38);
+  --ring: rgba(255, 255, 255, 0.18);
 
   color-scheme: dark;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Expose semantic vars as Tailwind utility classes
-   bg-page, bg-surface, text-foreground, border-border, etc.
-   ───────────────────────────────────────────────────────────────────────── */
 @theme inline {
   --color-page: var(--page);
   --color-surface: var(--surface);
@@ -248,9 +221,6 @@
   --color-pending-foreground: var(--pending-foreground);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Base styles
-   ───────────────────────────────────────────────────────────────────────── */
 @layer base {
   html {
     font-family: var(--font-sans);
@@ -260,38 +230,30 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Tabular numerals on by default for mono — settlement amounts must align */
   .font-mono,
   [class*="font-mono"] {
     font-feature-settings: "tnum" 1, "ss01" 1;
   }
 
-  /* Focus rings use the brand ring */
   *:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px var(--ring);
     border-radius: var(--radius-sm);
   }
 
-  /* Selection uses amber tint, not the browser default */
   ::selection {
-    background: var(--accent-surface);
-    color: var(--accent-foreground);
+    background: var(--muted);
+    color: var(--foreground);
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Component primitives — minimal helpers Claude Code can lean on
-   ───────────────────────────────────────────────────────────────────────── */
 @layer components {
-  /* Ledger numerals: any numeric value in product UI */
   .ledger {
     font-family: var(--font-mono);
     font-feature-settings: "tnum" 1;
     letter-spacing: var(--tracking-snug);
   }
 
-  /* Eyebrow: small caps mono label above section heads */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
@@ -300,7 +262,6 @@
     color: var(--foreground-subtle);
   }
 
-  /* Status pills */
   .pill {
     font-family: var(--font-mono);
     font-size: 10px;

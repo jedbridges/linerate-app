@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Wordmark } from "@/components/wordmark";
 
 /*
  * Root index for the LineRate scaffold.
@@ -15,7 +16,7 @@ export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col px-6">
       <header className="flex items-center justify-between py-5">
-        <p className="eyebrow">LineRate</p>
+        <Wordmark className="text-base" />
         <ThemeToggle />
       </header>
 
