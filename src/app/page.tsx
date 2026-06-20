@@ -22,7 +22,7 @@ export default function Home() {
 
       <section className="flex flex-1 flex-col justify-center py-20">
         <p className="eyebrow mb-4">Index</p>
-        <h1 className="text-5xl font-medium tracking-tight text-foreground leading-[1.05] sm:text-6xl">
+        <h1 className="text-5xl font-semibold tracking-tight text-foreground leading-[1.05] sm:text-6xl">
           Treasury and settlement for nine-figure hosting agreements.
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-foreground-muted">
