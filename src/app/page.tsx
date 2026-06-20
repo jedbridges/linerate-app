@@ -19,6 +19,8 @@ export default function Home() {
         <Wordmark className="text-base" />
         <ThemeToggle />
       </header>
+      {/* The single deliberate amber moment: brand accent rule under the nav. */}
+      <div className="h-0.5 bg-accent" />
 
       <section className="flex flex-1 flex-col justify-center py-20">
         <p className="eyebrow mb-4">Index</p>

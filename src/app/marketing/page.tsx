@@ -21,6 +21,8 @@ export default function MarketingPage() {
         <Wordmark className="text-base" />
         <ThemeToggle />
       </header>
+      {/* The single deliberate amber moment: brand accent rule under the nav. */}
+      <div className="h-0.5 bg-accent" />
 
       <Hero
         eyebrow="Treasury and settlement"

@@ -149,6 +149,8 @@ export default function StyleguidePage() {
         </div>
         <ThemeToggle />
       </div>
+      {/* The single deliberate amber moment: brand accent rule under the nav. */}
+      <div className="mb-8 h-0.5 bg-accent" />
 
       {/* Masthead */}
       <header>

@@ -34,7 +34,7 @@ Eight hard rules. Violations are defects, not preferences.
 
 2. **JetBrains Mono on every numeral that lives in the product.** Settlement amounts, transaction IDs, timestamps, account references, cycle numbers, hashes, percentages on data, durations. If a digit represents real-world data, it goes in mono. Add `font-mono` or use the `.ledger` class. Marketing copy and counter-style stat blocks may stay sans.
 
-3. **Amber is the brand accent and appears VERY rarely.** Status pending pill, occasional brand-accent line under nav, one or two intentional appearances per marketing page. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. If a screen has more than one or two amber elements, something is wrong.
+3. **Amber is the brand accent and appears VERY rarely.** The canonical placement is a 2px brand-accent rule directly under the top nav (`<div className="h-0.5 bg-accent" />`), one per page. Plus the pending status pill. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. If a screen has more than one or two amber elements, something is wrong.
 
 4. **Sentence case for product copy.** Button labels, headings, navigation, table headers. ALL CAPS is reserved for the **wordmark** (`LINERATE`) and **mono eyebrows** with wide tracking. The legal name "LineRate" appears in body copy and accessibility text.
 
