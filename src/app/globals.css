@@ -89,7 +89,7 @@
   --text-xs:   0.6875rem;
   --text-sm:   0.8125rem;
   --text-base: 1rem;
-  --text-md:   1rem;
+  --text-md:   1.0625rem;
   --text-lg:   1.125rem;
   --text-xl:   1.25rem;
   --text-2xl:  1.5rem;
@@ -304,10 +304,11 @@
   }
 
   /*
-   * Light-on-dark text reads better with slightly looser leading. We pick
-   * up an extra 0.05 on the body when .dark is set.
+   * Body leading. 1.55 reads well on the dark canonical surface (light-on-
+   * dark wants a touch more air) and holds up on light too, so we set it
+   * once for both modes rather than tuning per theme.
    */
-  :root.dark body {
+  body {
     line-height: 1.55;
   }
 

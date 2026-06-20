@@ -20,7 +20,7 @@ export function PullQuote({ quote, name, title }: PullQuoteProps) {
     <section className="mx-auto max-w-5xl px-6 py-20">
       <figure>
         <blockquote className="max-w-[24ch] text-display-sm font-medium tracking-tight text-foreground leading-tight">
-          &ldquo;{quote}&rdquo;
+          “{quote}”
         </blockquote>
         <figcaption className="mt-8 font-mono text-sm uppercase tracking-widest text-foreground-subtle">
           {name}, {title}

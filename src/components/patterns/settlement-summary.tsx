@@ -47,7 +47,7 @@ export function SettlementSummary({
       <div className="border-b border-border-subtle p-6">
         <CardHeader className="mb-4">
           <div>
-            <p className="eyebrow mb-2">Today&rsquo;s settlement</p>
+            <p className="eyebrow mb-2">Today’s settlement</p>
             <CardTitle className="text-2xl">Cycle {cycle}</CardTitle>
           </div>
           <CardAction>

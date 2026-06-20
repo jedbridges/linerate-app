@@ -61,18 +61,19 @@ export function ConfirmDestructive({
   const [open, setOpen] = React.useState(false);
   const matched = typed.trim() === confirmToken.trim();
 
-  React.useEffect(() => {
-    if (!open) setTyped("");
-  }, [open]);
+  const handleOpenChange = (next: boolean) => {
+    setOpen(next);
+    if (!next) setTyped(""); // reset the match field when the dialog closes
+  };
 
   const handleConfirm = () => {
     if (!matched) return;
     onConfirm?.();
-    setOpen(false);
+    handleOpenChange(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>

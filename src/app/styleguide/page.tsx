@@ -140,9 +140,9 @@ const amberScale = [
 
 export default function StyleguidePage() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-10">
+    <main className="mx-auto max-w-5xl px-6 pb-10">
       {/* Top bar with theme toggle */}
-      <div className="flex items-center justify-between pb-8">
+      <div className="flex items-center justify-between py-5">
         <div className="flex items-baseline gap-3">
           <Wordmark className="text-base" />
           <span className="eyebrow">styleguide</span>
@@ -197,7 +197,7 @@ export default function StyleguidePage() {
       {/* Numerals */}
       <Section eyebrow="Numerals" title="Ledger figures">
         <div className="rounded-lg border border-border bg-surface p-6">
-          <p className="eyebrow mb-2">Today&rsquo;s settlement</p>
+          <p className="eyebrow mb-2">Today’s settlement</p>
           <p className="ledger text-6xl font-medium text-foreground">
             $127,492,851.50
           </p>
