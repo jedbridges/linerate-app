@@ -253,6 +253,14 @@ Sheet (right side) + Badge + Button. Header with eyebrow and title, body with `<
 
 For irreversible action at meaningful stakes (releasing funds, closing a cycle, archiving an audit pack). Composes Dialog + Input. The operator types a match string (cycle number, token) before the primary confirm enables. Description copy stays plain ("Releasing $X to N counterparties. Recorded in the audit log and cannot be reversed.") Do not soften.
 
+### PreFlight
+
+The high-value surface operators see in the seconds before a settlement window opens. The rest of the system is post-hoc (what cleared); PreFlight is the one screen that is forward-looking, and it is where the brand's gravitas pays off.
+
+Anatomy, top to bottom: eyebrow + cycle title + countdown pill; a large mono countdown ("opens in") paired with the total queued; a three-up ready / awaiting / at-risk count strip; an at-risk Alert (rendered only when something is at risk); the counterparty list with status pills (ready = success, awaiting = neutral, at-risk = pending/amber); and a footer decision row, "Hold cycle" (gated through ConfirmDestructive) versus "Open on time."
+
+Composes Card + Table + Badge + Alert + ConfirmDestructive + Button. Voice: tense but calm. The operator should feel the system is watching, not panicking.
+
 ### Patterns still to build
 
 - **Counterparty row.** Sub-row of a list. Name in sans, tx ID in small mono below, amount in mono right-aligned, status in mono right-aligned.

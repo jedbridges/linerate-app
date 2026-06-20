@@ -71,6 +71,7 @@ import { Wordmark } from "@/components/wordmark";
 import { SettlementSummary } from "@/components/patterns/settlement-summary";
 import { AuditPackDrawer } from "@/components/patterns/audit-pack-drawer";
 import { ConfirmDestructive } from "@/components/patterns/confirm-destructive";
+import { PreFlight } from "@/components/patterns/pre-flight";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -708,6 +709,46 @@ export default function StyleguidePage() {
             <Skeleton className="mt-2 h-4 w-full max-w-sm" />
           </div>
         </div>
+      </Section>
+
+      {/* Pre-flight pattern */}
+      <Section
+        eyebrow="Patterns"
+        title="Pre-flight"
+        description="What the operator sees in the seconds before a window opens. Countdown, total queued, ready / awaiting / at-risk counts, an at-risk alert, the counterparty list, and the hold-or-open decision. Composes Card + Table + Badge + Alert + ConfirmDestructive."
+      >
+        <PreFlight
+          cycle="4272"
+          windowLabel="18:00 UTC"
+          totalQueued="$94,210,000.00"
+          initialSeconds={142}
+          counterparties={[
+            {
+              party: "Acme Hosting",
+              reference: "A-7142",
+              amount: "42,180,000.00",
+              status: "ready",
+            },
+            {
+              party: "Northwind Compute",
+              reference: "N-3318",
+              amount: "18,640,000.00",
+              status: "ready",
+            },
+            {
+              party: "Meridian Grid",
+              reference: "M-1180",
+              amount: "21,300,000.00",
+              status: "awaiting",
+            },
+            {
+              party: "Cascade Datacenter",
+              reference: "C-9920",
+              amount: "12,090,000.00",
+              status: "at-risk",
+            },
+          ]}
+        />
       </Section>
 
       {/* LineRate-specific pattern */}
