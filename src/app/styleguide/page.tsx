@@ -1,5 +1,22 @@
 import type { Metadata } from "next";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { ThemeToggle } from "@/components/theme-toggle";
+
 export const metadata: Metadata = {
   title: "LineRate design system",
 };
@@ -7,18 +24,26 @@ export const metadata: Metadata = {
 function Section({
   eyebrow,
   title,
+  description,
   children,
 }: {
   eyebrow: string;
   title: string;
+  description?: string;
   children: React.ReactNode;
 }) {
   return (
     <section className="border-t border-border py-12">
       <p className="eyebrow mb-3">{eyebrow}</p>
-      <h2 className="mb-8 text-2xl font-medium tracking-snug text-foreground">
+      <h2 className="mb-2 text-2xl font-medium tracking-snug text-foreground">
         {title}
       </h2>
+      {description && (
+        <p className="mb-8 max-w-2xl text-sm text-foreground-muted">
+          {description}
+        </p>
+      )}
+      {!description && <div className="mb-8" />}
       {children}
     </section>
   );
@@ -59,10 +84,16 @@ const amberScale = [
 
 export default function StyleguidePage() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16">
+    <main className="mx-auto max-w-5xl px-6 py-10">
+      {/* Top bar with theme toggle */}
+      <div className="flex items-center justify-between pb-8">
+        <p className="eyebrow">LineRate / styleguide</p>
+        <ThemeToggle />
+      </div>
+
       {/* Masthead */}
       <header>
-        <p className="eyebrow mb-3">LineRate design system</p>
+        <p className="eyebrow mb-3">Design system</p>
         <h1 className="max-w-3xl text-5xl font-medium tracking-tight text-foreground leading-[1.05]">
           The voice of the brand, and the voice of the ledger.
         </h1>
@@ -70,6 +101,13 @@ export default function StyleguidePage() {
           A documentary, audit-grade system for treasury and settlement.
           Schibsted Grotesk carries the language; JetBrains Mono carries every
           number that represents real-world data.
+        </p>
+        <p className="mt-3 max-w-2xl text-sm text-foreground-subtle">
+          Retheme by editing the <span className="font-mono">:root</span>{" "}
+          semantic tokens in{" "}
+          <span className="font-mono">src/app/globals.css</span>. Every
+          component below references those tokens; brand changes propagate
+          automatically.
         </p>
       </header>
 
@@ -86,8 +124,8 @@ export default function StyleguidePage() {
             Schibsted Grotesk, regular, 20px
           </p>
           <p className="text-base text-foreground-muted">
-            Body copy at 15px in foreground-muted. Direct, factual, precise. The
-            product handles real money, so the copy reads like it.
+            Body copy at 15px in foreground-muted. Direct, factual, precise.
+            The product handles real money, so the copy reads like it.
           </p>
           <p className="font-mono text-base text-foreground">
             JetBrains Mono 0123456789 · the voice of the ledger
@@ -136,17 +174,19 @@ export default function StyleguidePage() {
       </Section>
 
       {/* Scales */}
-      <Section eyebrow="Color" title="Neutral and amber scales">
-        <p className="mb-3 text-sm text-foreground-subtle">
-          Ink family. Scale utilities are escape hatches, not for product code.
-        </p>
+      <Section
+        eyebrow="Color"
+        title="Neutral and amber scales"
+        description="Reference only. Use semantic tokens (bg-primary, bg-muted, bg-accent) in product code."
+      >
+        <p className="mb-3 text-sm text-foreground-subtle">Ink family</p>
         <div className="mb-8 flex overflow-hidden rounded-md border border-border">
           {neutralScale.map((cls) => (
             <div key={cls} className={`h-12 flex-1 ${cls}`} title={cls} />
           ))}
         </div>
         <p className="mb-3 text-sm text-foreground-subtle">
-          Amber. Signal color only, never a primary CTA.
+          Amber, signal color only
         </p>
         <div className="flex overflow-hidden rounded-md border border-border">
           {amberScale.map((cls) => (
@@ -155,31 +195,141 @@ export default function StyleguidePage() {
         </div>
       </Section>
 
-      {/* Status */}
-      <Section eyebrow="Status" title="Pills">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="pill pill--success">Settled</span>
-          <span className="pill pill--pending">Pending</span>
-          <span className="pill pill--danger">Failed</span>
+      {/* Buttons */}
+      <Section
+        eyebrow="Primitives"
+        title="Buttons"
+        description="Three forms only. Primary is Ink, never amber. Three sizes. Focus ring is global amber."
+      >
+        <div className="space-y-6">
+          {(["primary", "secondary", "ghost"] as const).map((variant) => (
+            <div key={variant} className="flex items-center gap-4">
+              <p className="w-24 font-mono text-xs text-foreground-subtle uppercase tracking-widest">
+                {variant}
+              </p>
+              <div className="flex items-center gap-3">
+                <Button variant={variant} size="sm">
+                  Small
+                </Button>
+                <Button variant={variant} size="md">
+                  Medium
+                </Button>
+                <Button variant={variant} size="lg">
+                  Large
+                </Button>
+                <Button variant={variant} disabled>
+                  Disabled
+                </Button>
+              </div>
+            </div>
+          ))}
         </div>
       </Section>
 
-      {/* Buttons */}
-      <Section eyebrow="Primitives" title="Buttons">
-        <p className="mb-5 text-sm text-foreground-subtle">
-          Three forms only. Primary is Ink, never amber. Reskinned as shadcn
-          components in phase 2.
-        </p>
+      {/* Form primitives */}
+      <Section
+        eyebrow="Primitives"
+        title="Forms"
+        description="Thin border, transparent background, global amber focus ring. Mono variant for ledger fields."
+      >
+        <div className="grid gap-8 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="sg-counterparty">Counterparty</Label>
+            <Input id="sg-counterparty" placeholder="Acme Hosting Inc." />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="sg-amount">Settlement amount</Label>
+            <Input
+              id="sg-amount"
+              mono
+              defaultValue="127,492,851.50"
+              inputMode="decimal"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="sg-cycle">Cycle window</Label>
+            <Select>
+              <SelectTrigger id="sg-cycle">
+                <SelectValue placeholder="Select a cycle" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Active cycles</SelectLabel>
+                  <SelectItem value="4271">Cycle 4271 · 14:32 UTC</SelectItem>
+                  <SelectItem value="4270">Cycle 4270 · 10:00 UTC</SelectItem>
+                  <SelectItem value="4269">Cycle 4269 · 06:00 UTC</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="sg-note">Operator note</Label>
+            <Textarea
+              id="sg-note"
+              placeholder="Optional context for the audit pack."
+            />
+          </div>
+          <div className="space-y-2 sm:col-span-2">
+            <Label htmlFor="sg-disabled">Disabled field</Label>
+            <Input
+              id="sg-disabled"
+              disabled
+              defaultValue="Locked while settling"
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* Badges */}
+      <Section
+        eyebrow="Primitives"
+        title="Badges"
+        description="The Badge component renders the global .pill style. Four variants: status-coded only."
+      >
         <div className="flex flex-wrap items-center gap-3">
-          <button className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
-            Export audit pack
-          </button>
-          <button className="rounded-md border border-foreground bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted">
-            View ledger
-          </button>
-          <button className="rounded-md px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted">
-            Cancel
-          </button>
+          <Badge>Neutral</Badge>
+          <Badge variant="success">Settled</Badge>
+          <Badge variant="pending">Pending</Badge>
+          <Badge variant="danger">Failed</Badge>
+        </div>
+      </Section>
+
+      {/* Separator */}
+      <Section
+        eyebrow="Primitives"
+        title="Separator"
+        description={`Subtle by default. Pass className="bg-border" for a stronger break.`}
+      >
+        <div className="rounded-lg border border-border bg-surface p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-foreground">Account · A-7142</p>
+              <p className="font-mono text-xs text-foreground-subtle">
+                acme-hosting · primary
+              </p>
+            </div>
+            <p className="ledger text-foreground">$42,180,000.00</p>
+          </div>
+          <Separator className="my-4" />
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-foreground">Account · A-7143</p>
+              <p className="font-mono text-xs text-foreground-subtle">
+                acme-hosting · reserve
+              </p>
+            </div>
+            <p className="ledger text-foreground">$8,940,000.00</p>
+          </div>
+          <Separator className="my-4" />
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-foreground">Account · A-7144</p>
+              <p className="font-mono text-xs text-foreground-subtle">
+                acme-hosting · clearing
+              </p>
+            </div>
+            <p className="ledger text-foreground">$76,372,851.50</p>
+          </div>
         </div>
       </Section>
     </main>
