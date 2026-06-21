@@ -26,6 +26,33 @@ When they disagree, fix all of them.
 
 ---
 
+## TL;DR
+
+Dark-first, audit-grade, restrained: a printed annual report in black. Build
+from semantic tokens; let typography and the ledger numerals carry the page.
+Every change works in both themes.
+
+- **Surfaces:** `bg-page` (Onyx) › `bg-surface` › `bg-raised`. **Text:** `text-foreground` (Paper) › `-muted` › `-subtle`. **Lines:** `border-border` / `-subtle`. **Accent:** `--accent` (amber), rare.
+- **Fonts:** General Sans = language (headings, prose, UI labels). JetBrains Mono = ledger (every data numeral, eyebrows, pills, table headers, code).
+- **Weights:** 400 / 500; 600 for display headlines + wordmark only. Never bold.
+- **Primary CTA:** Paper on Onyx (dark) / Onyx on Paper (light). One per screen.
+
+The nine rules, compressed:
+
+1. Semantic tokens, never scale values (`bg-page`, not `bg-neutral-950`).
+2. Every product numeral in mono + tabular (`.ledger` or `font-mono tabular-nums`).
+3. Amber appears once or twice, never a primary CTA.
+4. UPPERCASE only for wordmark, eyebrows, pills, buttons; everything else sentence case.
+5. Headlines use `&`, not the word "and".
+6. No em dashes, anywhere (copy, comments, commits).
+7. Weights 400/500; 600 display-only; never `font-bold`/`font-semibold`.
+8. Flat surfaces, 1px borders, tonal lift before shadow.
+9. Comfortable density: cards `p-6`, list rows `py-3.5`.
+
+Error copy answers, in order: what happened, why, what to do next. Full detail follows.
+
+---
+
 ## Principles
 
 Nine hard rules. Violations are defects, not preferences.
@@ -432,6 +459,67 @@ The system is built to evolve. Three swap points, increasing in scope.
 **Dark mode** is canonical (`.dark` on `<html>` by default). Removing it via `<ThemeToggle/>` flips to the light inverse.
 
 **Adding a token, weight, or radius.** Don't, unless you have a real reason. If you must: (1) add it to `tokens.json`, (2) add the CSS variable to `globals.css`, (3) document when to use it here. If you can't write step 3, the token isn't ready.
+
+---
+
+## A worked example
+
+One screen built correctly, to pattern-match against: a cycle's settlement
+summary. Card + Table + Badge, the total as a display-size ledger figure, the
+per-counterparty breakdown with status. Watch what is mono versus sans, where
+the single amber lives (the pending pill), and that there is no raw hex, no
+bold, and one eyebrow.
+
+```tsx
+<Card className="p-0">
+  <div className="border-b border-border-subtle p-6">
+    <CardHeader className="mb-4">
+      <div>
+        <p className="eyebrow mb-2">Today's settlement</p>   {/* mono · uppercase · subtle · one per section */}
+        <CardTitle className="text-2xl">Cycle 4271</CardTitle>
+      </div>
+      <CardAction>
+        <Badge variant="pending">T+0 · 14:32 UTC · CYCLE 4271</Badge>  {/* the single amber */}
+      </CardAction>
+    </CardHeader>
+    {/* the total: mono, tabular, display-size ledger figure, steps down on mobile */}
+    <p className="ledger text-3xl font-medium text-foreground sm:text-5xl">
+      $127,492,851.50
+    </p>
+  </div>
+
+  <Table>                                            {/* auto-wrapped in overflow-x-auto */}
+    <TableHeader>
+      <TableRow>
+        <TableHead>Counterparty</TableHead>          {/* eyebrow-style header, sans label */}
+        <TableHead numeric>Amount</TableHead>        {/* numeric → mono · tabular · right-aligned */}
+        <TableHead className="text-right">Status</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      <TableRow>
+        <TableCell>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sm text-foreground">Acme Hosting</span>            {/* name → sans */}
+            <span className="font-mono text-xs text-foreground-subtle">A-7142</span> {/* reference → mono */}
+          </div>
+        </TableCell>
+        <TableCell numeric>42,180,000.00</TableCell>
+        <TableCell className="text-right">
+          <Badge variant="success">Settled</Badge>   {/* brand-tone status, not amber */}
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</Card>
+```
+
+Why it reads as LineRate: surfaces lift tonally (`bg-surface` card, `border-subtle`
+divider) with no shadow; every figure is mono and tabular while every label is
+sans; amber appears exactly once; weights stay at 400/500; one eyebrow sits above
+the title; the amount uses the display ledger scale and steps down on mobile.
+Reference implementation: `SettlementSummary` in
+`src/components/patterns/settlement-summary.tsx`.
 
 ---
 
