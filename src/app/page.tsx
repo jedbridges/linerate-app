@@ -93,10 +93,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section
-      id={slugify(title)}
-      className="scroll-mt-8 border-t border-border py-12"
-    >
+    <section id={slugify(title)} className="scroll-mt-8 py-12">
       <p className="eyebrow mb-3">{eyebrow}</p>
       <h2 className="mb-2 text-2xl font-medium tracking-snug text-foreground">
         {title}
@@ -194,10 +191,16 @@ export default function DesignSystemPage() {
         <div className="h-0.5 bg-accent" />
       </header>
 
-      <div className="reveal-1 mx-auto block max-w-6xl px-6 pb-16 lg:flex lg:gap-12">
+      {/* Layout mirrors the GridLines backdrop: same max-w-6xl, px-6, 4 equal
+          columns. Nav takes column 1, main spans columns 2-4, so content edges
+          land exactly on the grid rules (no gap to knock them off). */}
+      <div className="reveal-1 mx-auto grid max-w-6xl grid-cols-1 px-6 pb-16 lg:grid-cols-4">
         <SideNav groups={NAV} />
 
-        <main id="main" className="reveal-2 min-w-0 flex-1 overflow-x-clip">
+        <main
+          id="main"
+          className="reveal-2 min-w-0 overflow-x-clip lg:col-span-3"
+        >
           {/* Masthead */}
           <div className="py-12">
             <p className="eyebrow mb-3">Design system</p>

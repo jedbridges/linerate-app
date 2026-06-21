@@ -19,7 +19,8 @@ export function HomeLink({ className }: { className?: string }) {
       onClick={() => window.location.assign("/")}
       aria-label="LineRate, reload home"
       className={cn(
-        "inline-flex rounded-sm transition-opacity outline-none hover:opacity-70",
+        "inline-flex cursor-pointer rounded-sm outline-none",
+        "transition-opacity duration-100 ease-out hover:opacity-60",
         className
       )}
     >
