@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Download } from "lucide-react";
 
-import { slugify } from "@/lib/utils";
+import { slugify, withBase } from "@/lib/utils";
 import { SideNav, type NavGroup } from "@/components/side-nav";
 import { Alert, AlertActions, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -284,13 +284,13 @@ export default function DesignSystemPage() {
           </ol>
           <div className="mt-6 flex flex-wrap gap-3 border-t border-border-subtle pt-6">
             <Button asChild>
-              <a href="/DESIGN.md" download="DESIGN.md">
+              <a href={withBase("/DESIGN.md")} download="DESIGN.md">
                 <Download />
                 Download DESIGN.md
               </a>
             </Button>
             <Button asChild variant="secondary">
-              <a href="/DESIGN.md" target="_blank" rel="noreferrer">
+              <a href={withBase("/DESIGN.md")} target="_blank" rel="noreferrer">
                 View the spec
               </a>
             </Button>

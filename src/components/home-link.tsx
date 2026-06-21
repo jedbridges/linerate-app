@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn, withBase } from "@/lib/utils";
 import { Wordmark } from "@/components/wordmark";
 
 /*
@@ -16,7 +16,7 @@ export function HomeLink({ className }: { className?: string }) {
   return (
     <button
       type="button"
-      onClick={() => window.location.assign("/")}
+      onClick={() => window.location.assign(withBase("/"))}
       aria-label="LineRate, reload home"
       className={cn(
         "inline-flex cursor-pointer rounded-sm outline-none",
