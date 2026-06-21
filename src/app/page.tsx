@@ -74,6 +74,8 @@ import { SettlementSummary } from "@/components/patterns/settlement-summary";
 import { AuditPackDrawer } from "@/components/patterns/audit-pack-drawer";
 import { ConfirmDestructive } from "@/components/patterns/confirm-destructive";
 import { PreFlight } from "@/components/patterns/pre-flight";
+import { CounterpartyList } from "@/components/patterns/counterparty-row";
+import { CycleIndicator } from "@/components/patterns/cycle-indicator";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -172,6 +174,8 @@ const NAV: NavGroup[] = [
     items: [
       "Pre-flight",
       "Settlement summary",
+      "Counterparty list",
+      "Cycle indicator",
       "Audit pack drawer",
       "Destructive confirmation",
     ],
@@ -836,6 +840,58 @@ export default function DesignSystemPage() {
             },
           ]}
         />
+      </Section>
+
+      {/* Counterparty list pattern */}
+      <Section
+        eyebrow="Patterns"
+        title="Counterparty list"
+        description="A sub-row of a counterparty list: name in sans, transaction reference in small mono beneath, amount in mono right-aligned, status as a pill. Rows divided by a subtle rule, no zebra."
+      >
+        <CounterpartyList
+          rows={[
+            {
+              party: "Acme Hosting",
+              reference: "A-7142",
+              amount: "42,180,000.00",
+              status: "success",
+              statusLabel: "Settled",
+            },
+            {
+              party: "Northwind Compute",
+              reference: "N-3318",
+              amount: "18,640,000.00",
+              status: "success",
+              statusLabel: "Settled",
+            },
+            {
+              party: "Cascade Datacenter",
+              reference: "C-9920",
+              amount: "8,940,000.00",
+              status: "pending",
+              statusLabel: "Pending",
+            },
+            {
+              party: "Helix Networks",
+              reference: "H-5571",
+              amount: "3,212,851.50",
+              status: "danger",
+              statusLabel: "Failed",
+            },
+          ]}
+        />
+      </Section>
+
+      {/* Cycle indicator pattern */}
+      <Section
+        eyebrow="Patterns"
+        title="Cycle indicator"
+        description="Compact mono pill carrying cycle metadata. Lives in headers, table captions, and emails. Read-only signal, not interactive."
+      >
+        <div className="flex flex-wrap items-center gap-4">
+          <CycleIndicator time="14:32 UTC" cycle="4271" />
+          <CycleIndicator settlement="T+1" time="10:00 UTC" cycle="4270" />
+        </div>
       </Section>
 
       {/* Audit pack drawer pattern */}

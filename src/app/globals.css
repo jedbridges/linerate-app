@@ -144,7 +144,9 @@
   /* Foregrounds */
   --foreground: var(--color-neutral-950);
   --foreground-muted: var(--color-neutral-700);
-  --foreground-subtle: var(--color-neutral-500);
+  /* neutral-600, not 500: on Paper, 500 (#838383) is ~3.9:1, below AA.
+     600 (#5c5c5c) clears 4.5:1 for eyebrows, captions, and table headers. */
+  --foreground-subtle: var(--color-neutral-600);
   --foreground-disabled: var(--color-neutral-400);
   --foreground-inverse: var(--color-neutral-0);
 
@@ -308,10 +310,19 @@
     overflow-x: clip;
   }
 
-  /* Respect users who ask for less motion. */
+  /* Respect users who ask for less motion: disable smooth scroll and reduce
+     every transition/animation to a near-instant, non-distracting change. */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 

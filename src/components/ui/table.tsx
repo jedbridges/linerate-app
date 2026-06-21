@@ -14,14 +14,25 @@ import { cn } from "@/lib/utils";
  * aligned. Use it on every column that represents real-world data.
  */
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+function Table({
+  className,
+  "aria-label": ariaLabel = "Data table",
+  ...props
+}: React.ComponentProps<"table">) {
   return (
+    // Focusable scroll region: when the table overflows horizontally,
+    // keyboard users can focus it and scroll with arrow keys. Labelled so
+    // the region is announced.
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto"
+      role="region"
+      aria-label={ariaLabel}
+      tabIndex={0}
+      className="relative w-full overflow-x-auto focus-visible:outline-none"
     >
       <table
         data-slot="table"
+        aria-label={ariaLabel}
         className={cn("w-full caption-bottom text-sm", className)}
         {...props}
       />
