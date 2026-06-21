@@ -14,7 +14,7 @@ This file is the source of truth for design decisions. The values live in `token
 
 2. **JetBrains Mono on every numeral that lives in the product.** Settlement amounts, transaction IDs, timestamps, account references, cycle numbers, hashes, percentages on data, durations. If a digit represents real-world data, it goes in mono. Add `font-mono` or use the `.ledger` class. Marketing copy and counter-style stat blocks may stay sans.
 
-3. **Amber is the brand accent and appears VERY rarely.** Status pending pill, occasional brand-accent line under nav, one or two intentional appearances per marketing page. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. If a screen has more than one or two amber elements, something is wrong.
+3. **Amber is the brand accent and appears VERY rarely.** Canonical placements: the active side-nav indicator (`border-accent`), the pending status pill, and the active data point in a chart. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. If a screen has more than one or two amber elements, something is wrong.
 
 4. **Case is role-bound.** Sentence case for prose, headings, navigation. UPPERCASE is reserved for exactly four roles: the **wordmark** (`LINERATE`), **mono eyebrows**, **status pills**, and **button labels** (uppercase with `tracking-wide`). Everything else is sentence case. The legal name "LineRate" appears in body copy and accessibility text.
 
@@ -108,7 +108,7 @@ Sweep order. Do not jump ahead.
 11. Stat blocks: large number in `font-mono font-medium`, label in sans `text-foreground-subtle`. No icons unless they encode a delta.
 
 ### Phase 4: Navigation and chrome
-12. Top nav: sticky, solid `bg-page`, no shadow, no backdrop blur. Wordmark on the left, controls on the right, with the 2px amber accent rule beneath as the separator (no bottom border).
+12. Top nav: a floating rounded bar, sticky, `bg-surface` + `border-border` + `rounded-xl` + `shadow-lg`, inset from the top so content scrolls beneath it. Wordmark on the left, controls on the right. No backdrop blur.
 13. Side navigation: sticky left rail grouped by section, scrollspy active item gets `border-foreground` + medium weight, hover brightens. Collapses to a "Contents" disclosure below `lg`.
 14. Tabs: underline-style only, `border-foreground` on the active tab.
 

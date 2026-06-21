@@ -34,7 +34,7 @@ Nine hard rules. Violations are defects, not preferences.
 
 2. **JetBrains Mono on every numeral that lives in the product.** Settlement amounts, transaction IDs, timestamps, account references, cycle numbers, hashes, percentages on data, durations. If a digit represents real-world data, it goes in mono with tabular figures. Add `font-mono` (with `tabular-nums`) or use the `.ledger` class. Marketing-style counter stats may stay sans.
 
-3. **Amber is the brand accent and appears VERY rarely.** The canonical placement is a 2px brand-accent rule directly under the top nav (`<div className="h-0.5 bg-accent" />`), one per page, plus the pending status pill. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. More than one or two amber elements on a screen means something is wrong.
+3. **Amber is the brand accent and appears VERY rarely.** Its canonical placements are the active side-nav indicator (`border-accent`), the pending status pill, and the active data point in a chart. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. More than one or two amber elements on a screen means something is wrong.
 
 4. **Case is role-bound, not arbitrary.** Sentence case for prose, headings, navigation. **UPPERCASE is reserved for four roles only:** the wordmark (`LINERATE`), mono eyebrows, status pills, and button labels. Everything else is sentence case. The legal name "LineRate" appears in body copy and accessibility text. (See Typography for the enforcement table.)
 
@@ -244,9 +244,10 @@ Body copy and accessibility text always use the legal name **"LineRate"**
 The product ships as a **single design-system surface at `/`** (`src/app/page.tsx`).
 There is no separate marketing site or styleguide route.
 
-- **Top nav.** Sticky, solid `bg-page` (no backdrop blur), wordmark left, theme
-  toggle right, the 2px amber accent rule beneath. Border-free; the amber rule
-  is the separator.
+- **Top nav.** A floating rounded bar: sticky, `bg-surface` with `border-border`,
+  `rounded-xl`, and `shadow-lg`, inset from the top so content and the grid
+  scroll beneath it. Wordmark left (a HomeLink that reloads), theme toggle right.
+  No backdrop blur.
 - **Side navigation.** `<SideNav/>` (`src/components/side-nav.tsx`): a sticky
   left rail on `lg+`, grouped Foundations / Primitives / Patterns, with an
   IntersectionObserver scrollspy that highlights the active section and
@@ -299,6 +300,15 @@ Trigger matches Input. Content lifts onto `bg-raised` with `border-border` and `
 ### Badge
 
 The LineRate pill (mono, uppercase, wide tracking, small radius, 1px inset edge so pale light-mode tints stay defined). Four variants: `neutral`, `success`, `pending`, `danger`. Pending is amber; success and danger are brand-tone.
+
+### Avatar
+
+Monogram avatar in three sizes (`sm` 32, `md` 40, `lg` 56) and two brand tones:
+`onyx` (black fill, Paper initials) and `amber` (amber fill, Onyx initials).
+Initials are mono, uppercase, tracking-wide. Tones use the literal brand colors
+(not theme-flipping tokens) so the mark is identical on screen and when
+exported. The showcase (`avatar-showcase.tsx`) renders each and downloads it as
+a transparent PNG drawn on a canvas at 4x.
 
 ### Separator
 

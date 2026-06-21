@@ -117,7 +117,7 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
       </aside>
 
       {/* Mobile: sticky disclosure */}
-      <div className="sticky top-[3.25rem] z-30 -mx-6 mb-6 border-b border-border bg-page px-6 py-3 lg:hidden">
+      <div className="sticky top-[4.75rem] z-30 -mx-6 mb-6 border-b border-border bg-page px-6 py-3 lg:hidden">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}

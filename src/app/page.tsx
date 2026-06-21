@@ -80,6 +80,7 @@ import {
   SettlementVolumeChart,
   ClearedRateChart,
 } from "@/components/patterns/settlement-charts";
+import { AvatarShowcase } from "@/components/patterns/avatar-showcase";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -162,6 +163,7 @@ const NAV: NavGroup[] = [
       "Buttons",
       "Forms",
       "Badges",
+      "Avatars",
       "Separator",
       "Card",
       "Table",
@@ -187,13 +189,13 @@ const NAV: NavGroup[] = [
 export default function DesignSystemPage() {
   return (
     <>
-      {/* Top nav: solid bg-page, border, no blur. One amber rule under it. */}
-      <header className="reveal sticky top-0 z-40 bg-page">
-        <div className="mx-auto flex h-13 max-w-6xl items-center justify-between px-6">
+      {/* Top nav: a floating rounded bar. bg-surface + border + shadow so it
+          reads as elevated while content and the grid scroll beneath it. */}
+      <header className="reveal sticky top-0 z-40 px-4 pt-3 sm:px-6">
+        <div className="mx-auto flex h-13 max-w-6xl items-center justify-between rounded-xl border border-border bg-surface px-5 shadow-lg">
           <HomeLink />
           <ThemeToggle />
         </div>
-        <div className="h-0.5 bg-accent" />
       </header>
 
       {/* Layout mirrors the GridLines backdrop: same max-w-6xl, px-6, 4 equal
@@ -404,6 +406,15 @@ export default function DesignSystemPage() {
           <Badge variant="pending">Pending</Badge>
           <Badge variant="danger">Failed</Badge>
         </div>
+      </Section>
+
+      {/* Avatars */}
+      <Section
+        eyebrow="Primitives"
+        title="Avatars"
+        description="Monogram avatars in three common sizes and two brand tones: Onyx (black) and Amber. Mono initials. Download any as a transparent PNG."
+      >
+        <AvatarShowcase />
       </Section>
 
       {/* Separator */}
