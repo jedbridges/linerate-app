@@ -1,53 +1,50 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Wordmark } from "@/components/wordmark";
 
 /*
  * LineRate Avatar
  *
- * Monogram avatar in two brand tones and three common sizes. Onyx fill with
- * Paper initials, or Amber fill with Onyx initials (the rare accent variant,
- * e.g. the current operator). Initials are mono, uppercase, tracking-wide,
- * matching the ledger voice.
+ * Brand avatar: the LINERATE wordmark centered inside a circle, in two brand
+ * tones and three common sizes. Onyx fill with a Paper wordmark, or Amber
+ * fill with an Onyx wordmark (the rare accent variant). Tones use the literal
+ * brand colors (not theme-flipping tokens) so the mark is identical on screen
+ * and when exported.
  */
 
 const SIZES = {
-  sm: { box: "size-8", text: "text-xs" },
-  md: { box: "size-10", text: "text-sm" },
-  lg: { box: "size-14", text: "text-lg" },
+  sm: "size-8",
+  md: "size-10",
+  lg: "size-14",
 } as const;
 
 type AvatarProps = {
-  initials: string;
   size?: keyof typeof SIZES;
   tone?: "onyx" | "amber";
   className?: string;
 };
 
 export function Avatar({
-  initials,
   size = "md",
   tone = "onyx",
   className,
 }: AvatarProps) {
-  const s = SIZES[size];
   return (
     <span
       data-slot="avatar"
-      aria-label={initials}
+      aria-label="LineRate"
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full font-mono font-medium uppercase tracking-wide select-none",
-        s.box,
-        s.text,
-        // Fixed brand colors (not theme-flipping tokens) so the mark is the
-        // same black or amber everywhere, on screen and when downloaded.
+        "inline-flex shrink-0 items-center justify-center rounded-full",
+        SIZES[size],
         tone === "amber"
           ? "bg-amber text-onyx"
           : "bg-onyx text-paper ring-1 ring-border",
         className
       )}
     >
-      {initials.slice(0, 2)}
+      {/* Wordmark inherits the tone color via currentColor (text-current). */}
+      <Wordmark aria-hidden className="h-auto w-[64%] text-current" />
     </span>
   );
 }

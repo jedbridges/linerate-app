@@ -5,6 +5,7 @@ import { Download } from "lucide-react";
 
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/wordmark";
 
 /*
  * Avatar showcase + downloader
@@ -26,39 +27,40 @@ const TONES = [
   { key: "amber", bg: "#DF8E2A", fg: "#101010", label: "Amber" },
 ] as const;
 
-const INITIALS = "LR";
 const SCALE = 4;
+const WORDMARK_WIDTH_RATIO = 0.64; // matches the on-screen Avatar (w-[64%])
 
-async function downloadAvatar(
+function downloadAvatar(
   px: number,
   bg: string,
   fg: string,
   toneKey: string,
   sizeKey: string
 ) {
-  try {
-    await document.fonts.ready;
-  } catch {
-    /* fonts API unavailable; draw with fallback */
-  }
+  const size = px * SCALE;
   const canvas = document.createElement("canvas");
-  canvas.width = px * SCALE;
-  canvas.height = px * SCALE;
+  canvas.width = size;
+  canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
-  const c = (px * SCALE) / 2;
+  const c = size / 2;
 
+  // Circle fill
   ctx.fillStyle = bg;
   ctx.beginPath();
   ctx.arc(c, c, c, 0, Math.PI * 2);
   ctx.fill();
 
+  // Wordmark, scaled to a fraction of the diameter and centered.
+  const targetW = size * WORDMARK_WIDTH_RATIO;
+  const scale = targetW / WORDMARK_VIEWBOX.width;
+  const drawH = WORDMARK_VIEWBOX.height * scale;
+  ctx.save();
+  ctx.translate((size - targetW) / 2, (size - drawH) / 2);
+  ctx.scale(scale, scale);
   ctx.fillStyle = fg;
-  ctx.font = `500 ${px * SCALE * 0.4}px "JetBrains Mono", ui-monospace, monospace`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  // Mono caps sit a hair high; nudge down for optical centering.
-  ctx.fillText(INITIALS, c, c + px * SCALE * 0.02);
+  for (const d of WORDMARK_PATHS) ctx.fill(new Path2D(d));
+  ctx.restore();
 
   const a = document.createElement("a");
   a.download = `linerate-avatar-${toneKey}-${sizeKey}.png`;
@@ -75,11 +77,7 @@ export function AvatarShowcase() {
           <div className="flex flex-wrap items-end gap-8">
             {SIZES.map((size) => (
               <div key={size.key} className="flex flex-col items-center gap-3">
-                <Avatar
-                  initials={INITIALS}
-                  size={size.key}
-                  tone={tone.key}
-                />
+                <Avatar size={size.key} tone={tone.key} />
                 <span className="font-mono text-xs text-foreground-subtle">
                   {size.label}
                 </span>
