@@ -328,6 +328,10 @@ For failure, emptiness, and loading. Copy follows the error convention (what hap
 - **EmptyState.** Eyebrow + heading + body + optional action. No illustration.
 - **Skeleton.** Pulsing tonal block on `bg-muted`. Prefer skeletons over spinners.
 
+### Charts (data viz)
+
+Built on Recharts via the shadcn `Chart` wrapper (`src/components/ui/chart.tsx`), reskinned to the brand: Paper stroke, a faint area wash (foreground at low opacity to transparent), hairline horizontal grid in `border-subtle`, mono axis ticks in `foreground-subtle`, no decorative gradients. One amber accent reserved for emphasis (e.g. the active data point). Tooltips render figures in mono via `ChartTooltipContent`. Draw-in animation is gated on `useReducedMotion` (Recharts animates in JS, so the CSS reduced-motion kill-switch doesn't reach it). Series colors come from the `ChartConfig` (`--color-<key>`), so charts retheme with the tokens. Reference impls: `SettlementVolumeChart` (area) and `ClearedRateChart` (bar) in `src/components/patterns/settlement-charts.tsx`.
+
 ---
 
 ## Patterns
