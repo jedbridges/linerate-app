@@ -58,7 +58,15 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Honor reduced-motion: scrollIntoView's smooth behavior ignores the CSS
+    // media query, so gate it explicitly.
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    el.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "start",
+    });
     history.replaceState(null, "", `#${id}`);
     setActive(id);
     setOpen(false);
@@ -101,7 +109,9 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
     <>
       {/* Desktop: sticky left rail */}
       <aside className="hidden w-56 shrink-0 lg:block">
-        <div className="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto py-1">
+        {/* px-2/-mx-2 gives the outset focus ring room so overflow-y-auto
+            doesn't clip it on the rail edges. */}
+        <div className="sticky top-8 -mx-2 max-h-[calc(100vh-4rem)] overflow-y-auto px-2 py-1">
           {list}
         </div>
       </aside>

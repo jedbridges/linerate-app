@@ -108,16 +108,17 @@ Sweep order. Do not jump ahead.
 11. Stat blocks: large number in `font-mono font-medium`, label in sans `text-foreground-subtle`. No icons unless they encode a delta.
 
 ### Phase 4: Navigation and chrome
-12. Top nav: `bg-page` with `border-border` bottom border. No shadow. No backdrop blur. Wordmark on the left.
-13. Sidebar: `bg-page` with `border-border` right border. Active item gets `bg-muted text-foreground`. Hover gets `bg-muted/60`.
+12. Top nav: sticky, solid `bg-page`, no shadow, no backdrop blur. Wordmark on the left, controls on the right, with the 2px amber accent rule beneath as the separator (no bottom border).
+13. Side navigation: sticky left rail grouped by section, scrollspy active item gets `border-foreground` + medium weight, hover brightens. Collapses to a "Contents" disclosure below `lg`.
 14. Tabs: underline-style only, `border-foreground` on the active tab.
 
-### Phase 5: Marketing surfaces
-15. Hero: General Sans at `text-7xl` or `text-8xl`, `tracking-tight`, `font-medium`. Subhead in `text-lg text-foreground-muted`.
-16. Section eyebrows above every marketing section.
-17. Pricing tables: highlight tier uses a thin amber accent border (`border-accent`), not amber fill. Body stays neutral.
-18. Logo cloud: grayscale neutrals only. No color logos.
-19. Use `<Wordmark/>` in mastheads and OOH-style surfaces. Body copy and accessibility text still say "LineRate."
+### Phase 5: Display and (future) marketing surfaces
+The product currently ships as a single design-system surface at `/`; there is no separate marketing site. The display (clamp) scale and these rules are reserved for the masthead today and any marketing surface added later.
+15. Hero / masthead: General Sans at the display scale (`text-display-md`/`lg`), `tracking-tight`, `font-semibold`. Subhead in `text-lg text-foreground-muted`, constrained to 60-75ch.
+16. Section eyebrows above every section.
+17. If pricing/comparison surfaces are added: highlight tier uses a thin amber accent border (`border-accent`), not amber fill. Body stays neutral.
+18. Logo treatments: grayscale neutrals only. No color logos.
+19. Use `<Wordmark/>` (the inline SVG) in mastheads and stamps. Body copy and accessibility text still say "LineRate".
 
 ### Phase 6: Audit pass
 20. Search the codebase for:

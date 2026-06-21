@@ -197,7 +197,7 @@ export default function DesignSystemPage() {
       <div className="mx-auto block max-w-6xl px-6 pb-16 lg:flex lg:gap-12">
         <SideNav groups={NAV} />
 
-        <main className="min-w-0 flex-1 overflow-x-clip">
+        <main id="main" className="min-w-0 flex-1 overflow-x-clip">
           {/* Masthead */}
           <div className="py-12">
             <p className="eyebrow mb-3">Design system</p>
