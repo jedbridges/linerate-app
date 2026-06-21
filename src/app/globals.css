@@ -207,10 +207,12 @@
   --border-strong: var(--color-neutral-700);
   --border-subtle: var(--color-neutral-900);
 
-  /* Primary (Paper fill on dark) */
+  /* Primary (Paper fill on dark). Steps are deeper than the light-mode
+     primary: against the Onyx page a near-white hover reads as no change, so
+     hover lands on Chalk and active a notch below for a legible press. */
   --primary: var(--color-neutral-0);
-  --primary-hover: var(--color-neutral-100);
-  --primary-active: var(--color-neutral-200);
+  --primary-hover: var(--color-neutral-200);
+  --primary-active: var(--color-neutral-300);
   --primary-foreground: var(--color-neutral-950);
 
   /* Accent */
