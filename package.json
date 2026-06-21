@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync:design": "node -e \"require('fs').copyFileSync('DESIGN.md','public/DESIGN.md')\"",
+    "predev": "npm run sync:design",
     "dev": "next dev",
+    "prebuild": "npm run sync:design",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

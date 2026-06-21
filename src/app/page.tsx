@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { Download } from "lucide-react";
+
 import { slugify } from "@/lib/utils";
 import { SideNav, type NavGroup } from "@/components/side-nav";
 import { Alert, AlertActions, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -151,6 +153,7 @@ const NAV: NavGroup[] = [
   {
     group: "Foundations",
     items: [
+      "Get started",
       "Type scale & pairing",
       "Ledger figures",
       "Surfaces & roles",
@@ -225,6 +228,76 @@ export default function DesignSystemPage() {
         </p>
           </div>
 
+      {/* Get started: client-facing instructions + spec download */}
+      <Section
+        eyebrow="Foundations"
+        title="Get started"
+        description="Everything in this system is described in one portable file, DESIGN.md. Download it and a developer (or an AI tool like Claude or Cursor) can build interfaces in the LineRate system from it directly."
+      >
+        <div className="rounded-lg border border-border bg-surface p-6">
+          <ol className="space-y-5">
+            <li className="flex gap-4">
+              <span className="font-mono text-sm text-foreground-subtle tabular-nums">
+                01
+              </span>
+              <div>
+                <p className="text-sm font-medium text-foreground">
+                  Download the spec
+                </p>
+                <p className="mt-1 max-w-[60ch] text-sm text-foreground-muted">
+                  DESIGN.md is the full contract: principles, voice, tokens,
+                  the type system, every primitive and pattern, and how to
+                  retheme.
+                </p>
+              </div>
+            </li>
+            <li className="flex gap-4">
+              <span className="font-mono text-sm text-foreground-subtle tabular-nums">
+                02
+              </span>
+              <div>
+                <p className="text-sm font-medium text-foreground">
+                  Hand it to a developer or an AI tool
+                </p>
+                <p className="mt-1 max-w-[60ch] text-sm text-foreground-muted">
+                  Open Claude, Cursor, or your editor of choice and add
+                  DESIGN.md as context. It is written to be pasted in whole.
+                </p>
+              </div>
+            </li>
+            <li className="flex gap-4">
+              <span className="font-mono text-sm text-foreground-subtle tabular-nums">
+                03
+              </span>
+              <div>
+                <p className="text-sm font-medium text-foreground">
+                  Ask for a screen in the LineRate system
+                </p>
+                <p className="mt-1 max-w-[60ch] text-sm text-foreground-muted">
+                  Describe what you need (&ldquo;a settlement dashboard&rdquo;,
+                  &ldquo;a counterparty detail page&rdquo;). The tokens,
+                  primitives, and patterns in the file keep every result on
+                  brand. Pull logos from Brand assets below.
+                </p>
+              </div>
+            </li>
+          </ol>
+          <div className="mt-6 flex flex-wrap gap-3 border-t border-border-subtle pt-6">
+            <Button asChild>
+              <a href="/DESIGN.md" download="DESIGN.md">
+                <Download />
+                Download DESIGN.md
+              </a>
+            </Button>
+            <Button asChild variant="secondary">
+              <a href="/DESIGN.md" target="_blank" rel="noreferrer">
+                View the spec
+              </a>
+            </Button>
+          </div>
+        </div>
+      </Section>
+
       {/* Type */}
       <Section eyebrow="Typography" title="Type scale & pairing">
         <div className="space-y-4">
@@ -244,6 +317,37 @@ export default function DesignSystemPage() {
           <p className="font-mono text-base text-foreground">
             JetBrains Mono 0123456789 · the voice of the ledger
           </p>
+        </div>
+
+        <div className="mt-10 grid gap-8 border-t border-border-subtle pt-8 sm:grid-cols-2">
+          <div>
+            <p className="mb-2 text-lg font-medium text-foreground">
+              General Sans
+            </p>
+            <p className="max-w-[60ch] text-sm text-foreground-muted leading-relaxed">
+              General Sans is the voice of the brand. It sets every heading,
+              every line of body copy, the navigation, button labels, and
+              legal text: anywhere a human is meant to sit down and read. It is
+              confident and neutral, legible from a display headline down to an
+              11px eyebrow, and it never competes with the data beside it. Use
+              it by default. If a string is language rather than a figure, it
+              belongs in General Sans.
+            </p>
+          </div>
+          <div>
+            <p className="mb-2 text-lg font-medium text-foreground">
+              JetBrains Mono
+            </p>
+            <p className="max-w-[60ch] text-sm text-foreground-muted leading-relaxed">
+              JetBrains Mono is the voice of the ledger. It sets every figure
+              that represents real-world data: settlement amounts, transaction
+              IDs, timestamps, account references, hashes, and cycle numbers.
+              Its fixed-width, tabular figures hold columns in alignment and
+              make a number impossible to misread at a glance. Use it the
+              moment a digit carries meaning, and never for running prose. The
+              two families do not trade places.
+            </p>
+          </div>
         </div>
       </Section>
 
