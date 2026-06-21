@@ -4,6 +4,7 @@ import { JetBrains_Mono } from "next/font/google";
 
 import { GridLines } from "@/components/grid-lines";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { withBase } from "@/lib/utils";
 import "./globals.css";
 
 /*
@@ -43,10 +44,42 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_DESCRIPTION =
+  "Settlement infrastructure for nine-figure hosting agreements. Daily settlement, automated counterparty payments, real-time collateral, audit-ready reporting.";
+
+// Absolute origin so crawlers resolve og:image to a full URL. The basePath is
+// applied by Next on top of this; override via NEXT_PUBLIC_SITE_URL if the host
+// changes (e.g. a custom domain).
+const SITE_ORIGIN =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://jedbridges.github.io";
+
+// Absolute URL to the committed share image. Built from origin + basePath so
+// crawlers (which don't resolve relative paths or apply basePath) get a URL
+// that resolves on the Pages project sub-path.
+const OG_IMAGE = {
+  url: `${SITE_ORIGIN}${withBase("/og.png")}`,
+  width: 1200,
+  height: 630,
+  alt: "LineRate design system",
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_ORIGIN),
   title: "LineRate",
-  description:
-    "Settlement infrastructure for nine-figure hosting agreements. Daily settlement, automated counterparty payments, real-time collateral, audit-ready reporting.",
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: "LineRate design system",
+    description: SITE_DESCRIPTION,
+    siteName: "LineRate",
+    type: "website",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LineRate design system",
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 export default function RootLayout({
