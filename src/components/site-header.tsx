@@ -62,14 +62,34 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
           </div>
         </div>
 
-        {open && (
-          <div
-            id="mobile-contents"
-            className="max-h-[70vh] overflow-y-auto border-t border-border-subtle px-5 pt-5 pb-6 lg:hidden"
-          >
-            <NavList groups={groups} active={active} onNavigate={onNavigate} />
+        {/* Animate to auto-height via the grid 0fr->1fr trick (the only smooth
+            way to transition an unknown height). The inner overflow-hidden
+            wrapper is what collapses; the panel fades in tandem. Snappy
+            ease-out; reduced-motion is neutralized by the global kill-switch.
+            inert when closed so the hidden links stay out of the tab order. */}
+        <div
+          className={cn(
+            "grid transition-[grid-template-rows] duration-200 ease-[cubic-bezier(0.2,0,0,1)] lg:hidden",
+            open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          )}
+        >
+          <div className="overflow-hidden">
+            <div
+              id="mobile-contents"
+              inert={!open}
+              className={cn(
+                "max-h-[70vh] overflow-y-auto border-t border-border-subtle px-5 pt-5 pb-6 transition-opacity duration-200 ease-out",
+                open ? "opacity-100" : "opacity-0"
+              )}
+            >
+              <NavList
+                groups={groups}
+                active={active}
+                onNavigate={onNavigate}
+              />
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
