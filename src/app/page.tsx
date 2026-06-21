@@ -886,14 +886,17 @@ export default function DesignSystemPage() {
         description="Audit-grade data viz on Recharts. Paper stroke, faint area wash, hairline grid, mono axis ticks. One amber accent. Tooltips in mono; draw-in respects reduced motion."
       >
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-lg border border-border bg-surface p-6">
+          {/* min-w-0: let the card shrink below the chart's intrinsic width so
+              Recharts' ResponsiveContainer sizes down instead of overflowing
+              the grid track (clipped by the page's overflow-x on mobile). */}
+          <div className="min-w-0 rounded-lg border border-border bg-surface p-6">
             <p className="eyebrow mb-1">Settlement volume</p>
             <p className="mb-5 text-sm text-foreground-muted">
               Last 12 cycles, $M settled
             </p>
             <SettlementVolumeChart />
           </div>
-          <div className="rounded-lg border border-border bg-surface p-6">
+          <div className="min-w-0 rounded-lg border border-border bg-surface p-6">
             <p className="eyebrow mb-1">Cleared on first attempt</p>
             <p className="mb-5 text-sm text-foreground-muted">
               Last 6 cycles, percent cleared
