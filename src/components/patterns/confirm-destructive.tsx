@@ -43,7 +43,7 @@ type ConfirmDestructiveProps = {
   title: React.ReactNode;
   description: React.ReactNode;
   confirmToken: string;
-  tokenLabel?: string;
+  tokenLabel?: React.ReactNode;
   confirmLabel?: string;
   onConfirm?: () => void;
 };
