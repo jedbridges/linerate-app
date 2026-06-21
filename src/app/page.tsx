@@ -80,7 +80,7 @@ import {
   SettlementVolumeChart,
   ClearedRateChart,
 } from "@/components/patterns/settlement-charts";
-import { AvatarShowcase } from "@/components/patterns/avatar-showcase";
+import { BrandAssets } from "@/components/patterns/brand-assets";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -163,7 +163,7 @@ const NAV: NavGroup[] = [
       "Buttons",
       "Forms",
       "Badges",
-      "Avatars",
+      "Brand assets",
       "Separator",
       "Card",
       "Table",
@@ -408,13 +408,13 @@ export default function DesignSystemPage() {
         </div>
       </Section>
 
-      {/* Avatars */}
+      {/* Brand assets */}
       <Section
         eyebrow="Primitives"
-        title="Avatars"
-        description="Monogram avatars in three common sizes and two brand tones: Onyx (black) and Amber. Mono initials. Download any as a transparent PNG."
+        title="Brand assets"
+        description="Downloadable brand marks. The wordmark as a vector (SVG) or a PNG on a padded dark field, and the monogram avatar at the common 400 x 400 social size in both tones."
       >
-        <AvatarShowcase />
+        <BrandAssets />
       </Section>
 
       {/* Separator */}

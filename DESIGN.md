@@ -310,8 +310,16 @@ monogram) and `amber` (amber fill, Onyx monogram). A near-square mark reads
 cleanly at every size, where the full wordmark would shrink to an illegible
 sliver. The monogram inherits the tone via `currentColor`. Tones use the literal
 brand colors (not theme-flipping tokens) so the mark is identical on screen and
-when exported. The showcase (`avatar-showcase.tsx`) renders each and downloads
-it as a transparent PNG, drawing the shared `MONOGRAM_PATH` on a canvas at 4x.
+when exported.
+
+### Brand assets (downloads)
+
+`brand-assets.tsx` is the downloadable-mark surface:
+- **Wordmark SVG** — standalone vector (Onyx fill), recolor as needed.
+- **Wordmark PNG** — white mark on an Onyx field with cap-height clear space (1472x408), for dark contexts.
+- **Avatar PNG** — the monogram at the common 400x400 social size, in both tones. Full-bleed tone square (platforms crop to a circle) with the monogram optically centered, matching the on-screen Avatar.
+
+All assets draw from the shared `WORDMARK_PATHS` / `MONOGRAM_PATH`, so they stay exact and retheme with the source.
 
 ### Separator
 
