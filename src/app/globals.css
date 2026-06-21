@@ -179,6 +179,10 @@
   /* Focus ring: Onyx at low opacity on light */
   --ring: rgba(16, 16, 16, 0.20);
 
+  /* Overlay scrim. Always a dark dim (Onyx), in both themes: an overlay
+     should darken the content behind it, never lighten it. */
+  --scrim: rgba(16, 16, 16, 0.66);
+
   color-scheme: light;
 }
 
@@ -223,6 +227,8 @@
   --danger-foreground: var(--color-danger-100);
   --pending-surface: var(--color-amber-900);
   --pending-foreground: var(--color-amber-200);
+  /* Scrim stays a dark dim in dark mode too (same as light). */
+  --scrim: rgba(16, 16, 16, 0.72);
 
   /* Focus ring: Paper at low opacity on dark */
   --ring: rgba(255, 255, 255, 0.18);
@@ -268,6 +274,7 @@
   --color-danger-foreground: var(--danger-foreground);
   --color-pending-surface: var(--pending-surface);
   --color-pending-foreground: var(--pending-foreground);
+  --color-scrim: var(--scrim);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
