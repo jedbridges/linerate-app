@@ -303,13 +303,15 @@ The LineRate pill (mono, uppercase, wide tracking, small radius, 1px inset edge 
 
 ### Avatar
 
-Brand avatar: the LINERATE wordmark centered in a circle, in three sizes
-(`sm` 32, `md` 40, `lg` 56) and two brand tones: `onyx` (black fill, Paper
-wordmark) and `amber` (amber fill, Onyx wordmark). The wordmark inherits the
-tone via `currentColor`. Tones use the literal brand colors (not theme-flipping
-tokens) so the mark is identical on screen and when exported. The showcase
-(`avatar-showcase.tsx`) renders each and downloads it as a transparent PNG,
-drawing the shared `WORDMARK_PATHS` on a canvas at 4x.
+Brand avatar: the LineRate monogram (the wordmark's geometric L glyph, cropped
+to its own near-square bounds via `Monogram`) centered in a circle, in three
+sizes (`sm` 32, `md` 40, `lg` 56) and two brand tones: `onyx` (black fill, Paper
+monogram) and `amber` (amber fill, Onyx monogram). A near-square mark reads
+cleanly at every size, where the full wordmark would shrink to an illegible
+sliver. The monogram inherits the tone via `currentColor`. Tones use the literal
+brand colors (not theme-flipping tokens) so the mark is identical on screen and
+when exported. The showcase (`avatar-showcase.tsx`) renders each and downloads
+it as a transparent PNG, drawing the shared `MONOGRAM_PATH` on a canvas at 4x.
 
 ### Separator
 

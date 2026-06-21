@@ -1,16 +1,17 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { Wordmark } from "@/components/wordmark";
+import { Monogram } from "@/components/wordmark";
 
 /*
  * LineRate Avatar
  *
- * Brand avatar: the LINERATE wordmark centered inside a circle, in two brand
- * tones and three common sizes. Onyx fill with a Paper wordmark, or Amber
- * fill with an Onyx wordmark (the rare accent variant). Tones use the literal
- * brand colors (not theme-flipping tokens) so the mark is identical on screen
- * and when exported.
+ * Brand avatar: the LineRate monogram (the wordmark's geometric L) centered
+ * inside a circle, in two brand tones and three common sizes. Onyx fill with
+ * a Paper monogram, or Amber fill with an Onyx monogram (the rare accent
+ * variant). A near-square mark reads cleanly at every size, unlike the wide
+ * full wordmark. Tones use the literal brand colors (not theme-flipping
+ * tokens) so the mark is identical on screen and when exported.
  */
 
 const SIZES = {
@@ -43,8 +44,8 @@ export function Avatar({
         className
       )}
     >
-      {/* Wordmark inherits the tone color via currentColor (text-current). */}
-      <Wordmark aria-hidden className="h-auto w-[64%] text-current" />
+      {/* Monogram inherits the tone color via currentColor (text-current). */}
+      <Monogram aria-hidden className="h-[44%] w-auto text-current" />
     </span>
   );
 }

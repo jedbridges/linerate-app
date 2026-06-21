@@ -5,7 +5,7 @@ import { Download } from "lucide-react";
 
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/wordmark";
+import { MONOGRAM_PATH, MONOGRAM_VIEWBOX } from "@/components/wordmark";
 
 /*
  * Avatar showcase + downloader
@@ -28,7 +28,7 @@ const TONES = [
 ] as const;
 
 const SCALE = 4;
-const WORDMARK_WIDTH_RATIO = 0.64; // matches the on-screen Avatar (w-[64%])
+const MONOGRAM_HEIGHT_RATIO = 0.44; // matches the on-screen Avatar (h-[44%])
 
 function downloadAvatar(
   px: number,
@@ -51,15 +51,18 @@ function downloadAvatar(
   ctx.arc(c, c, c, 0, Math.PI * 2);
   ctx.fill();
 
-  // Wordmark, scaled to a fraction of the diameter and centered.
-  const targetW = size * WORDMARK_WIDTH_RATIO;
-  const scale = targetW / WORDMARK_VIEWBOX.width;
-  const drawH = WORDMARK_VIEWBOX.height * scale;
+  // Monogram, scaled to a fraction of the diameter and optically centered.
+  const targetH = size * MONOGRAM_HEIGHT_RATIO;
+  const scale = targetH / MONOGRAM_VIEWBOX.height;
+  const drawW = MONOGRAM_VIEWBOX.width * scale;
   ctx.save();
-  ctx.translate((size - targetW) / 2, (size - drawH) / 2);
+  ctx.translate(
+    (size - drawW) / 2 - MONOGRAM_VIEWBOX.minX * scale,
+    (size - targetH) / 2 - MONOGRAM_VIEWBOX.minY * scale
+  );
   ctx.scale(scale, scale);
   ctx.fillStyle = fg;
-  for (const d of WORDMARK_PATHS) ctx.fill(new Path2D(d));
+  ctx.fill(new Path2D(MONOGRAM_PATH));
   ctx.restore();
 
   const a = document.createElement("a");

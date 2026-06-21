@@ -28,6 +28,35 @@ export const WORDMARK_PATHS = [
   "M735.904 23.3086V36.6178H781.111V55.8066H735.904V69.1158H802.451V91H707.764V1.42444H802.451V23.3086H735.904Z",
 ] as const;
 
+/*
+ * Monogram: the wordmark's geometric "L" glyph, cropped to its own bounds
+ * (~92 x 90, near-square) so it sits properly inside a circle at any size.
+ * Used by the brand Avatar.
+ */
+export const MONOGRAM_PATH = WORDMARK_PATHS[0];
+export const MONOGRAM_VIEWBOX = {
+  minX: 0,
+  minY: 1.4384,
+  width: 92.1312,
+  height: 89.5616,
+} as const;
+
+function Monogram({ className, ...props }: React.SVGProps<SVGSVGElement>) {
+  const { minX, minY, width, height } = MONOGRAM_VIEWBOX;
+  return (
+    <svg
+      viewBox={`${minX} ${minY} ${width} ${height}`}
+      role="img"
+      aria-label="LineRate"
+      fill="currentColor"
+      className={cn("inline-block h-[1em] w-auto text-foreground", className)}
+      {...props}
+    >
+      <path d={MONOGRAM_PATH} />
+    </svg>
+  );
+}
+
 function Wordmark({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -45,4 +74,4 @@ function Wordmark({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export { Wordmark };
+export { Wordmark, Monogram };
