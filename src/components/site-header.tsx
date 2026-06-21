@@ -48,9 +48,12 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
               onClick={() => setOpen((o) => !o)}
               aria-expanded={open}
               aria-controls="mobile-contents"
+              aria-label="Contents"
               className="flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-2 transition-colors hover:bg-muted lg:hidden"
             >
-              <span className="eyebrow">Contents</span>
+              {/* Drop the word on the narrowest phones so the wordmark + toggle
+                  never get clipped by the bar; the rotating chevron carries it. */}
+              <span className="eyebrow hidden min-[360px]:inline">Contents</span>
               <ChevronDown
                 className={cn(
                   "size-4 text-foreground-subtle transition-transform duration-200",
