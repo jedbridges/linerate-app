@@ -186,7 +186,7 @@ export default function DesignSystemPage() {
   return (
     <>
       {/* Top nav: solid bg-page, border, no blur. One amber rule under it. */}
-      <header className="sticky top-0 z-40 bg-page">
+      <header className="reveal sticky top-0 z-40 bg-page">
         <div className="mx-auto flex h-13 max-w-6xl items-center justify-between px-6">
           <HomeLink />
           <ThemeToggle />
@@ -194,10 +194,10 @@ export default function DesignSystemPage() {
         <div className="h-0.5 bg-accent" />
       </header>
 
-      <div className="mx-auto block max-w-6xl px-6 pb-16 lg:flex lg:gap-12">
+      <div className="reveal-1 mx-auto block max-w-6xl px-6 pb-16 lg:flex lg:gap-12">
         <SideNav groups={NAV} />
 
-        <main id="main" className="min-w-0 flex-1 overflow-x-clip">
+        <main id="main" className="reveal-2 min-w-0 flex-1 overflow-x-clip">
           {/* Masthead */}
           <div className="py-12">
             <p className="eyebrow mb-3">Design system</p>

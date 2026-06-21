@@ -387,6 +387,59 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
+   Entrance + loading motion. Snappy and smooth: short, eased, no bounce.
+   Auto-disabled by the prefers-reduced-motion block above (it caps every
+   animation to 0.01ms, so reduced-motion users get the final state instantly).
+   ───────────────────────────────────────────────────────────────────────── */
+@keyframes lr-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lr-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+@layer components {
+  /* Content reveal on first paint. `both` fill keeps the element hidden
+     until its (optionally delayed) animation starts, so there's no flash. */
+  .reveal {
+    animation: lr-reveal 0.42s cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  .reveal-1 {
+    animation: lr-reveal 0.42s cubic-bezier(0.2, 0, 0, 1) 0.06s both;
+  }
+  .reveal-2 {
+    animation: lr-reveal 0.46s cubic-bezier(0.2, 0, 0, 1) 0.12s both;
+  }
+
+  /* Indeterminate hairline used by the route loader. */
+  .loading-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+  .loading-sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: var(--accent);
+    animation: lr-sweep 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
    Component primitives. Minimal helpers Claude Code can lean on.
    ───────────────────────────────────────────────────────────────────────── */
 @layer components {
