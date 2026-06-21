@@ -98,8 +98,11 @@ function Section({
   description?: string;
   children: React.ReactNode;
 }) {
+  // scroll-mt clears the sticky floating header (~86px) so nav clicks land the
+  // section heading just under the bar instead of tucked behind it. Same header
+  // height on mobile and desktop, so one value covers both.
   return (
-    <section id={slugify(title)} className="scroll-mt-8 py-12">
+    <section id={slugify(title)} className="scroll-mt-14 py-12">
       <p className="eyebrow mb-3">{eyebrow}</p>
       <h2 className="mb-2 text-2xl font-medium tracking-snug text-foreground">
         {title}
