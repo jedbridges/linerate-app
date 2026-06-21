@@ -286,7 +286,12 @@ in place; do not wrap.
 
 `primary` (Paper on Onyx / Onyx on Paper), `secondary` (outline using
 `border-foreground`), `ghost` (no border, muted hover). Sizes `sm` (h-8), `md`
-(h-10, default), `lg` (h-12). Labels are **uppercase, weight 500, `tracking-wide`**;
+(h-10, default), `lg` (h-12). Every button is `cursor-pointer`, transitions
+color/background/border/transform over 150ms, and presses with a 1px dip
+(`active:translate-y-px`) for tactile click feedback; the global focus ring
+covers keyboard focus. The same interaction language (pointer cursor, hover
+shift, press feedback) applies to the icon buttons (theme toggle, dialog/sheet
+close) and tab triggers. Labels are **uppercase, weight 500, `tracking-wide`**;
 sizes step down a notch versus sentence case (sm/md `text-xs`, lg `text-sm`) and
 padding opens up so the tracking has room. Rounded `md`. Focus via the global
 ring. No `destructive` variant.
@@ -321,8 +326,9 @@ Brand avatar: the LineRate monogram (the wordmark's geometric L glyph, cropped
 to its own near-square bounds via `Monogram`) centered in a circle, in three
 sizes (`sm` 32, `md` 40, `lg` 56) and two brand tones: `onyx` (black fill, Paper
 monogram) and `amber` (amber fill, Onyx monogram). A near-square mark reads
-cleanly at every size, where the full wordmark would shrink to an illegible
-sliver. The monogram inherits the tone via `currentColor`. Tones use the literal
+cleanly at every size. The L's foot is extended so it bleeds off the right edge
+of the circle (clipped by `overflow-hidden`) for an editorial crop. The mark
+inherits the tone via `currentColor`. Tones use the literal
 brand colors (not theme-flipping tokens) so the mark is identical on screen and
 when exported.
 

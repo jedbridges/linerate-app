@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { Monogram } from "@/components/wordmark";
+import { AVATAR_MARK_PATH, AVATAR_MARK_VIEWBOX } from "@/components/wordmark";
 
 /*
  * LineRate Avatar
@@ -31,12 +31,13 @@ export function Avatar({
   tone = "onyx",
   className,
 }: AvatarProps) {
+  const { minX, minY, size: vb } = AVATAR_MARK_VIEWBOX;
   return (
     <span
       data-slot="avatar"
       aria-label="LineRate"
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full",
+        "relative inline-flex shrink-0 overflow-hidden rounded-full",
         SIZES[size],
         tone === "amber"
           ? "bg-amber text-onyx"
@@ -45,14 +46,18 @@ export function Avatar({
       )}
     >
       {/*
-       * Monogram inherits the tone color via currentColor (text-current).
-       * The L is bottom-left heavy, so nudge it up and right to sit
-       * optically centered in the circle.
+       * The L mark, with its foot extended so it bleeds off the right edge of
+       * the circle (clipped by overflow-hidden). Inherits the tone color via
+       * currentColor (text-current).
        */}
-      <Monogram
+      <svg
         aria-hidden
-        className="h-[38%] w-auto translate-x-[5%] -translate-y-[4%] text-current"
-      />
+        viewBox={`${minX} ${minY} ${vb} ${vb}`}
+        fill="currentColor"
+        className="absolute inset-0 size-full text-current"
+      >
+        <path d={AVATAR_MARK_PATH} />
+      </svg>
     </span>
   );
 }

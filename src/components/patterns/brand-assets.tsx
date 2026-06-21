@@ -6,8 +6,8 @@ import { Download } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-  MONOGRAM_PATH,
-  MONOGRAM_VIEWBOX,
+  AVATAR_MARK_PATH,
+  AVATAR_MARK_VIEWBOX,
   WORDMARK_PATHS,
   WORDMARK_VIEWBOX,
   Wordmark,
@@ -68,9 +68,6 @@ function downloadWordmarkPng() {
 // Social avatar: 400x400 square filled with the tone (platforms crop to a
 // circle), monogram centered with the same optical nudge as the on-screen mark.
 const AVATAR_PX = 400;
-const RATIO = 0.38; // matches the on-screen Avatar (h-[38%])
-const NUDGE_X = 0.05;
-const NUDGE_Y = -0.04;
 
 function downloadAvatar(bg: string, fg: string, toneKey: string) {
   const canvas = document.createElement("canvas");
@@ -81,17 +78,15 @@ function downloadAvatar(bg: string, fg: string, toneKey: string) {
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, AVATAR_PX, AVATAR_PX);
 
-  const targetH = AVATAR_PX * RATIO;
-  const scale = targetH / MONOGRAM_VIEWBOX.height;
-  const drawW = MONOGRAM_VIEWBOX.width * scale;
+  // Map the avatar-mark viewBox onto the square; the extended foot runs past
+  // the right edge and is clipped by the canvas bounds (mirrors the circle).
+  const { minX, minY, size: vb } = AVATAR_MARK_VIEWBOX;
+  const scale = AVATAR_PX / vb;
   ctx.save();
-  ctx.translate(
-    (AVATAR_PX - drawW) / 2 - MONOGRAM_VIEWBOX.minX * scale + drawW * NUDGE_X,
-    (AVATAR_PX - targetH) / 2 - MONOGRAM_VIEWBOX.minY * scale + targetH * NUDGE_Y
-  );
+  ctx.translate(-minX * scale, -minY * scale);
   ctx.scale(scale, scale);
   ctx.fillStyle = fg;
-  ctx.fill(new Path2D(MONOGRAM_PATH));
+  ctx.fill(new Path2D(AVATAR_MARK_PATH));
   ctx.restore();
   trigger(canvas.toDataURL("image/png"), `linerate-avatar-${toneKey}-400.png`);
 }

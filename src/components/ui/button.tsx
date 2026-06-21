@@ -20,8 +20,11 @@ const buttonVariants = cva(
   // Labels are uppercase with wide tracking for an editorial, audit-grade
   // feel. Uppercase reads larger, so sizes step down a notch versus the
   // sentence-case equivalent and padding opens up to give the tracking room.
-  "inline-flex items-center justify-center gap-2 rounded-md font-medium uppercase tracking-wide leading-none whitespace-nowrap " +
-    "transition-colors outline-none select-none " +
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-medium uppercase tracking-wide leading-none whitespace-nowrap " +
+    // Smooth state changes plus a tactile press: the button dips 1px and
+    // eases back, the way a physical key would.
+    "transition-[color,background-color,border-color,box-shadow,transform] duration-150 ease-[cubic-bezier(0.2,0,0,1)] " +
+    "active:translate-y-px outline-none select-none " +
     "disabled:pointer-events-none disabled:opacity-50 " +
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
@@ -30,8 +33,9 @@ const buttonVariants = cva(
         primary:
           "bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active",
         secondary:
-          "border border-foreground bg-transparent text-foreground hover:bg-muted",
-        ghost: "bg-transparent text-foreground hover:bg-muted",
+          "border border-foreground bg-transparent text-foreground hover:bg-muted active:bg-border-subtle",
+        ghost:
+          "bg-transparent text-foreground-muted hover:bg-muted hover:text-foreground active:bg-border-subtle",
       },
       size: {
         sm: "h-8 gap-1.5 px-3.5 text-xs",

@@ -93,8 +93,8 @@ function SheetContent({
           <SheetPrimitive.Close
             data-slot="sheet-close"
             className={cn(
-              "absolute top-4 right-4 inline-flex size-7 items-center justify-center rounded-sm text-foreground-subtle outline-none transition-colors",
-              "hover:bg-muted hover:text-foreground"
+              "absolute top-4 right-4 inline-flex size-7 cursor-pointer items-center justify-center rounded-sm text-foreground-subtle outline-none transition-colors",
+              "hover:bg-muted hover:text-foreground active:scale-95"
             )}
           >
             <XIcon className="size-4" />

@@ -41,6 +41,15 @@ export const MONOGRAM_VIEWBOX = {
   height: 89.5616,
 } as const;
 
+/*
+ * Avatar mark: the L glyph with its foot extended far past the right so it
+ * bleeds off the right edge of the (clipped) avatar circle. The viewBox
+ * frames the stem on the left and lets the foot run out the right side.
+ */
+export const AVATAR_MARK_PATH =
+  "M220 67.2025V91H0V1.4384H28.1547V67.2165H220V67.2025Z";
+export const AVATAR_MARK_VIEWBOX = { minX: -36, minY: -28.78, size: 150 } as const;
+
 function Monogram({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   const { minX, minY, width, height } = MONOGRAM_VIEWBOX;
   return (

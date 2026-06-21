@@ -122,7 +122,7 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
-          className="flex w-full items-center justify-between text-sm font-medium text-foreground"
+          className="flex w-full cursor-pointer items-center justify-between text-sm font-medium text-foreground"
         >
           <span className="eyebrow">Contents</span>
           <ChevronDown
