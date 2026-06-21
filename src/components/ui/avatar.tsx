@@ -44,8 +44,15 @@ export function Avatar({
         className
       )}
     >
-      {/* Monogram inherits the tone color via currentColor (text-current). */}
-      <Monogram aria-hidden className="h-[44%] w-auto text-current" />
+      {/*
+       * Monogram inherits the tone color via currentColor (text-current).
+       * The L is bottom-left heavy, so nudge it up and right to sit
+       * optically centered in the circle.
+       */}
+      <Monogram
+        aria-hidden
+        className="h-[46%] w-auto translate-x-[8%] -translate-y-[6%] text-current"
+      />
     </span>
   );
 }

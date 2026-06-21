@@ -28,7 +28,9 @@ const TONES = [
 ] as const;
 
 const SCALE = 4;
-const MONOGRAM_HEIGHT_RATIO = 0.44; // matches the on-screen Avatar (h-[44%])
+const MONOGRAM_HEIGHT_RATIO = 0.46; // matches the on-screen Avatar (h-[46%])
+const NUDGE_X = 0.08; // optical: shift right (matches translate-x-[8%])
+const NUDGE_Y = -0.06; // optical: shift up (matches -translate-y-[6%])
 
 function downloadAvatar(
   px: number,
@@ -57,8 +59,8 @@ function downloadAvatar(
   const drawW = MONOGRAM_VIEWBOX.width * scale;
   ctx.save();
   ctx.translate(
-    (size - drawW) / 2 - MONOGRAM_VIEWBOX.minX * scale,
-    (size - targetH) / 2 - MONOGRAM_VIEWBOX.minY * scale
+    (size - drawW) / 2 - MONOGRAM_VIEWBOX.minX * scale + drawW * NUDGE_X,
+    (size - targetH) / 2 - MONOGRAM_VIEWBOX.minY * scale + targetH * NUDGE_Y
   );
   ctx.scale(scale, scale);
   ctx.fillStyle = fg;
