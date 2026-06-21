@@ -69,7 +69,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Wordmark } from "@/components/wordmark";
+import { HomeLink } from "@/components/home-link";
 import { SettlementSummary } from "@/components/patterns/settlement-summary";
 import { AuditPackDrawer } from "@/components/patterns/audit-pack-drawer";
 import { ConfirmDestructive } from "@/components/patterns/confirm-destructive";
@@ -188,7 +188,7 @@ export default function DesignSystemPage() {
       {/* Top nav: solid bg-page, border, no blur. One amber rule under it. */}
       <header className="sticky top-0 z-40 bg-page">
         <div className="mx-auto flex h-13 max-w-6xl items-center justify-between px-6">
-          <Wordmark className="h-4 w-auto" />
+          <HomeLink />
           <ThemeToggle />
         </div>
         <div className="h-0.5 bg-accent" />
