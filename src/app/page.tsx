@@ -195,7 +195,7 @@ export default function DesignSystemPage() {
       {/* Top nav: a floating rounded bar. bg-surface + border + shadow so it
           reads as elevated while content and the grid scroll beneath it. */}
       <header className="reveal sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
-        <div className="mx-auto flex h-13 max-w-6xl items-center justify-between rounded-xl border border-border bg-surface px-5 shadow-lg">
+        <div className="glass mx-auto flex h-13 max-w-6xl items-center justify-between rounded-xl border px-5 shadow-lg">
           <HomeLink />
           <ThemeToggle />
         </div>

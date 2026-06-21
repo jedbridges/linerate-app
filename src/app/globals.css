@@ -183,6 +183,12 @@
      should darken the content behind it, never lighten it. */
   --scrim: rgba(16, 16, 16, 0.66);
 
+  /* Frosted glass for floating chrome (header, mobile nav, menus). A
+     translucent Paper fill blurs whatever scrolls behind it; the rim is a
+     faint Onyx hairline. Tuned per theme so the blur reads in both. */
+  --glass: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(16, 16, 16, 0.10);
+
   color-scheme: light;
 }
 
@@ -232,6 +238,11 @@
   /* Scrim stays a dark dim in dark mode too (same as light). */
   --scrim: rgba(16, 16, 16, 0.72);
 
+  /* Frosted glass on dark: a translucent Onyx fill (between page and surface)
+     with a faint Paper rim light along the edge. */
+  --glass: rgba(22, 22, 22, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
   /* Focus ring: Paper at low opacity on dark */
   --ring: rgba(255, 255, 255, 0.18);
 
@@ -277,6 +288,8 @@
   --color-pending-surface: var(--pending-surface);
   --color-pending-foreground: var(--pending-foreground);
   --color-scrim: var(--scrim);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -433,6 +446,27 @@
   }
   .reveal-2 {
     animation: lr-reveal 0.46s cubic-bezier(0.2, 0, 0, 1) 0.12s both;
+  }
+
+  /* Frosted glass for floating chrome: header, the mobile nav disclosure,
+     and floating menus. The translucent fill plus blur lets content drift
+     softly behind the surface. Where backdrop-filter is unsupported it falls
+     back to the opaque surface so text never sits on a see-through panel.
+     Both themes carry their own --glass/--glass-border, so one class works
+     in light and dark alike. */
+  .glass {
+    background-color: var(--surface);
+    border-color: var(--border);
+  }
+  @supports (
+    (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+  ) {
+    .glass {
+      background-color: var(--glass);
+      border-color: var(--glass-border);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      backdrop-filter: blur(16px) saturate(160%);
+    }
   }
 
   /* Indeterminate hairline used by the route loader. */

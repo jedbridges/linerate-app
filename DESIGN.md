@@ -205,6 +205,8 @@ Success `#6B7A5C` (forest, graphite-tinted), Danger `#9C5650` (brick, warm).
 | `--border` / `--border-subtle` | neutral-800 / neutral-900 | Borders, row dividers |
 | `--primary` / `--primary-foreground` | neutral-0 / neutral-950 | Primary CTA fill / text |
 | `--accent` | amber-500 | Brand accent, rare |
+| `--scrim` | rgba(16,16,16,0.72) | Modal overlay dim (dark in both themes) |
+| `--glass` / `--glass-border` | rgba(22,22,22,0.55) / rgba(255,255,255,0.08) | Frosted floating chrome (see `.glass`) |
 | `--ring` | rgba(255,255,255,0.18) | Focus token (see Focus) |
 
 Light (the inverse) flips page and primary: page = Paper, primary = Onyx on Paper. Status surfaces shift to their light counterparts.
@@ -220,6 +222,8 @@ Light (the inverse) flips page and primary: page = Paper, primary = Onyx on Pape
 **Radius** (px): `xs 2 · sm 4 · md 6 · lg 8 · xl 12 · 2xl 16 · full`. Cards `rounded-lg`; buttons/inputs/popovers `rounded-md`; pills `rounded-sm`.
 
 **Shadow** (flat by default; tonal lift first): `md` for floating menus/popovers, `lg` for modals and sheets. Nothing else gets a shadow.
+
+**Glass.** Floating chrome that sits over scrolling content (the top nav, the mobile nav disclosure, dropdowns and popovers) uses the `.glass` utility: a translucent `--glass` fill with `backdrop-blur(16px) saturate(160%)` and a faint `--glass-border` rim. Each theme carries its own glass values, so the one class reads correctly in light and dark. Where `backdrop-filter` is unsupported it falls back to the opaque `--surface` so text is never stranded on a see-through panel. Modal scrims add a soft `backdrop-blur-sm` over the dim. Solid panels (modal/sheet bodies, cards, tooltips) stay opaque for legibility.
 
 **Motion**: `fast 120ms · normal 200ms · slow 320ms`, easing `cubic-bezier(0.2,0,0,1)`. `scroll-behavior: smooth` globally, disabled under `prefers-reduced-motion`.
 
@@ -258,9 +262,9 @@ Body copy and accessibility text always use the legal name **"LineRate"**
 The product ships as a **single design-system surface at `/`** (`src/app/page.tsx`).
 There is no separate marketing site or styleguide route.
 
-- **Top nav.** A floating rounded bar: sticky, `bg-surface` with `border-border`,
-  `rounded-xl`, and `shadow-lg`, inset from the top so content and the grid
-  scroll beneath it. Wordmark left (a HomeLink that reloads), theme toggle right.
+- **Top nav.** A floating rounded bar: sticky, frosted `.glass` with
+  `rounded-xl` and `shadow-lg`, inset from the top so content and the grid
+  blur softly beneath it. Wordmark left (a HomeLink that reloads), theme toggle right.
   No backdrop blur.
 - **Side navigation.** `<SideNav/>` (`src/components/side-nav.tsx`): a sticky
   left rail on `lg+`, grouped Foundations / Primitives / Patterns, with an
@@ -359,7 +363,7 @@ Underline style only. Active trigger gets `border-foreground`; inactive sit in `
 
 ### Overlays (Dialog, Sheet, DropdownMenu, Popover, Tooltip)
 
-Shared floating-surface vocabulary: `bg-raised`, `border-border`, `shadow-md` (`shadow-lg` for full sheets/modals). No backdrop blur. Highlighted dropdown items use `bg-muted`. Tooltip inverts to `bg-inverse` / `text-foreground-inverse`, sized for mono reveals. `<TooltipProvider/>` wraps the root layout.
+Shared floating-surface vocabulary: `shadow-md` (`shadow-lg` for full sheets/modals). DropdownMenu and Popover float on frosted `.glass`; Dialog and Sheet panels stay opaque on `bg-raised` while their scrim adds a soft `backdrop-blur-sm` over the dim. Highlighted dropdown items use `bg-muted`. Tooltip inverts to `bg-inverse` / `text-foreground-inverse`, sized for mono reveals, and stays opaque. `<TooltipProvider/>` wraps the root layout.
 
 ### Resilience (Alert, EmptyState, Skeleton)
 

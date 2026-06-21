@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils";
 /*
  * LineRate Dialog
  *
- * Floats on bg-raised with a 1px border and a subtle shadow. No backdrop
- * blur. State selectors use data-[state=open|closed] (Radix's actual
- * attribute), not nova's broken data-open shorthand.
+ * Floats on bg-raised with a 1px border and a subtle shadow. The scrim
+ * behind it carries a soft backdrop blur so the page recedes. State
+ * selectors use data-[state=open|closed] (Radix's actual attribute), not
+ * nova's broken data-open shorthand.
  */
 
 function Dialog({
@@ -46,7 +47,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-scrim",
+        "fixed inset-0 z-50 bg-scrim backdrop-blur-sm",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0",
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0",
         className

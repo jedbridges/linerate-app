@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 /*
  * LineRate Sheet
  *
- * Slides in from a side. bg-raised with 1px border on the leading edge,
- * subtle shadow, no backdrop blur. Default side is right (matches the
- * Audit pack export drawer pattern in CLAUDE.md).
+ * Slides in from a side. bg-raised with 1px border on the leading edge and
+ * a subtle shadow; the scrim behind it carries a soft backdrop blur. Default
+ * side is right (matches the Audit pack export drawer pattern in CLAUDE.md).
  */
 
 function Sheet({
@@ -46,7 +46,7 @@ function SheetOverlay({
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-scrim",
+        "fixed inset-0 z-50 bg-scrim backdrop-blur-sm",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0",
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0",
         className
