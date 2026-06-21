@@ -68,9 +68,9 @@ function downloadWordmarkPng() {
 // Social avatar: 400x400 square filled with the tone (platforms crop to a
 // circle), monogram centered with the same optical nudge as the on-screen mark.
 const AVATAR_PX = 400;
-const RATIO = 0.44;
-const NUDGE_X = 0.08;
-const NUDGE_Y = -0.06;
+const RATIO = 0.38; // matches the on-screen Avatar (h-[38%])
+const NUDGE_X = 0.05;
+const NUDGE_Y = -0.04;
 
 function downloadAvatar(bg: string, fg: string, toneKey: string) {
   const canvas = document.createElement("canvas");

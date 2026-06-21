@@ -51,7 +51,7 @@ export function Avatar({
        */}
       <Monogram
         aria-hidden
-        className="h-[46%] w-auto translate-x-[8%] -translate-y-[6%] text-current"
+        className="h-[38%] w-auto translate-x-[5%] -translate-y-[4%] text-current"
       />
     </span>
   );
