@@ -364,7 +364,9 @@
     box-shadow:
       0 0 0 2px var(--page),
       0 0 0 4px var(--foreground);
-    border-radius: var(--radius-sm);
+    /* No border-radius override: the box-shadow ring follows each element's
+       own radius (rounded-md inputs, rounded-lg cards), so it never looks
+       cropped against the element corners. */
   }
 
   /* Selection on dark uses Paper at low opacity; on light, Onyx tint. */

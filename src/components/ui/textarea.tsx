@@ -16,7 +16,7 @@ function Textarea({
     <textarea
       data-slot="textarea"
       className={cn(
-        "min-h-24 w-full rounded-md border border-border bg-transparent px-3 py-2 text-sm text-foreground transition-colors outline-none",
+        "min-h-24 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors outline-none",
         "placeholder:text-foreground-subtle",
         "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
         "aria-invalid:border-danger-foreground",

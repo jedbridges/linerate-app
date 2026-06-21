@@ -197,10 +197,7 @@ export default function DesignSystemPage() {
       <div className="reveal-1 mx-auto grid max-w-6xl grid-cols-1 px-6 pb-16 lg:grid-cols-4">
         <SideNav groups={NAV} />
 
-        <main
-          id="main"
-          className="reveal-2 min-w-0 overflow-x-clip lg:col-span-3"
-        >
+        <main id="main" className="reveal-2 min-w-0 lg:col-span-3">
           {/* Masthead */}
           <div className="py-12">
             <p className="eyebrow mb-3">Design system</p>
