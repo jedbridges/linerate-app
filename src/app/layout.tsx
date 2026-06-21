@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 
 import { GridLines } from "@/components/grid-lines";
+import { ConsoleStamp } from "@/components/console-stamp";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { withBase } from "@/lib/utils";
 import "./globals.css";
@@ -105,6 +106,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <GridLines />
+        <ConsoleStamp />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

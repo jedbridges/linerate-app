@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Check } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,25 @@ type AuditPackDrawerProps = {
 };
 
 export function AuditPackDrawer({ trigger, summary }: AuditPackDrawerProps) {
+  const [copied, setCopied] = React.useState(false);
+
+  const copyHash = async () => {
+    try {
+      await navigator.clipboard.writeText(summary.hash);
+      setCopied(true);
+    } catch {
+      // Clipboard can be blocked (permissions, insecure context); fail quiet.
+    }
+  };
+
+  // Revert the confirmation after a beat. Quiet, no animation: the label just
+  // states the fact, in keeping with the audit-grade voice.
+  React.useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 1600);
+    return () => clearTimeout(t);
+  }, [copied]);
+
   return (
     <Sheet>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
@@ -96,7 +116,16 @@ export function AuditPackDrawer({ trigger, summary }: AuditPackDrawerProps) {
           </div>
         </SheetBody>
         <SheetFooter>
-          <Button variant="ghost">Copy hash</Button>
+          <Button variant="ghost" onClick={copyHash} aria-live="polite">
+            {copied ? (
+              <>
+                <Check />
+                Copied
+              </>
+            ) : (
+              "Copy hash"
+            )}
+          </Button>
           <Button>Download audit pack</Button>
         </SheetFooter>
       </SheetContent>
