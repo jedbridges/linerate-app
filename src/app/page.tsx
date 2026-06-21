@@ -257,11 +257,13 @@ export default function DesignSystemPage() {
               </span>
               <div>
                 <p className="text-sm font-medium text-foreground">
-                  Hand it to a developer or an AI tool
+                  Give it to your AI tool or developer
                 </p>
                 <p className="mt-1 max-w-[60ch] text-sm text-foreground-muted">
-                  Open Claude, Cursor, or your editor of choice and add
-                  DESIGN.md as context. It is written to be pasted in whole.
+                  Using AI? Start a new chat in Claude or Cursor and paste the
+                  whole file in as your first message, it is written to be
+                  pasted in one piece. Working with a developer? Drop DESIGN.md
+                  into the repo.
                 </p>
               </div>
             </li>
@@ -271,13 +273,21 @@ export default function DesignSystemPage() {
               </span>
               <div>
                 <p className="text-sm font-medium text-foreground">
-                  Ask for a screen in the LineRate system
+                  Ask for the screen you need
                 </p>
                 <p className="mt-1 max-w-[60ch] text-sm text-foreground-muted">
-                  Describe what you need (&ldquo;a settlement dashboard&rdquo;,
-                  &ldquo;a counterparty detail page&rdquo;). The tokens,
-                  primitives, and patterns in the file keep every result on
-                  brand. Pull logos from Brand assets below.
+                  Describe it in plain language. The tokens, primitives, and
+                  patterns in the file keep every result on brand. Copy this to
+                  start:
+                </p>
+                <p className="mt-3 max-w-[60ch] rounded-md border border-border bg-page p-4 font-mono text-xs leading-relaxed text-foreground-muted">
+                  Using the LineRate design system in the attached DESIGN.md,
+                  build a settlement dashboard: a summary card with the cycle
+                  total, a counterparty table with amounts and status pills, and
+                  a cycle indicator in the header.
+                </p>
+                <p className="mt-3 max-w-[60ch] text-sm text-foreground-muted">
+                  Pull logos and avatars from Brand assets below.
                 </p>
               </div>
             </li>
