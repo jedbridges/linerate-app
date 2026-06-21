@@ -114,8 +114,8 @@ export default async function Image() {
           style={{
             marginTop: 44,
             color: CHALK,
-            fontSize: 34,
-            maxWidth: 880,
+            fontSize: 30,
+            whiteSpace: "nowrap",
             lineHeight: 1.35,
           }}
         >
