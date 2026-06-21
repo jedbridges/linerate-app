@@ -90,7 +90,7 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
                     className={cn(
                       "-ml-px block border-l py-1.5 pl-4 text-sm transition-colors",
                       isActive
-                        ? "border-foreground font-medium text-foreground"
+                        ? "border-accent font-medium text-foreground"
                         : "border-transparent text-foreground-muted hover:border-border-strong hover:text-foreground"
                     )}
                   >
