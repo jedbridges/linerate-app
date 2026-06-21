@@ -265,7 +265,6 @@ There is no separate marketing site or styleguide route.
 - **Top nav.** A floating rounded bar: sticky, frosted `.glass` with
   `rounded-xl` and `shadow-lg`, inset from the top so content and the grid
   blur softly beneath it. Wordmark left (a HomeLink that reloads), theme toggle right.
-  No backdrop blur.
 - **Side navigation.** `<SideNav/>` (`src/components/side-nav.tsx`): a sticky
   left rail on `lg+`, grouped Foundations / Primitives / Patterns, with an
   IntersectionObserver scrollspy that highlights the active section and
@@ -326,24 +325,32 @@ The LineRate pill (mono, uppercase, wide tracking, small radius, 1px inset edge 
 
 ### Avatar
 
-Brand avatar: the LineRate monogram (the wordmark's geometric L glyph, cropped
-to its own near-square bounds via `Monogram`) centered in a circle, in three
-sizes (`sm` 32, `md` 40, `lg` 56) and two brand tones: `onyx` (black fill, Paper
-monogram) and `amber` (amber fill, Onyx monogram). A near-square mark reads
-cleanly at every size. The L's foot is extended so it bleeds off the right edge
-of the circle (clipped by `overflow-hidden`) for an editorial crop. The mark
-inherits the tone via `currentColor`. Tones use the literal
-brand colors (not theme-flipping tokens) so the mark is identical on screen and
-when exported.
+Brand avatar: the wordmark's geometric L glyph (`AVATAR_MARK_PATH`) in a circle,
+in three sizes (`sm` 32, `md` 40, `lg` 56) and two brand tones: `onyx` (black
+fill, Paper mark) and `amber` (amber fill, Onyx mark). The mark is framed by
+`AVATAR_MARK_VIEWBOX` so the L sits at ~43% of the circle height, stem left of
+center, with its foot extended off the right edge (clipped by `overflow-hidden`)
+for an editorial crop. Both `Avatar` and the 400x400 export read the same
+viewBox constant, so on-screen and exported marks stay identical. The mark
+inherits the tone via `currentColor`; tones use the literal brand colors (not
+theme-flipping tokens) so it looks the same in either theme and when exported.
 
 ### Brand assets (downloads)
 
 `brand-assets.tsx` is the downloadable-mark surface:
 - **Wordmark SVG** — standalone vector (Onyx fill), recolor as needed.
 - **Wordmark PNG** — white mark on an Onyx field with cap-height clear space (1472x408), for dark contexts.
-- **Avatar PNG** — the monogram at the common 400x400 social size, in both tones. Full-bleed tone square (platforms crop to a circle) with the monogram optically centered, matching the on-screen Avatar.
+- **Avatar PNG** — the L mark at the common 400x400 social size, in both tones. Full-bleed tone square (platforms crop to a circle) with the mark framed exactly as the on-screen Avatar.
 
-All assets draw from the shared `WORDMARK_PATHS` / `MONOGRAM_PATH`, so they stay exact and retheme with the source.
+All assets draw from the shared `WORDMARK_PATHS` / `AVATAR_MARK_PATH`, so they stay exact and retheme with the source.
+
+**Social share image.** The link-unfurl card ships as a committed `public/og.png`
+(1200x630): Onyx field, the hairline grid, the wordmark, a mono "DESIGN SYSTEM"
+eyebrow, one amber accent, and the hero line. It's wired through `openGraph` /
+`twitter` metadata in `layout.tsx` with `metadataBase`, referenced by an
+absolute origin+basePath URL so crawlers resolve it on the Pages sub-path. The
+generator source lives in `scripts/og-image.tsx` (next/og + Satori, vendored
+JetBrains Mono TTFs) with regeneration steps in its header.
 
 ### Separator
 
@@ -395,9 +402,11 @@ For irreversible action at meaningful stakes. Composes Dialog + Input; the opera
 ### PreFlight
 The forward-looking surface operators watch in the seconds before a window opens, where the brand's gravitas pays off. Top to bottom: eyebrow + cycle title + countdown pill; large mono countdown ("opens in") paired with total queued; a three-up ready / awaiting / at-risk strip; an at-risk Alert (only when something is at risk); the counterparty list with status pills; and a footer decision row, "Hold cycle" (gated through ConfirmDestructive) vs "Open on time." Voice: tense but calm.
 
-### Patterns still to build
-- **Counterparty row.** Name in sans, tx ID in small mono below, amount and status in mono right-aligned.
-- **Cycle indicator.** Mono pill, `T+0 · 14:32 UTC · cycle 4271`. Lives in headers and emails.
+### CounterpartyRow / CounterpartyList
+`counterparty-row.tsx`. Name in sans, tx ID in small mono below, amount and status (pill) in mono right-aligned. `CounterpartyList` stacks rows with `border-subtle` dividers.
+
+### CycleIndicator
+`cycle-indicator.tsx`. A mono pill carrying cycle metadata, `T+0 · 14:32 UTC · cycle 4271`. Read-only signal for headers, table captions, and emails.
 
 ---
 
