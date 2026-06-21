@@ -70,8 +70,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { HomeLink } from "@/components/home-link";
+import { SiteHeader } from "@/components/site-header";
 import { SettlementSummary } from "@/components/patterns/settlement-summary";
 import { AuditPackDrawer } from "@/components/patterns/audit-pack-drawer";
 import { ConfirmDestructive } from "@/components/patterns/confirm-destructive";
@@ -192,14 +191,9 @@ const NAV: NavGroup[] = [
 export default function DesignSystemPage() {
   return (
     <>
-      {/* Top nav: a floating rounded bar. bg-surface + border + shadow so it
-          reads as elevated while content and the grid scroll beneath it. */}
-      <header className="reveal sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
-        <div className="glass mx-auto flex h-13 max-w-6xl items-center justify-between rounded-xl border px-5 shadow-lg">
-          <HomeLink />
-          <ThemeToggle />
-        </div>
-      </header>
+      {/* Floating frosted top bar. On mobile the section nav folds into it as a
+          Contents disclosure; on lg+ the nav lives in the left rail. */}
+      <SiteHeader groups={NAV} />
 
       {/* Layout mirrors the GridLines backdrop: same max-w-6xl, px-6, 4 equal
           columns. Nav takes column 1, main spans columns 2-4, so content edges

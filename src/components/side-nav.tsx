@@ -1,24 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
 
 import { cn, slugify } from "@/lib/utils";
 
 /*
- * SideNav
+ * Section navigation for the design system. Grouped (Foundations, Primitives,
+ * Patterns) with one link per section. Active section is tracked with an
+ * IntersectionObserver (scrollspy); clicking smooth-scrolls to the anchor.
  *
- * Section navigation for the design system. Grouped (Foundations,
- * Primitives, Patterns) with one link per section. Active section is tracked
- * with an IntersectionObserver (scrollspy) and clicking smooth-scrolls to
- * the anchor.
+ * The pieces are shared so the desktop rail (SideNav, here) and the mobile
+ * Contents disclosure (folded into SiteHeader) render the same list and behave
+ * identically: useScrollSpy, scrollToSection, and NavList.
  *
- * Responsive:
- *   - lg and up: a sticky left rail, always visible.
- *   - below lg: a sticky "Contents" disclosure that expands the same list.
- *
- * Link ids are derived from labels via slugify, matching the ids the page
- * puts on each <section>.
+ * Link ids are derived from labels via slugify, matching the ids the page puts
+ * on each <section>.
  */
 
 export type NavGroup = {
@@ -26,13 +22,9 @@ export type NavGroup = {
   items: string[];
 };
 
-export function SideNav({ groups }: { groups: NavGroup[] }) {
-  const ids = React.useMemo(
-    () => groups.flatMap((g) => g.items.map(slugify)),
-    [groups]
-  );
+/* Scrollspy: returns the id of the section currently in the reading zone. */
+export function useScrollSpy(ids: string[]) {
   const [active, setActive] = React.useState<string>(ids[0] ?? "");
-  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,28 +43,30 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
     return () => observer.disconnect();
   }, [ids]);
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    id: string
-  ) => {
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (!el) return;
-    // Honor reduced-motion: scrollIntoView's smooth behavior ignores the CSS
-    // media query, so gate it explicitly.
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    el.scrollIntoView({
-      behavior: reduce ? "auto" : "smooth",
-      block: "start",
-    });
-    history.replaceState(null, "", `#${id}`);
-    setActive(id);
-    setOpen(false);
-  };
+  return [active, setActive] as const;
+}
 
-  const list = (
+/* Scroll to a section, honoring reduced-motion (scrollIntoView's smooth
+   behavior ignores the CSS media query, so gate it explicitly). */
+export function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return false;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  history.replaceState(null, "", `#${id}`);
+  return true;
+}
+
+export function NavList({
+  groups,
+  active,
+  onNavigate,
+}: {
+  groups: NavGroup[];
+  active: string;
+  onNavigate: (id: string) => void;
+}) {
+  return (
     <nav className="flex flex-col gap-6">
       {groups.map((g) => (
         <div key={g.group}>
@@ -85,7 +79,10 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
                 <li key={id}>
                   <a
                     href={`#${id}`}
-                    onClick={(e) => handleClick(e, id)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigate(id);
+                    }}
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
                       "-ml-px block border-l py-1.5 pl-4 text-sm transition-colors",
@@ -104,36 +101,27 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
       ))}
     </nav>
   );
+}
+
+/* Desktop: a sticky left rail, always visible at lg+. Below lg the same list
+   lives in the header's Contents disclosure (see SiteHeader). */
+export function SideNav({ groups }: { groups: NavGroup[] }) {
+  const ids = React.useMemo(
+    () => groups.flatMap((g) => g.items.map(slugify)),
+    [groups]
+  );
+  const [active, setActive] = useScrollSpy(ids);
+  const onNavigate = (id: string) => {
+    if (scrollToSection(id)) setActive(id);
+  };
 
   return (
-    <>
-      {/* Desktop: sticky left rail */}
-      <aside className="hidden w-56 shrink-0 lg:block">
-        {/* px-2/-mx-2 gives the outset focus ring room so overflow-y-auto
-            doesn't clip it on the rail edges. */}
-        <div className="sticky top-8 -mx-2 max-h-[calc(100vh-4rem)] overflow-y-auto px-2 py-1">
-          {list}
-        </div>
-      </aside>
-
-      {/* Mobile: sticky disclosure */}
-      <div className="glass sticky top-[4.75rem] z-30 -mx-6 mb-6 border-b px-6 py-3 lg:hidden">
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-expanded={open}
-          className="flex w-full cursor-pointer items-center justify-between text-sm font-medium text-foreground"
-        >
-          <span className="eyebrow">Contents</span>
-          <ChevronDown
-            className={cn(
-              "size-4 text-foreground-subtle transition-transform duration-200",
-              open && "rotate-180"
-            )}
-          />
-        </button>
-        {open && <div className="mt-5 pb-2">{list}</div>}
+    <aside className="hidden w-56 shrink-0 lg:block">
+      {/* px-2/-mx-2 gives the outset focus ring room so overflow-y-auto
+          doesn't clip it on the rail edges. */}
+      <div className="sticky top-8 -mx-2 max-h-[calc(100vh-4rem)] overflow-y-auto px-2 py-1">
+        <NavList groups={groups} active={active} onNavigate={onNavigate} />
       </div>
-    </>
+    </aside>
   );
 }
