@@ -40,7 +40,11 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
   };
 
   return (
-    <header className="reveal sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
+    // No `reveal` entrance here on purpose: a transform animation on this
+    // element keeps a backdrop root alive (even at its resting value), which
+    // disables the inner .glass backdrop-filter. The sticky chrome simply
+    // appears on load while the content below animates in.
+    <header className="sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
       {/* relative anchor for the absolute dropdown; the bar alone sets the
           header height, so opening the menu never reflows the page. */}
       <div className="relative mx-auto max-w-6xl">
