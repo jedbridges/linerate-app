@@ -54,14 +54,19 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
               aria-expanded={open}
               aria-controls="mobile-contents"
               aria-label="Contents"
-              className="flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-2 transition-colors hover:bg-muted lg:hidden"
+              className={cn(
+                // Reads as a real button (outline + button-label type), not the
+                // passive eyebrow it used to borrow. Open state stays lit.
+                "flex h-9 cursor-pointer items-center gap-1.5 rounded-md border border-border px-3 text-xs font-medium uppercase tracking-wide text-foreground-muted transition-[color,background-color,border-color,transform] duration-150 hover:bg-muted hover:text-foreground active:scale-[0.98] lg:hidden",
+                open && "bg-muted text-foreground"
+              )}
             >
               {/* Drop the word on the narrowest phones so the wordmark + toggle
                   never get clipped by the bar; the rotating chevron carries it. */}
-              <span className="eyebrow hidden min-[360px]:inline">Contents</span>
+              <span className="hidden min-[360px]:inline">Contents</span>
               <ChevronDown
                 className={cn(
-                  "size-4 text-foreground-subtle transition-transform duration-200",
+                  "size-4 transition-transform duration-200",
                   open && "rotate-180"
                 )}
               />
