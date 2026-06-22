@@ -290,15 +290,22 @@ Body copy and accessibility text always use the legal name **"LineRate"**
 The product ships as a **single design-system surface at `/`** (`src/app/page.tsx`).
 There is no separate marketing site or styleguide route.
 
-- **Top nav.** A floating rounded bar: sticky, frosted `.glass` with
-  `rounded-xl` and `shadow-lg`, inset from the top so content and the grid
-  blur softly beneath it. Wordmark left (a HomeLink that reloads), theme toggle right.
-- **Side navigation.** `<SideNav/>` (`src/components/side-nav.tsx`): a sticky
-  left rail on `lg+`, grouped Foundations / Primitives / Patterns, with an
-  IntersectionObserver scrollspy that highlights the active section and
-  smooth-scrolls on click. Below `lg` it collapses to a sticky "Contents"
-  disclosure with the same list. Section ids and nav anchors are kept in sync by
-  the shared `slugify()` in `lib/utils`.
+- **Top nav.** `<SiteHeader/>` (`src/components/site-header.tsx`): a floating
+  rounded bar, sticky, frosted `.glass` with `rounded-xl` and `shadow-lg`,
+  inset from the top so content and the grid blur softly beneath it. Wordmark
+  left (a HomeLink that reloads), theme toggle right. Below `lg` it also carries
+  a "Contents" button (outlined, button-styled) that opens the section list as
+  an **absolute dropdown overlay**, never an inline panel, so opening it doesn't
+  reflow the page and nav taps land on the right section.
+- **Side navigation.** `<SideNav/>` (`src/components/side-nav.tsx`): the sticky
+  left rail on `lg+` only, grouped Foundations / Primitives / Patterns. Below
+  `lg` the same list lives in the header's Contents dropdown. Both share the
+  nav internals exported from `side-nav.tsx`: `useScrollSpy` (IntersectionObserver
+  highlighting the active section), `scrollToSection` (reduced-motion-aware
+  smooth scroll), and `NavList` (the rendered list). Section ids and anchors are
+  kept in sync by the shared `slugify()` in `lib/utils`; sections carry
+  `scroll-mt` so a tap lands the heading just under the sticky header, not behind
+  it. The active item's indicator is amber (`border-accent`).
 - **Theme toggle.** `<ThemeToggle/>`: an icon button (Sun/Moon) that crossfades
   and rotates on switch. Reads state via `useSyncExternalStore` (no
   setState-in-effect, no hydration flash); toggles `.dark` off live DOM state.
