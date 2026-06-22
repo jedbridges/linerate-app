@@ -453,6 +453,9 @@ The forward-looking surface operators watch in the seconds before a window opens
 ### CycleIndicator
 `cycle-indicator.tsx`. A mono pill carrying cycle metadata, `T+0 · 14:32 UTC · cycle 4271`. Read-only signal for headers, table captions, and emails.
 
+### DashboardShell (demo)
+`dashboard-shell.tsx`, surfaced in the **Demos > Shell** section. A full settlement-operations dashboard that composes the system as a product would use it: AppTopNav + AppSidebar frame a page header (breadcrumb, title, CycleIndicator, primary `Export audit pack`), an at-risk `Alert`, a KPI tile row, the two charts, and the active-cycle `Table` with `Pagination`. The reference for "what a real screen looks like" in LineRate. The KPI tile is a small recipe (no separate component): `bg-surface` card, mono `.eyebrow` label, a `.ledger` figure (`text-2xl`), and a mono delta tinted `text-success-foreground` / `text-danger-foreground` / `text-foreground-subtle`.
+
 ---
 
 ## How to retheme

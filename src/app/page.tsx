@@ -86,6 +86,7 @@ import { AppTopNav } from "@/components/patterns/app-top-nav";
 import { AppSidebar } from "@/components/patterns/app-sidebar";
 import { SubNav } from "@/components/patterns/sub-nav";
 import { PaginationDemo } from "@/components/patterns/pagination-demo";
+import { DashboardShell } from "@/components/patterns/dashboard-shell";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -173,6 +174,10 @@ const amberScale = [
 
 const NAV: NavGroup[] = [
   {
+    group: "Demos",
+    items: ["Shell"],
+  },
+  {
     group: "Foundations",
     items: [
       "Get started",
@@ -245,6 +250,15 @@ export default function DesignSystemPage() {
           automatically.
         </p>
           </div>
+
+      {/* Demos: a full product dashboard composed from the system */}
+      <Section
+        eyebrow="Demos"
+        title="Shell"
+        description="A settlement-operations dashboard that brings the system together as a product would use it: app top nav and sidebar, a page header with the cycle indicator and primary action, an at-risk alert, KPI tiles, the charts, and the active-cycle counterparty table with pagination. Every piece is a component from below."
+      >
+        <DashboardShell />
+      </Section>
 
       {/* Get started: client-facing instructions + spec download */}
       <Section
