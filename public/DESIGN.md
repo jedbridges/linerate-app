@@ -396,6 +396,16 @@ Header cells in the eyebrow style. Pass `numeric` on `TableHead`/`TableCell` for
 
 Underline style only. Active trigger gets `border-foreground`; inactive sit in `foreground-muted` and brighten on hover.
 
+### Navigation (product shell)
+
+The application's navigation suite (distinct from this doc site's own chrome).
+
+- **AppTopNav** (`patterns/app-top-nav.tsx`). Main bar: wordmark, primary destinations, a search affordance with a `⌘K` hint, and an account chip. Active link gets a foreground underline, deliberately not amber, so it never competes with the sidebar's active marker.
+- **AppSidebar** (`patterns/app-sidebar.tsx`). Persistent left rail: groups (mono `.eyebrow` labels) of icon + label rows with optional mono counts. The active row lifts onto `bg-muted` with an amber left indicator (the one shell spot amber marks "you are here"); `danger` tone counts use `text-danger-foreground`.
+- **SubNav** (`patterns/sub-nav.tsx`). Secondary nav within a section: underline links sharing the Tabs vocabulary (active `border-foreground`), with optional mono counts.
+- **Breadcrumb** (`ui/breadcrumb.tsx`). Hierarchical trail; links in `foreground-muted`, current page in `foreground`, hairline chevron separators. Compose `Breadcrumb` / `BreadcrumbList` / `BreadcrumbItem` / `BreadcrumbLink` / `BreadcrumbPage` / `BreadcrumbSeparator`.
+- **Pagination** (`ui/pagination.tsx`). For long ledger tables: a mono "1-25 of 412" range readout plus prev/next and page numbers (mono, tabular). Current page fills with `bg-primary`; ends disable at the boundaries. Takes `page` / `pageSize` / `total` / `onPageChange`.
+
 ### Overlays (Dialog, Sheet, DropdownMenu, Popover, Tooltip)
 
 Shared floating-surface vocabulary: `shadow-md` (`shadow-lg` for full sheets/modals). DropdownMenu and Popover float on frosted `.glass`; Dialog and Sheet panels stay opaque on `bg-raised` while their scrim adds a soft `backdrop-blur-sm` over the dim. Highlighted dropdown items use `bg-muted`. Tooltip inverts to `bg-inverse` / `text-foreground-inverse`, sized for mono reveals, and stays opaque. `<TooltipProvider/>` wraps the root layout.

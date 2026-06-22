@@ -82,6 +82,26 @@ import {
   ClearedRateChart,
 } from "@/components/patterns/settlement-charts";
 import { BrandAssets } from "@/components/patterns/brand-assets";
+import { AppTopNav } from "@/components/patterns/app-top-nav";
+import { AppSidebar } from "@/components/patterns/app-sidebar";
+import { SubNav } from "@/components/patterns/sub-nav";
+import { PaginationDemo } from "@/components/patterns/pagination-demo";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {
+  LayoutDashboard,
+  RefreshCw,
+  Users,
+  Receipt,
+  FileText,
+  Settings,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "LineRate design system",
@@ -173,6 +193,7 @@ const NAV: NavGroup[] = [
       "Card",
       "Table",
       "Tabs",
+      "Navigation",
       "Overlays",
       "Resilience",
       "Charts",
@@ -730,6 +751,126 @@ export default function DesignSystemPage() {
             </p>
           </TabsContent>
         </Tabs>
+      </Section>
+
+      {/* Navigation */}
+      <Section
+        eyebrow="Primitives"
+        title="Navigation"
+        description="The product shell: a main top nav, a persistent sidebar, secondary sub-nav, breadcrumbs, and table pagination. Active states use a foreground underline up top so amber stays reserved for the sidebar's you-are-here marker."
+      >
+        <div className="space-y-10">
+          {/* Main top nav */}
+          <div>
+            <h3 className="mb-4 text-lg font-medium text-foreground">
+              Main navigation
+            </h3>
+            <div className="overflow-hidden rounded-lg border border-border">
+              <AppTopNav
+                items={[
+                  { label: "Dashboard" },
+                  { label: "Settlements", active: true },
+                  { label: "Counterparties" },
+                  { label: "Reports" },
+                ]}
+              />
+              <div className="bg-page px-5 py-8 text-sm text-foreground-subtle">
+                Page content
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div>
+            <h3 className="mb-4 text-lg font-medium text-foreground">Sidebar</h3>
+            <div className="overflow-hidden rounded-lg border border-border">
+              <div className="flex h-80">
+                <AppSidebar
+                  groups={[
+                    {
+                      label: "Operations",
+                      items: [
+                        {
+                          label: "Overview",
+                          icon: LayoutDashboard,
+                          active: true,
+                        },
+                        { label: "Cycles", icon: RefreshCw },
+                        { label: "Counterparties", icon: Users, count: 38 },
+                      ],
+                    },
+                    {
+                      label: "Ledger",
+                      items: [
+                        { label: "Transactions", icon: Receipt },
+                        { label: "Reports", icon: FileText },
+                      ],
+                    },
+                    {
+                      label: "Account",
+                      items: [{ label: "Settings", icon: Settings }],
+                    },
+                  ]}
+                />
+                <div className="hidden flex-1 flex-col gap-3 bg-page p-6 sm:flex">
+                  <div className="h-5 w-40 rounded bg-muted" />
+                  <div className="h-3 w-full rounded bg-muted/60" />
+                  <div className="h-3 w-5/6 rounded bg-muted/60" />
+                  <div className="h-3 w-2/3 rounded bg-muted/60" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Breadcrumbs + sub-nav */}
+          <div>
+            <h3 className="mb-4 text-lg font-medium text-foreground">
+              Breadcrumbs &amp; sub-navigation
+            </h3>
+            <div className="rounded-lg border border-border bg-surface p-6">
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="#navigation">
+                      Settlements
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="#navigation">
+                      Cycle <span className="font-mono">4271</span>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Counterparties</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+              <h4 className="mt-4 mb-5 text-xl font-medium text-foreground">
+                Cycle 4271
+              </h4>
+              <SubNav
+                items={[
+                  { label: "Summary" },
+                  { label: "Counterparties", count: 38 },
+                  { label: "Exceptions", count: 2 },
+                  { label: "Audit" },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Pagination */}
+          <div>
+            <h3 className="mb-4 text-lg font-medium text-foreground">
+              Pagination
+            </h3>
+            <div className="rounded-lg border border-border bg-surface p-6">
+              <PaginationDemo />
+            </div>
+          </div>
+        </div>
       </Section>
 
       {/* Overlays */}
