@@ -17,10 +17,14 @@ import {
  * SiteHeader
  *
  * The floating, frosted top bar. On lg+ it's just the wordmark and theme
- * toggle (the section nav lives in the left rail). Below lg the section nav is
- * folded into this same glass element as a "Contents" disclosure: tapping it
- * expands the list inside the pill, so there's one cohesive floating header
- * instead of two stacked strips.
+ * toggle (the section nav lives in the left rail). Below lg a "Contents"
+ * disclosure drops the section list from the bar.
+ *
+ * The dropdown is absolutely positioned (an overlay), NOT in the header's
+ * normal flow. That is deliberate: if it grew the sticky header inline, every
+ * section below would shift down while it was open, and a nav tap would scroll
+ * to the shifted position, then overshoot by the menu height once it closed.
+ * As an overlay it never changes layout, so taps land on the right section.
  */
 export function SiteHeader({ groups }: { groups: NavGroup[] }) {
   const ids = React.useMemo(
@@ -37,9 +41,10 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
 
   return (
     <header className="reveal sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
-      {/* overflow-hidden keeps the expanded list clipped to the rounded pill. */}
-      <div className="glass mx-auto max-w-6xl overflow-hidden rounded-xl border shadow-lg">
-        <div className="flex h-13 items-center justify-between px-5">
+      {/* relative anchor for the absolute dropdown; the bar alone sets the
+          header height, so opening the menu never reflows the page. */}
+      <div className="relative mx-auto max-w-6xl">
+        <div className="glass flex h-13 items-center justify-between rounded-xl border px-5 shadow-lg">
           <HomeLink />
           <div className="flex items-center gap-1">
             {/* Contents disclosure: mobile only; the rail replaces it at lg+. */}
@@ -65,25 +70,23 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
           </div>
         </div>
 
-        {/* Animate to auto-height via the grid 0fr->1fr trick (the only smooth
-            way to transition an unknown height). The inner overflow-hidden
-            wrapper is what collapses; the panel fades in tandem. Snappy
-            ease-out; reduced-motion is neutralized by the global kill-switch.
-            inert when closed so the hidden links stay out of the tab order. */}
+        {/* Dropdown overlay. Absolute so it never grows the header. Smooth
+            grid 0fr->1fr height with an opacity fade; snappy ease-out;
+            reduced-motion is neutralized by the global kill-switch. inert and
+            pointer-events-none when closed so its links stay out of reach. */}
         <div
           className={cn(
-            "grid transition-[grid-template-rows] duration-200 ease-[cubic-bezier(0.2,0,0,1)] lg:hidden",
-            open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            "absolute inset-x-0 top-full z-10 mt-2 grid overflow-hidden rounded-xl border shadow-lg glass transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.2,0,0,1)] lg:hidden",
+            open
+              ? "grid-rows-[1fr] opacity-100"
+              : "pointer-events-none grid-rows-[0fr] opacity-0"
           )}
         >
           <div className="overflow-hidden">
             <div
               id="mobile-contents"
               inert={!open}
-              className={cn(
-                "max-h-[70vh] overflow-y-auto border-t border-border-subtle px-5 pt-5 pb-6 transition-opacity duration-200 ease-out",
-                open ? "opacity-100" : "opacity-0"
-              )}
+              className="max-h-[70vh] overflow-y-auto p-5"
             >
               <NavList
                 groups={groups}
