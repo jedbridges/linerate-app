@@ -847,9 +847,11 @@ export default function DesignSystemPage() {
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
-              <h4 className="mt-4 mb-5 text-xl font-medium text-foreground">
+              {/* Faux page title for the demo: a styled div, not a heading, so
+                  it doesn't land in the document outline below the h3 above. */}
+              <div className="mt-4 mb-5 text-xl font-medium text-foreground">
                 Cycle 4271
-              </h4>
+              </div>
               <SubNav
                 items={[
                   { label: "Summary" },
