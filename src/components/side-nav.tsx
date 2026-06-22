@@ -3,6 +3,11 @@
 import * as React from "react";
 
 import { cn, slugify } from "@/lib/utils";
+import { scrollToSection } from "@/lib/scroll";
+import { useView, navigateToNav } from "@/components/view-store";
+
+// Re-exported so existing importers (SiteHeader) keep their single source.
+export { scrollToSection };
 
 /*
  * Section navigation for the design system. Grouped (Foundations, Primitives,
@@ -22,8 +27,11 @@ export type NavGroup = {
   items: string[];
 };
 
-/* Scrollspy: returns the id of the section currently in the reading zone. */
-export function useScrollSpy(ids: string[]) {
+/* Scrollspy: returns the id of the section currently in the reading zone.
+   `rerun` re-attaches the observer when its value changes, needed when the
+   observed sections unmount and remount (e.g. leaving and re-entering the
+   system view), since the observer would otherwise hold detached nodes. */
+export function useScrollSpy(ids: string[], rerun?: unknown) {
   const [active, setActive] = React.useState<string>(ids[0] ?? "");
 
   React.useEffect(() => {
@@ -41,20 +49,9 @@ export function useScrollSpy(ids: string[]) {
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, [ids]);
+  }, [ids, rerun]);
 
   return [active, setActive] as const;
-}
-
-/* Scroll to a section, honoring reduced-motion (scrollIntoView's smooth
-   behavior ignores the CSS media query, so gate it explicitly). */
-export function scrollToSection(id: string) {
-  const el = document.getElementById(id);
-  if (!el) return false;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-  history.replaceState(null, "", `#${id}`);
-  return true;
 }
 
 export function NavList({
@@ -110,9 +107,13 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
     () => groups.flatMap((g) => g.items.map(slugify)),
     [groups]
   );
-  const [active, setActive] = useScrollSpy(ids);
+  const view = useView();
+  const [active, setActive] = useScrollSpy(ids, view);
+  // In the shell view the "shell" item is active; otherwise the scrollspy id.
+  const activeId = view === "shell" ? "shell" : active;
   const onNavigate = (id: string) => {
-    if (scrollToSection(id)) setActive(id);
+    navigateToNav(id);
+    if (id !== "shell") setActive(id);
   };
 
   return (
@@ -120,7 +121,7 @@ export function SideNav({ groups }: { groups: NavGroup[] }) {
       {/* px-2/-mx-2 gives the outset focus ring room so overflow-y-auto
           doesn't clip it on the rail edges. */}
       <div className="sticky top-8 -mx-2 max-h-[calc(100vh-4rem)] overflow-y-auto px-2 py-1">
-        <NavList groups={groups} active={active} onNavigate={onNavigate} />
+        <NavList groups={groups} active={activeId} onNavigate={onNavigate} />
       </div>
     </aside>
   );

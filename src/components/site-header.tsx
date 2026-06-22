@@ -6,12 +6,8 @@ import { ChevronDown } from "lucide-react";
 import { cn, slugify } from "@/lib/utils";
 import { HomeLink } from "@/components/home-link";
 import { ThemeToggle } from "@/components/theme-toggle";
-import {
-  NavList,
-  useScrollSpy,
-  scrollToSection,
-  type NavGroup,
-} from "@/components/side-nav";
+import { NavList, useScrollSpy, type NavGroup } from "@/components/side-nav";
+import { useView, navigateToNav } from "@/components/view-store";
 
 /*
  * SiteHeader
@@ -31,11 +27,14 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
     () => groups.flatMap((g) => g.items.map(slugify)),
     [groups]
   );
-  const [active, setActive] = useScrollSpy(ids);
+  const view = useView();
+  const [active, setActive] = useScrollSpy(ids, view);
+  const activeId = view === "shell" ? "shell" : active;
   const [open, setOpen] = React.useState(false);
 
   const onNavigate = (id: string) => {
-    if (scrollToSection(id)) setActive(id);
+    navigateToNav(id);
+    if (id !== "shell") setActive(id);
     setOpen(false);
   };
 
@@ -99,7 +98,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
             >
               <NavList
                 groups={groups}
-                active={active}
+                active={activeId}
                 onNavigate={onNavigate}
               />
             </div>
