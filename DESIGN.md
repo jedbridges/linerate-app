@@ -407,7 +407,7 @@ Underline style only. Active trigger gets `border-foreground`; inactive sit in `
 
 The application's navigation suite (distinct from this doc site's own chrome).
 
-- **AppTopNav** (`patterns/app-top-nav.tsx`). Main bar: wordmark, primary destinations, a search affordance with a `⌘K` hint, and an account chip. Active link gets a foreground underline, deliberately not amber, so it never competes with the sidebar's active marker.
+- **AppTopNav** (`patterns/app-top-nav.tsx`). Main bar: wordmark, primary destinations, a search affordance with a `⌘K` hint, and an account chip. Active link gets an amber underline (`border-accent`) with a foreground label.
 - **AppSidebar** (`patterns/app-sidebar.tsx`). Persistent left rail: groups (mono `.eyebrow` labels) of icon + label rows with optional mono counts. The active row lifts onto `bg-muted` with an amber left indicator (the one shell spot amber marks "you are here"); `danger` tone counts use `text-danger-foreground`.
 - **SubNav** (`patterns/sub-nav.tsx`). Secondary nav within a section: underline links sharing the Tabs vocabulary (active `border-foreground`), with optional mono counts.
 - **Breadcrumb** (`ui/breadcrumb.tsx`). Hierarchical trail; links in `foreground-muted`, current page in `foreground`, hairline chevron separators. Compose `Breadcrumb` / `BreadcrumbList` / `BreadcrumbItem` / `BreadcrumbLink` / `BreadcrumbPage` / `BreadcrumbSeparator`.

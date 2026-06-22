@@ -11,8 +11,8 @@ import { Wordmark } from "@/components/wordmark";
  * header). Wordmark, primary destinations with an active underline, and a
  * right cluster: a search affordance with a keyboard hint and an account chip.
  *
- * Active uses a foreground underline rather than amber: amber stays reserved
- * for the side rail's active indicator, so the two never compete.
+ * Active destination is marked with an amber underline (the brand's
+ * you-are-here accent), label kept in foreground for contrast.
  */
 
 export type TopNavItem = { label: string; active?: boolean };
@@ -37,7 +37,7 @@ export function AppTopNav({
             className={cn(
               "inline-flex h-full items-center border-b-2 px-3 text-sm transition-colors",
               item.active
-                ? "border-foreground font-medium text-foreground"
+                ? "border-accent font-medium text-foreground"
                 : "border-transparent text-foreground-muted hover:text-foreground"
             )}
           >

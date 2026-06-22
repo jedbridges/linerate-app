@@ -24,7 +24,7 @@ export function HomeLink({ className }: { className?: string }) {
         className
       )}
     >
-      <Wordmark className="h-4 w-auto" />
+      <Wordmark className="h-3.5 w-auto sm:h-4" />
     </button>
   );
 }
