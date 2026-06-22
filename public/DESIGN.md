@@ -133,7 +133,8 @@ ad-hoc sizes or weights.
 | Body | sans | `text-base` (16px) | 400 | normal | sentence | `leading-1.55`. Constrain to 60–75ch. |
 | Body, secondary | sans | `text-base`/`text-sm` | 400 | normal | sentence | `text-foreground-muted`. |
 | Caption / metadata | sans | `text-sm` (13px) | 400 | normal | sentence | `text-foreground-subtle`. |
-| Eyebrow | **mono** | `text-xs` (11px) | 400 | widest (0.14em) | UPPERCASE | `.eyebrow`. One per section. `text-foreground-subtle`. |
+| Section index | **mono** | `text-sm` (13px) | 400 | snug | sentence | `.section-eyebrow`. A running ledger index above each section head: `01 / Foundations`. Auto-numbered via CSS counter; the numeral is `--foreground-muted`, the label `--foreground-subtle`. |
+| Eyebrow (label) | **mono** | `text-xs` (11px) | 400 | widest (0.14em) | UPPERCASE | `.eyebrow`. The small caps tag for tight contexts: card heads, nav groups, table headers. `text-foreground-subtle`. |
 | Button label | sans | `text-xs` (sm/md), `text-sm` (lg) | 500 | wide (0.08em) | UPPERCASE | Set by the Button component. |
 | Nav label | sans | `text-sm` | 400 / 500 active | normal | sentence | Active is medium + `border-foreground`. |
 | Table header | **mono** | 11px | 500 | widest | UPPERCASE | Eyebrow style. `text-foreground-subtle`. |
@@ -186,7 +187,7 @@ once for consistency). `h1, h2, h3` get `text-wrap: balance`.
 ### Typography do / don't
 
 - **Do** set every product numeral in mono with tabular figures so columns align.
-- **Do** use the eyebrow (mono, widest, uppercase, subtle) once above a section, never twice.
+- **Do** head each section with the numbered index (`.section-eyebrow`, "01 / Label"); reserve the small caps `.eyebrow` for tight labels (card heads, nav groups, table headers).
 - **Do** keep body measure between 60 and 75 characters (`max-w-[60ch]` / `max-w-2xl`).
 - **Don't** spell out "and" in a headline; use `&`.
 - **Don't** use uppercase outside the four allowed roles (wordmark, eyebrow, pill, button).

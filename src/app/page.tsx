@@ -103,7 +103,7 @@ function Section({
   // height on mobile and desktop, so one value covers both.
   return (
     <section id={slugify(title)} className="scroll-mt-14 py-12">
-      <p className="eyebrow mb-3">{eyebrow}</p>
+      <p className="section-eyebrow mb-3">{eyebrow}</p>
       <h2 className="mb-2 text-2xl font-medium tracking-snug text-foreground">
         {title}
       </h2>

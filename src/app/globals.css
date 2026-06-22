@@ -495,13 +495,38 @@
     letter-spacing: var(--tracking-snug);
   }
 
-  /* Eyebrow: small caps mono label above section heads */
+  /* Eyebrow: small caps mono label. Used for tight contextual labels (card
+     heads, nav groups, pills' neighbors) where a short tag reads cleanly. */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-widest);
     text-transform: uppercase;
     color: var(--foreground-subtle);
+  }
+
+  /* Reset the section index once per page, on the main column. */
+  #main {
+    counter-reset: lr-section;
+  }
+
+  /* Section eyebrow: a running ledger index ("01 / Foundations"). The counter
+     resets on the main column and increments once per section, so sections
+     read like numbered entries in a spec, not the generic uppercase tag. The
+     mono numeral leads as the anchor (the ledger voice); the label sits quiet
+     beside it in sentence case, no theatrical tracking. */
+  .section-eyebrow {
+    counter-increment: lr-section;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-snug);
+    color: var(--foreground-subtle);
+  }
+  .section-eyebrow::before {
+    content: counter(lr-section, decimal-leading-zero) " / ";
+    color: var(--foreground-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: pre;
   }
 
   /* Status pills */
