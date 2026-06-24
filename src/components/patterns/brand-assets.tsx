@@ -101,11 +101,11 @@ export function BrandAssets() {
           <Wordmark className="h-5 w-auto text-foreground" />
         </div>
         <div className="mt-5 flex flex-wrap gap-3">
-          <Button variant="secondary" size="sm" onClick={downloadWordmarkSvg}>
+          <Button variant="ghost" size="sm" onClick={downloadWordmarkSvg}>
             <Download />
             SVG
           </Button>
-          <Button variant="secondary" size="sm" onClick={downloadWordmarkPng}>
+          <Button variant="ghost" size="sm" onClick={downloadWordmarkPng}>
             <Download />
             PNG on dark
           </Button>
