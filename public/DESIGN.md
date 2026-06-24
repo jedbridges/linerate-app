@@ -336,10 +336,20 @@ sizes step down a notch versus sentence case (sm/md `text-xs`, lg `text-sm`) and
 padding opens up so the tracking has room. Rounded `md`. Focus via the global
 ring. No `destructive` variant.
 
+**Pairing rule.** When an action sits next to the primary CTA (dialog/sheet
+footers, decision rows, card actions), the secondary action is a **`ghost`**
+button, never the outline `secondary`. One filled button per group; the
+alternative recedes. Reserve outline `secondary` for standalone secondary
+actions or trigger rows that have no primary alongside them (e.g. a row of
+overlay triggers, download buttons).
+
 ```tsx
-<Button>Export audit pack</Button>      {/* renders: EXPORT AUDIT PACK */}
-<Button variant="secondary">View ledger</Button>
+{/* Paired with the primary: ghost, not secondary */}
+<Button>Reschedule</Button>
 <Button variant="ghost">Cancel</Button>
+
+{/* Standalone (no primary alongside): outline secondary is fine */}
+<Button variant="secondary">Window details</Button>
 ```
 
 ### Input, Textarea, Label
@@ -553,4 +563,5 @@ Reference implementation: `SettlementSummary` in
 - Headlines use `&`; uppercase only in the wordmark, eyebrows, pills, and buttons.
 - No raw hex in components. No em dashes in copy or comments. No `font-bold`/`font-semibold`.
 - One primary CTA per screen. Amber appears once, maybe twice, never more.
+- A secondary action paired with the primary is a ghost button, not the outline secondary.
 - The page reads like a printed page from an annual report, in black: quiet, intentional, audit-grade.

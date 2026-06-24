@@ -215,7 +215,7 @@ export function PreFlight({
         </p>
         <div className="flex flex-wrap items-center justify-end gap-3">
           <ConfirmDestructive
-            trigger={<Button variant="secondary">Hold cycle</Button>}
+            trigger={<Button variant="ghost">Hold cycle</Button>}
             title={`Hold cycle ${cycle}`}
             description={`Deferring ${totalQueued} until the next window. Counterparties are notified. Recorded in the audit log.`}
             confirmToken={cycle}

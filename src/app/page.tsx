@@ -323,7 +323,7 @@ export default function DesignSystemPage() {
                 Download DESIGN.md
               </a>
             </Button>
-            <Button asChild variant="secondary">
+            <Button asChild variant="ghost">
               <a href={withBase("/DESIGN.md")} target="_blank" rel="noreferrer">
                 View the spec
               </a>
