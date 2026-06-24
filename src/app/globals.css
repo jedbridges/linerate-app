@@ -187,6 +187,7 @@
      translucent Paper fill blurs whatever scrolls behind it; the rim is a
      faint Onyx hairline. Tuned per theme so the blur reads in both. */
   --glass: rgba(255, 255, 255, 0.62);
+  --glass-strong: rgba(255, 255, 255, 0.92);
   --glass-border: rgba(16, 16, 16, 0.10);
 
   color-scheme: light;
@@ -241,6 +242,7 @@
   /* Frosted glass on dark: a translucent Onyx fill (between page and surface)
      with a faint Paper rim light along the edge. */
   --glass: rgba(22, 22, 22, 0.55);
+  --glass-strong: rgba(16, 16, 16, 0.92);
   --glass-border: rgba(255, 255, 255, 0.08);
 
   /* Focus ring: Paper at low opacity on dark */
@@ -462,11 +464,17 @@
     (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
   ) {
     .glass {
-      background-color: var(--glass);
+      background-color: var(--_glass-fill, var(--glass));
       border-color: var(--glass-border);
       -webkit-backdrop-filter: blur(16px) saturate(160%);
       backdrop-filter: blur(16px) saturate(160%);
     }
+  }
+  /* Stronger, near-opaque fill for floating menus (dropdowns, popovers, the
+     mobile Contents panel) so blurred content behind doesn't sap text
+     contrast. Compose with .glass: `class="glass glass-strong"`. */
+  .glass-strong {
+    --_glass-fill: var(--glass-strong);
   }
 
   /* Indeterminate hairline used by the route loader. */

@@ -84,7 +84,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
             pointer-events-none when closed so its links stay out of reach. */}
         <div
           className={cn(
-            "absolute inset-x-0 top-full z-10 mt-2 grid overflow-hidden rounded-xl border shadow-lg glass transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.2,0,0,1)] lg:hidden",
+            "glass glass-strong absolute inset-x-0 top-full z-10 mt-2 grid overflow-hidden rounded-xl border shadow-lg transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.2,0,0,1)] lg:hidden",
             open
               ? "grid-rows-[1fr] opacity-100"
               : "pointer-events-none grid-rows-[0fr] opacity-0"
