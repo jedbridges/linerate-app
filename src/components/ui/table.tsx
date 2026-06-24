@@ -99,7 +99,7 @@ function TableHead({
       data-slot="table-head"
       data-numeric={numeric ? "" : undefined}
       className={cn(
-        "h-10 px-3 align-middle text-[11px] font-medium uppercase tracking-widest text-foreground-subtle whitespace-nowrap",
+        "h-10 px-3 align-middle text-[11px] font-medium uppercase tracking-wide text-foreground-subtle whitespace-nowrap",
         numeric ? "text-right tabular-nums" : "text-left",
         "[&:has([role=checkbox])]:pr-0",
         className

@@ -134,10 +134,10 @@ ad-hoc sizes or weights.
 | Body, secondary | sans | `text-base`/`text-sm` | 400 | normal | sentence | `text-foreground-muted`. |
 | Caption / metadata | sans | `text-sm` (13px) | 400 | normal | sentence | `text-foreground-subtle`. |
 | Section index | **sans** (mono index) | `text-sm` (13px) | 400 | snug | sentence | `.section-eyebrow`. A running ledger index above each section head: `01 / Foundations`. The numeral is mono `--foreground-muted` (auto-numbered via CSS counter); the label is sans `--foreground-subtle`. |
-| Eyebrow (label) | sans | `text-xs` (11px) | 400 | widest (0.14em) | UPPERCASE | `.eyebrow`. The small caps tag for tight contexts: card heads, nav groups, table headers. `text-foreground-subtle`. |
+| Eyebrow (label) | sans | `text-xs` (11px) | 400 | wide (0.08em) | UPPERCASE | `.eyebrow`. The small caps tag for tight contexts: card heads, nav groups, table headers. `text-foreground-subtle`. |
 | Button label | sans | `text-xs` (sm/md), `text-sm` (lg) | 500 | wide (0.08em) | UPPERCASE | Set by the Button component. |
 | Nav label | sans | `text-sm` | 400 / 500 active | normal | sentence | Active is medium + `border-foreground`. |
-| Table header | sans | 11px | 500 | widest | UPPERCASE | Eyebrow style. `text-foreground-subtle`. |
+| Table header | sans | 11px | 500 | wide | UPPERCASE | Eyebrow style. `text-foreground-subtle`. |
 | Status pill | sans | 10px | 500 | wide | UPPERCASE | `.pill`. |
 | Ledger figure (display) | **mono** | `text-3xl`–`6xl` (responsive) | 500 | snug (`.ledger`) | n/a | Tabular. Scale down on mobile (`text-4xl sm:text-6xl`). |
 | Ledger figure (inline) | **mono** | inherits | 400 | normal | n/a | `font-mono tabular-nums`. |
@@ -175,8 +175,10 @@ pills) · `600 semibold` (display headlines and the wordmark only). Never bold.
 ### Tracking
 
 `tight -0.02em` (display, wordmark) · `snug -0.01em` (mid headings, mono numerals
-at display size) · `normal 0` · `wide 0.08em` (buttons, pills) · `widest 0.14em`
-(eyebrows, table headers, system labels).
+at display size) · `normal 0` · `wide 0.08em` (all uppercase small labels:
+buttons, pills, eyebrows, table headers). `widest 0.14em` exists but is no
+longer used: it was tuned for mono uppercase, too airy now that those labels
+are sans.
 
 ### Leading
 
@@ -356,7 +358,7 @@ Trigger matches Input. Content lifts onto `bg-raised` with `border-border` and `
 
 ### Badge
 
-The LineRate pill (mono, uppercase, wide tracking, small radius, 1px inset edge so pale light-mode tints stay defined). Four variants: `neutral`, `success`, `pending`, `danger`. Pending is amber; success and danger are brand-tone.
+The LineRate pill (sans, uppercase, wide tracking, small radius, 1px inset edge so pale light-mode tints stay defined). Four variants: `neutral`, `success`, `pending`, `danger`. Pending is amber; success and danger are brand-tone.
 
 ### Avatar
 

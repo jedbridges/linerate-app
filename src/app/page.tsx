@@ -456,7 +456,7 @@ export default function DesignSystemPage() {
         <div className="space-y-6">
           {(["primary", "secondary", "ghost"] as const).map((variant) => (
             <div key={variant} className="flex items-center gap-4">
-              <p className="w-24 text-xs text-foreground-subtle uppercase tracking-widest">
+              <p className="w-24 text-xs text-foreground-subtle uppercase tracking-wide">
                 {variant}
               </p>
               <div className="flex items-center gap-3">

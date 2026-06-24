@@ -499,7 +499,7 @@
      table headers). Sans, not mono, mono is reserved for numbers and data. */
   .eyebrow {
     font-size: var(--text-xs);
-    letter-spacing: var(--tracking-widest);
+    letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
     color: var(--foreground-subtle);
   }
