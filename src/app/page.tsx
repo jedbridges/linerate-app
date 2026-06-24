@@ -129,7 +129,7 @@ function Section({
         {title}
       </h2>
       {description && (
-        <p className="mb-8 max-w-2xl text-sm text-foreground-muted">
+        <p className="mb-8 max-w-[60ch] text-base leading-relaxed text-foreground-muted">
           {description}
         </p>
       )}
