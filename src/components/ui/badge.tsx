@@ -7,8 +7,9 @@ import { cn } from "@/lib/utils";
 /*
  * LineRate Badge
  *
- * Reskinned as the LineRate pill: mono, uppercase, wide tracking, small
- * rounded corners. Collapsed from nova's six variants down to four that
+ * Reskinned as the LineRate pill: sans, uppercase, wide tracking, small
+ * rounded corners (mono is reserved for numbers and data). Collapsed from
+ * nova's six variants down to four that
  * map to status semantics. success / pending / danger reuse the global
  * .pill--* classes; neutral is the default fallback.
  *

@@ -495,10 +495,9 @@
     letter-spacing: var(--tracking-snug);
   }
 
-  /* Eyebrow: small caps mono label. Used for tight contextual labels (card
-     heads, nav groups, pills' neighbors) where a short tag reads cleanly. */
+  /* Eyebrow: small caps label for tight contexts (card heads, nav groups,
+     table headers). Sans, not mono, mono is reserved for numbers and data. */
   .eyebrow {
-    font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-widest);
     text-transform: uppercase;
@@ -517,21 +516,21 @@
      beside it in sentence case, no theatrical tracking. */
   .section-eyebrow {
     counter-increment: lr-section;
-    font-family: var(--font-mono);
     font-size: var(--text-sm);
     letter-spacing: var(--tracking-snug);
     color: var(--foreground-subtle);
   }
+  /* Only the running index is mono (it's a number); the label is sans. */
   .section-eyebrow::before {
     content: counter(lr-section, decimal-leading-zero) " / ";
+    font-family: var(--font-mono);
     color: var(--foreground-muted);
     font-variant-numeric: tabular-nums;
     white-space: pre;
   }
 
-  /* Status pills */
+  /* Status pills. Sans label, mono is reserved for numbers and data. */
   .pill {
-    font-family: var(--font-mono);
     font-size: 10px;
     font-weight: 500;
     letter-spacing: var(--tracking-wide);

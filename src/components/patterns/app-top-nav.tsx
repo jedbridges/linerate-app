@@ -59,7 +59,7 @@ export function AppTopNav({
         </button>
         <span
           aria-label="Account"
-          className="inline-flex size-8 items-center justify-center rounded-full bg-muted font-mono text-xs font-medium text-foreground"
+          className="inline-flex size-8 items-center justify-center rounded-full bg-muted text-xs font-medium text-foreground"
         >
           {account}
         </span>

@@ -33,7 +33,7 @@ from semantic tokens; let typography and the ledger numerals carry the page.
 Every change works in both themes.
 
 - **Surfaces:** `bg-page` (Onyx) › `bg-surface` › `bg-raised`. **Text:** `text-foreground` (Paper) › `-muted` › `-subtle`. **Lines:** `border-border` / `-subtle`. **Accent:** `--accent` (amber), rare.
-- **Fonts:** General Sans = language (headings, prose, UI labels). JetBrains Mono = ledger (every data numeral, eyebrows, pills, table headers, code).
+- **Fonts:** General Sans = language (headings, prose, UI labels, eyebrows, pills, table headers). JetBrains Mono = ledger (every data numeral, plus code and hashes). Mono is for numbers, not small text components.
 - **Weights:** 400 / 500; 600 for display headlines + wordmark only. Never bold.
 - **Primary CTA:** Paper on Onyx (dark) / Onyx on Paper (light). One per screen.
 
@@ -63,7 +63,7 @@ Nine hard rules. Violations are defects, not preferences.
 
 3. **Amber is the brand accent and appears VERY rarely.** Its canonical placements are the active side-nav indicator (`border-accent`), the pending status pill, and the active data point in a chart. **Never a primary CTA.** Primary on dark is Paper on Onyx; primary on light is Onyx on Paper. More than one or two amber elements on a screen means something is wrong.
 
-4. **Case is role-bound, not arbitrary.** Sentence case for prose, headings, navigation. **UPPERCASE is reserved for four roles only:** the wordmark (`LINERATE`), mono eyebrows, status pills, and button labels. Everything else is sentence case. The legal name "LineRate" appears in body copy and accessibility text. (See Typography for the enforcement table.)
+4. **Case is role-bound, not arbitrary.** Sentence case for prose, headings, navigation. **UPPERCASE is reserved for four roles only:** the wordmark (`LINERATE`), eyebrows, status pills, and button labels. Everything else is sentence case. The legal name "LineRate" appears in body copy and accessibility text. (See Typography for the enforcement table.)
 
 5. **Ampersands in headlines.** Display and heading text use `&`, never the spelled-out word "and" ("The voice of the brand & the voice of the ledger"). Running prose, descriptions, and labels keep "and".
 
@@ -99,7 +99,7 @@ never set in sans; a sentence of prose is never set in mono.
 | Family | Variable | Domain |
 |---|---|---|
 | General Sans | `--font-sans` (`--font-general-sans`) | The voice of the brand. Headings, body, navigation, button labels, marketing, legal. Self-hosted from Fontshare (OFL), weights 400/500/600. |
-| JetBrains Mono | `--font-mono` (`--font-jetbrains-mono`) | The voice of the ledger. Every figure that represents real-world data, plus eyebrows, pills, table headers, and code. Self-hosted via `next/font/google`. |
+| JetBrains Mono | `--font-mono` (`--font-jetbrains-mono`) | The voice of the ledger. Every figure that represents real-world data, plus code and hashes. Reserved for numbers and data: eyebrows, pills, and table-header labels are General Sans. Self-hosted via `next/font/google`. |
 
 Fonts are wired in `src/app/layout.tsx` (`next/font/local` for General Sans,
 `next/font/google` for JetBrains Mono) and mapped to `--font-sans` /
@@ -133,12 +133,12 @@ ad-hoc sizes or weights.
 | Body | sans | `text-base` (16px) | 400 | normal | sentence | `leading-1.55`. Constrain to 60–75ch. |
 | Body, secondary | sans | `text-base`/`text-sm` | 400 | normal | sentence | `text-foreground-muted`. |
 | Caption / metadata | sans | `text-sm` (13px) | 400 | normal | sentence | `text-foreground-subtle`. |
-| Section index | **mono** | `text-sm` (13px) | 400 | snug | sentence | `.section-eyebrow`. A running ledger index above each section head: `01 / Foundations`. Auto-numbered via CSS counter; the numeral is `--foreground-muted`, the label `--foreground-subtle`. |
-| Eyebrow (label) | **mono** | `text-xs` (11px) | 400 | widest (0.14em) | UPPERCASE | `.eyebrow`. The small caps tag for tight contexts: card heads, nav groups, table headers. `text-foreground-subtle`. |
+| Section index | **sans** (mono index) | `text-sm` (13px) | 400 | snug | sentence | `.section-eyebrow`. A running ledger index above each section head: `01 / Foundations`. The numeral is mono `--foreground-muted` (auto-numbered via CSS counter); the label is sans `--foreground-subtle`. |
+| Eyebrow (label) | sans | `text-xs` (11px) | 400 | widest (0.14em) | UPPERCASE | `.eyebrow`. The small caps tag for tight contexts: card heads, nav groups, table headers. `text-foreground-subtle`. |
 | Button label | sans | `text-xs` (sm/md), `text-sm` (lg) | 500 | wide (0.08em) | UPPERCASE | Set by the Button component. |
 | Nav label | sans | `text-sm` | 400 / 500 active | normal | sentence | Active is medium + `border-foreground`. |
-| Table header | **mono** | 11px | 500 | widest | UPPERCASE | Eyebrow style. `text-foreground-subtle`. |
-| Status pill | **mono** | 10px | 500 | wide | UPPERCASE | `.pill`. |
+| Table header | sans | 11px | 500 | widest | UPPERCASE | Eyebrow style. `text-foreground-subtle`. |
+| Status pill | sans | 10px | 500 | wide | UPPERCASE | `.pill`. |
 | Ledger figure (display) | **mono** | `text-3xl`–`6xl` (responsive) | 500 | snug (`.ledger`) | n/a | Tabular. Scale down on mobile (`text-4xl sm:text-6xl`). |
 | Ledger figure (inline) | **mono** | inherits | 400 | normal | n/a | `font-mono tabular-nums`. |
 | Code / token name | **mono** | inherits | 400 | normal | as written | `<span className="font-mono">`. |
@@ -408,7 +408,7 @@ Underline style only. Active trigger gets `border-foreground`; inactive sit in `
 The application's navigation suite (distinct from this doc site's own chrome).
 
 - **AppTopNav** (`patterns/app-top-nav.tsx`). Main bar: wordmark, primary destinations, a search affordance with a `⌘K` hint, and an account chip. Active link gets an amber underline (`border-accent`) with a foreground label.
-- **AppSidebar** (`patterns/app-sidebar.tsx`). Persistent left rail: groups (mono `.eyebrow` labels) of icon + label rows with optional mono counts. The active row lifts onto `bg-muted` with an amber left indicator (the one shell spot amber marks "you are here"); `danger` tone counts use `text-danger-foreground`.
+- **AppSidebar** (`patterns/app-sidebar.tsx`). Persistent left rail: groups (`.eyebrow` labels) of icon + label rows with optional mono counts. The active row lifts onto `bg-muted` with an amber left indicator (the one shell spot amber marks "you are here"); `danger` tone counts use `text-danger-foreground`.
 - **SubNav** (`patterns/sub-nav.tsx`). Secondary nav within a section: underline links sharing the Tabs vocabulary (active `border-foreground`), with optional mono counts.
 - **Breadcrumb** (`ui/breadcrumb.tsx`). Hierarchical trail; links in `foreground-muted`, current page in `foreground`, hairline chevron separators. Compose `Breadcrumb` / `BreadcrumbList` / `BreadcrumbItem` / `BreadcrumbLink` / `BreadcrumbPage` / `BreadcrumbSeparator`.
 - **Pagination** (`ui/pagination.tsx`). For long ledger tables: a mono "1-25 of 412" range readout plus prev/next and page numbers (mono, tabular). Current page fills with `bg-primary`; ends disable at the boundaries. Takes `page` / `pageSize` / `total` / `onPageChange`.
@@ -454,7 +454,7 @@ The forward-looking surface operators watch in the seconds before a window opens
 `cycle-indicator.tsx`. A mono pill carrying cycle metadata, `T+0 · 14:32 UTC · cycle 4271`. Read-only signal for headers, table captions, and emails.
 
 ### DashboardShell (demo)
-`dashboard-shell.tsx`, selected from **Demos > Shell** at the bottom of the nav. Unlike the other nav items (which scroll-spy within the system view), Shell swaps the whole main column for the dashboard as its own view. The swap is driven by a tiny external store (`view-store.ts`, the same `useSyncExternalStore` pattern as the theme): the nav routes "shell" to the dashboard view and any other id back to the system view, and `MainView` renders one or the other. A full settlement-operations dashboard composing the system as a product would: AppTopNav + AppSidebar frame a page header (breadcrumb, title, CycleIndicator, primary `Export audit pack`), an at-risk `Alert`, a KPI tile row, the two charts, and the active-cycle `Table` with `Pagination`. The reference for "what a real screen looks like" in LineRate. The KPI tile is a small recipe (no separate component): `bg-surface` card, mono `.eyebrow` label, a `.ledger` figure (`text-2xl`), and a mono delta tinted `text-success-foreground` / `text-danger-foreground` / `text-foreground-subtle`.
+`dashboard-shell.tsx`, selected from **Demos > Shell** at the bottom of the nav. Unlike the other nav items (which scroll-spy within the system view), Shell swaps the whole main column for the dashboard as its own view. The swap is driven by a tiny external store (`view-store.ts`, the same `useSyncExternalStore` pattern as the theme): the nav routes "shell" to the dashboard view and any other id back to the system view, and `MainView` renders one or the other. A full settlement-operations dashboard composing the system as a product would: AppTopNav + AppSidebar frame a page header (breadcrumb, title, CycleIndicator, primary `Export audit pack`), an at-risk `Alert`, a KPI tile row, the two charts, and the active-cycle `Table` with `Pagination`. The reference for "what a real screen looks like" in LineRate. The KPI tile is a small recipe (no separate component): `bg-surface` card, `.eyebrow` label, a `.ledger` figure (`text-2xl`), and a mono delta tinted `text-success-foreground` / `text-danger-foreground` / `text-foreground-subtle`.
 
 ---
 
@@ -496,7 +496,7 @@ bold, and one eyebrow.
   <div className="border-b border-border-subtle p-6">
     <CardHeader className="mb-4">
       <div>
-        <p className="eyebrow mb-2">Today's settlement</p>   {/* mono · uppercase · subtle · one per section */}
+        <p className="eyebrow mb-2">Today's settlement</p>   {/* sans · uppercase · subtle · one per section */}
         <CardTitle className="text-2xl">Cycle 4271</CardTitle>
       </div>
       <CardAction>

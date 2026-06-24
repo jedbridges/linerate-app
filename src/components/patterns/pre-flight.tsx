@@ -137,7 +137,7 @@ export function PreFlight({
 
         <div className="mt-6 grid grid-cols-3 gap-4 border-t border-border-subtle pt-4">
           <div>
-            <p className="text-xs text-foreground-subtle uppercase tracking-widest font-mono">
+            <p className="text-xs text-foreground-subtle uppercase tracking-widest">
               Ready
             </p>
             <p className="mt-1 font-mono text-2xl text-foreground tabular-nums">
@@ -145,7 +145,7 @@ export function PreFlight({
             </p>
           </div>
           <div>
-            <p className="text-xs text-foreground-subtle uppercase tracking-widest font-mono">
+            <p className="text-xs text-foreground-subtle uppercase tracking-widest">
               Awaiting ack
             </p>
             <p className="mt-1 font-mono text-2xl text-foreground tabular-nums">
@@ -153,7 +153,7 @@ export function PreFlight({
             </p>
           </div>
           <div>
-            <p className="text-xs text-foreground-subtle uppercase tracking-widest font-mono">
+            <p className="text-xs text-foreground-subtle uppercase tracking-widest">
               At risk
             </p>
             <p className="mt-1 font-mono text-2xl text-foreground tabular-nums">
