@@ -4,6 +4,7 @@ import { RefreshCw, Scale, FileCheck, Banknote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { Reveal } from "@/components/concepts/reveal";
+import { TiltFrame } from "@/components/concepts/tilt-frame";
 import { DashboardShell } from "@/components/patterns/dashboard-shell";
 import { FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
 
@@ -78,11 +79,15 @@ export default function ConsoleConcept() {
         </Reveal>
       </section>
 
-      {/* Product proof — the real console */}
-      <section className="mx-auto max-w-6xl px-6 pb-24">
-        <Reveal variant="load" delay={340} y={28}>
-          <DashboardShell />
-        </Reveal>
+      {/* Product proof — the real console, framed 9:16 and tilted back to the
+          horizon; it snaps upright as it scrolls into place */}
+      <section className="mx-auto max-w-6xl px-6 pb-24 pt-6">
+        <TiltFrame>
+          <DashboardShell compact className="rounded-none border-0 shadow-none" />
+        </TiltFrame>
+        <p className="mt-8 text-center text-sm text-foreground-subtle">
+          Scroll the console. This is the live product, not a screenshot.
+        </p>
       </section>
 
       {/* Features */}

@@ -20,15 +20,24 @@ export type TopNavItem = { label: string; active?: boolean };
 export function AppTopNav({
   items,
   account = "JB",
+  compact = false,
 }: {
   items: TopNavItem[];
   account?: string;
+  /** Portrait/narrow contexts: drop the nav links and search so the bar keeps
+   *  just the wordmark and account chip instead of overflowing. */
+  compact?: boolean;
 }) {
   return (
     <header className="flex h-14 items-center gap-6 border-b border-border bg-surface px-4 sm:px-5">
       <Wordmark className="h-4 w-auto shrink-0" />
 
-      <nav className="hidden h-full items-center gap-1 md:flex">
+      <nav
+        className={cn(
+          "h-full items-center gap-1",
+          compact ? "hidden" : "hidden md:flex",
+        )}
+      >
         {items.map((item) => (
           <a
             key={item.label}
@@ -49,7 +58,10 @@ export function AppTopNav({
       <div className="ml-auto flex items-center gap-2">
         <button
           type="button"
-          className="hidden cursor-pointer items-center gap-2 rounded-md border border-border px-2.5 py-1.5 text-foreground-subtle transition-colors hover:bg-muted hover:text-foreground sm:flex"
+          className={cn(
+            "cursor-pointer items-center gap-2 rounded-md border border-border px-2.5 py-1.5 text-foreground-subtle transition-colors hover:bg-muted hover:text-foreground",
+            compact ? "hidden" : "hidden sm:flex",
+          )}
         >
           <Search className="size-4" />
           <span className="text-sm">Search</span>

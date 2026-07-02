@@ -457,6 +457,18 @@
   }
 }
 
+/* Portrait frame tilting up from the horizon into a flat, face-on view. */
+@keyframes lr-untilt {
+  from {
+    transform: rotateX(24deg) scale(0.9);
+    opacity: 0.55;
+  }
+  to {
+    transform: rotateX(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
 /* Soft amber breathing on the neutral node, so the centre reads as live. */
 @keyframes lr-pulse {
   0%,
@@ -539,6 +551,51 @@
      contrast. Compose with .glass: `class="glass glass-strong"`. */
   .glass-strong {
     --_glass-fill: var(--glass-strong);
+  }
+
+  /* ── Perspective device frame ─────────────────────────────────────────────
+     A 9:16 portrait frame that holds a scrollable product view, tilted back
+     toward the horizon and snapping upright as it scrolls into place. The
+     un-tilt rides a view() timeline, so it is scroll-linked and needs no JS;
+     where scroll timelines or motion are unavailable it rests flat and
+     upright, and the frame is still a normal internal-scroll panel. */
+  .lr-tilt-scene {
+    perspective: 1400px;
+    perspective-origin: 50% 42%;
+  }
+  .lr-tilt {
+    transform-origin: 50% 100%;
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .lr-tilt {
+        animation: lr-untilt cubic-bezier(0.2, 0, 0, 1) both;
+        animation-timeline: view();
+        animation-range: entry 6% cover 44%;
+      }
+    }
+  }
+  .lr-frame {
+    height: min(78vh, 780px);
+    aspect-ratio: 9 / 16;
+    max-width: 90vw;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--page);
+    box-shadow:
+      0 2px 0 0 color-mix(in oklab, var(--foreground) 6%, transparent) inset,
+      0 50px 90px -30px rgb(0 0 0 / 0.65),
+      0 20px 40px -25px rgb(0 0 0 / 0.5);
+  }
+  .lr-frame-scroll {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Indeterminate hairline used by the route loader. */

@@ -114,12 +114,27 @@ function Stat({
   );
 }
 
-export function DashboardShell() {
+export function DashboardShell({
+  className,
+  compact = false,
+}: {
+  className?: string;
+  /** Portrait/narrow contexts (e.g. the 9:16 device frame): drop the sidebar
+   *  and collapse the multi-column grids to a single readable column, instead
+   *  of relying on viewport breakpoints that don't see the frame width. */
+  compact?: boolean;
+}) {
   const [page, setPage] = React.useState(1);
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border shadow-lg">
+    <div
+      className={cn(
+        "overflow-hidden rounded-xl border border-border shadow-lg",
+        className,
+      )}
+    >
       <AppTopNav
+        compact={compact}
         items={[
           { label: "Dashboard", active: true },
           { label: "Settlements" },
@@ -129,7 +144,7 @@ export function DashboardShell() {
       />
 
       <div className="flex">
-        <div className="hidden lg:block">
+        <div className={compact ? "hidden" : "hidden lg:block"}>
           <AppSidebar groups={SIDEBAR_GROUPS} />
         </div>
 
@@ -188,7 +203,12 @@ export function DashboardShell() {
             </Alert>
 
             {/* KPI tiles */}
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div
+              className={cn(
+                "grid gap-4",
+                compact ? "grid-cols-2" : "sm:grid-cols-2 xl:grid-cols-4",
+              )}
+            >
               <Stat
                 label="Settled today"
                 value="$127.4M"
@@ -216,7 +236,7 @@ export function DashboardShell() {
             </div>
 
             {/* Charts */}
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className={cn("grid gap-4", !compact && "lg:grid-cols-2")}>
               <div className="min-w-0 rounded-lg border border-border bg-surface p-6">
                 <p className="eyebrow mb-1">Settlement volume</p>
                 <p className="mb-5 text-sm text-foreground-muted">
