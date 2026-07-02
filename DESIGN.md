@@ -257,6 +257,8 @@ Light (the inverse) flips page and primary: page = Paper, primary = Onyx on Pape
 
 **Motion**: `fast 120ms · normal 200ms · slow 320ms`, easing `cubic-bezier(0.2,0,0,1)`. `scroll-behavior: smooth` globally, disabled under `prefers-reduced-motion`.
 
+**Entrances** (`src/components/concepts/reveal.tsx`, driving the landing concepts under `/concepts`) are pure CSS and fail safe: the base class is fully visible and the animation is layered on only inside `@media (prefers-reduced-motion: no-preference)`, so content is never stranded behind a script that did not run. `.lr-enter` is a time-based load entrance for above-the-fold content (stagger with an inline `animation-delay`); `.lr-reveal` is a scroll-driven entrance for content lower down, powered by a `view()` timeline where supported (`@supports (animation-timeline: view())`) and simply visible everywhere else. Both reuse the `lr-reveal` keyframe (its travel is tunable via `--reveal-y`). The neutrality diagram (`neutrality-diagram.tsx`) layers a looping `lr-flow` token down each connector and an `lr-pulse` amber breath on the neutral node to make continuous settlement legible. Deliberately no JS/IntersectionObserver here: it removes a hydration dependency and keeps entrances working in the static export.
+
 ---
 
 ## Grid

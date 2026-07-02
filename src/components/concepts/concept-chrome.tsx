@@ -3,6 +3,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/wordmark";
 import { ConceptNav } from "./concept-nav";
+import { Reveal } from "./reveal";
 import { type ConceptSlug } from "./concepts";
 
 /*
@@ -24,7 +25,7 @@ export function ConceptChrome({
 
       {/* Closing CTA */}
       <section id="contact" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-        <div className="mx-auto max-w-3xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <p className="eyebrow mb-4">Request access</p>
           <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
             Put your contracts on a neutral runtime.
@@ -40,7 +41,7 @@ export function ConceptChrome({
               <a href="#how">See how it works</a>
             </Button>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* Footer */}

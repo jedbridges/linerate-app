@@ -420,7 +420,7 @@
 @keyframes lr-reveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(var(--reveal-y, 10px));
   }
   to {
     opacity: 1;
@@ -437,6 +437,37 @@
   }
 }
 
+/* A token of value travelling down a connector, used by the neutrality
+   diagram to make continuous settlement legible. Fades in at the top, rides
+   the line, fades out into the node below. */
+@keyframes lr-flow {
+  0% {
+    transform: translateY(-2px) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--flow-travel, 28px)) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* Soft amber breathing on the neutral node, so the centre reads as live. */
+@keyframes lr-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 22%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 0%, transparent);
+  }
+}
+
 @layer components {
   /* Content reveal on first paint. `both` fill keeps the element hidden
      until its (optionally delayed) animation starts, so there's no flash. */
@@ -448,6 +479,39 @@
   }
   .reveal-2 {
     animation: lr-reveal 0.46s cubic-bezier(0.2, 0, 0, 1) 0.12s both;
+  }
+
+  /* ── Concept landing motion ──────────────────────────────────────────────
+     Two pure-CSS entrances, both engineered to fail safe: if animation is
+     unsupported or unwanted, the element is simply visible. No JavaScript, so
+     content is never stranded behind a script that didn't run.
+
+     `.lr-enter`  — time-based load entrance for above-the-fold content. Stagger
+                    siblings with an inline `animation-delay`.
+     `.lr-reveal` — scroll-driven entrance for content further down the page,
+                    powered by a view() timeline where supported. Elsewhere it
+                    falls through to fully visible. */
+  .lr-enter {
+    opacity: 1;
+  }
+  .lr-reveal {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lr-enter {
+      animation: lr-reveal 0.6s cubic-bezier(0.2, 0, 0, 1) both;
+    }
+    @supports (animation-timeline: view()) {
+      .lr-reveal {
+        opacity: 0;
+        animation: lr-reveal 1s linear both;
+        animation-timeline: view();
+        /* Reveal begins as the element enters and completes a third of the way
+           up. Per-item `--reveal-i` nudges the start later for a soft stagger
+           across a row. */
+        animation-range: entry calc(4% + var(--reveal-i, 0) * 4%) cover 36%;
+      }
+    }
   }
 
   /* Frosted glass for floating chrome: header, the mobile nav disclosure,
