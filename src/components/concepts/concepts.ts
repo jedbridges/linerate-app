@@ -35,6 +35,32 @@ export const PROOF_QUOTE = {
   attribution: "Treasury lead, a venture-backed AI infrastructure operator",
 };
 
+/* Positioning, straight from the intake's "what this is / is not" framing.
+   The banned terms become the differentiator. */
+export const POSITIONING = {
+  is: [
+    "A neutral system of record both sides settle against",
+    "A runtime that runs the contract continuously against live data",
+    "Settlement-grade, auditable infrastructure",
+    "An operating console for finance and ops experts",
+  ],
+  isnt: [
+    "A contract manager or e-signature tool",
+    "A reconciliation or reporting layer, after the fact",
+    "An insights dashboard or BI product",
+    "An AI document parser or a chatbot",
+  ],
+};
+
+/* Slim credibility markers for the trust strip. "$500M+" and OpenNode are
+   real; the rest are proof points from the intake. */
+export const TRUST = [
+  "Backed by OpenNode",
+  "$500M+ settled in bitcoin mining",
+  "Live with AI compute",
+  "Auditable by design",
+];
+
 /* Contract in → encoded as a runtime → runs continuously → agreed settlements
    + audit trail → executes over pluggable rails. */
 export const FLOW = [

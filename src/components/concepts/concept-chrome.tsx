@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/wordmark";
 import { ConceptNav } from "./concept-nav";
 import { Reveal } from "./reveal";
+import { Positioning } from "./positioning";
 import { type ConceptSlug } from "./concepts";
 
 /*
@@ -22,6 +23,9 @@ export function ConceptChrome({
     <>
       <ConceptNav active={slug} />
       <main>{children}</main>
+
+      {/* Shared positioning: what LineRate is / isn't + trust strip */}
+      <Positioning />
 
       {/* Closing CTA */}
       <section id="contact" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
