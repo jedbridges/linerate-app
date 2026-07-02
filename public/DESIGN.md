@@ -261,6 +261,8 @@ Light (the inverse) flips page and primary: page = Paper, primary = Onyx on Pape
 
 **Perspective device frame** (`tilt-frame.tsx` + the `.lr-tilt` / `.lr-frame` utilities): a 9:16 portrait panel that holds scrollable content, tilted back toward the horizon and snapping upright as it scrolls into place via the `lr-untilt` keyframe on a `view()` timeline (flat and upright where scroll timelines or motion are unavailable). The console concept frames `DashboardShell` in it. Because the frame is far narrower than the viewport, `DashboardShell` (and `AppTopNav`) take a `compact` prop that hardcodes the portrait layout (no sidebar, single-column grids, trimmed top bar) rather than relying on viewport breakpoints that can't see the frame width.
 
+**Concept signature visuals** each carry their own hero rather than a placeholder: the runtime concept's `SettlementStream` (a baseline of counterparty settlement events with amber value tokens riding across it, `lr-flow-x`), the neutral concept's `NeutralRecord` (one auditable settlement figure with matching operator/counterparty confirmations) and `NeutralityDiagram`, and the console's framed `DashboardShell`. All are token-driven for dark/light parity.
+
 ---
 
 ## Grid

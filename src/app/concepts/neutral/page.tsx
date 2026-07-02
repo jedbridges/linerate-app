@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
-import { Placeholder } from "@/components/concepts/placeholder";
+import { NeutralRecord } from "@/components/concepts/neutral-record";
 import { Reveal } from "@/components/concepts/reveal";
 import { NeutralityDiagram } from "@/components/concepts/neutrality-diagram";
 import { METRICS, FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
@@ -110,7 +110,7 @@ export default function NeutralConcept() {
               an audit trail behind every entry.
             </p>
             <div className="mt-8">
-              <Placeholder label="Neutral record" aspect="aspect-[4/3]" />
+              <NeutralRecord />
             </div>
           </div>
           <ol className="lg:col-span-8">

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
-import { Placeholder } from "@/components/concepts/placeholder";
+import { SettlementStream } from "@/components/concepts/settlement-stream";
 import { Reveal } from "@/components/concepts/reveal";
 import { METRICS, FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
 
@@ -54,7 +54,7 @@ export default function RuntimeConcept() {
         </Reveal>
 
         <Reveal variant="load" delay={340} y={24} className="mt-16">
-          <Placeholder label="Runtime — live settlement" aspect="aspect-[16/9]" />
+          <SettlementStream />
         </Reveal>
       </section>
 

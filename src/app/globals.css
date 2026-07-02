@@ -469,6 +469,25 @@
   }
 }
 
+/* A token of value travelling left to right along a baseline, used by the
+   Runtime settlement-stream visual. */
+@keyframes lr-flow-x {
+  0% {
+    left: -4%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: 104%;
+    opacity: 0;
+  }
+}
+
 /* Soft amber breathing on the neutral node, so the centre reads as live. */
 @keyframes lr-pulse {
   0%,
