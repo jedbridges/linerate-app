@@ -1,5 +1,20 @@
 import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { extendTailwindMerge } from "tailwind-merge"
+
+/*
+ * tailwind-merge doesn't know our custom fluid font sizes (text-display-sm/md/
+ * lg), so left to guess it treats them as text colors and silently drops them
+ * when a real color like `text-foreground` is present in the same cn() call,
+ * which collapsed the marketing hero headlines to the base 16px. Register them
+ * as font-size utilities so they merge correctly.
+ */
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "font-size": [{ text: ["display-sm", "display-md", "display-lg"] }],
+    },
+  },
+})
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

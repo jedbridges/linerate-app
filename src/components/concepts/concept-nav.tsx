@@ -33,7 +33,9 @@ export function ConceptNav({ active }: { active: ConceptSlug }) {
             <Wordmark className="h-3.5 w-auto sm:h-4" />
           </Link>
 
-          <DropdownMenu>
+          {/* Non-modal: a modal dropdown scroll-locks the body, which breaks
+              the sticky header (the whole nav vanishes) when opened mid-page. */}
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
