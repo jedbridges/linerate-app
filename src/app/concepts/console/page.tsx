@@ -79,11 +79,11 @@ export default function ConsoleConcept() {
         </Reveal>
       </section>
 
-      {/* Product proof — the real console, framed 9:16 and tilted back to the
+      {/* Product proof — the real console, framed 16:9 and tilted back to the
           horizon; it snaps upright as it scrolls into place */}
       <section className="mx-auto max-w-6xl px-6 pb-24 pt-6">
         <TiltFrame>
-          <DashboardShell compact className="rounded-none border-0 shadow-none" />
+          <DashboardShell className="rounded-none border-0 shadow-none" />
         </TiltFrame>
         <p className="mt-8 text-center text-sm text-foreground-subtle">
           Scroll the console. This is the live product, not a screenshot.

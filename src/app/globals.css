@@ -596,9 +596,9 @@
     }
   }
   .lr-frame {
-    height: min(78vh, 780px);
-    aspect-ratio: 9 / 16;
-    max-width: 90vw;
+    width: min(1040px, 92vw);
+    aspect-ratio: 16 / 9;
+    max-width: 100%;
     margin-inline: auto;
     overflow: hidden;
     border-radius: 1.5rem;
