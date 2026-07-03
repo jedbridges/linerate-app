@@ -82,7 +82,7 @@ export default function ConsoleConcept() {
       {/* Product proof — the real console, framed 16:9 and tilted back to the
           horizon; it snaps upright as it scrolls into place */}
       <section className="mx-auto max-w-6xl px-6 pb-24 pt-6">
-        <TiltFrame>
+        <TiltFrame label="LineRate settlement console, scrollable">
           <DashboardShell className="rounded-none border-0 shadow-none" />
         </TiltFrame>
         <p className="mt-8 text-center text-sm text-foreground-subtle">
@@ -93,7 +93,7 @@ export default function ConsoleConcept() {
       {/* Features */}
       <section className="border-t border-border-subtle">
         <div className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal as="p" className="eyebrow mb-10">
+          <Reveal as="h2" className="eyebrow mb-10">
             Built for the people who live in it
           </Reveal>
           <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">

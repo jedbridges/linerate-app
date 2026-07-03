@@ -141,7 +141,7 @@ export default function NeutralConcept() {
       {/* Objections / trust */}
       <section className="border-t border-border-subtle">
         <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="eyebrow mb-10">What operators ask first</p>
+          <h2 className="eyebrow mb-10">What operators ask first</h2>
           <div className="grid gap-8 lg:grid-cols-3">
             {OBJECTIONS.map((o, i) => (
               <Reveal

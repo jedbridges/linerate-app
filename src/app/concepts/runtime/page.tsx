@@ -106,7 +106,7 @@ export default function RuntimeConcept() {
             Structural, not a promise
           </Reveal>
           <Reveal
-            as="p"
+            as="h2"
             delay={80}
             className="mx-auto max-w-[24ch] text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-6xl sm:leading-[1.05]"
           >

@@ -626,6 +626,12 @@
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
   }
+  /* Inset ring so the keyboard-focus indicator isn't clipped by the frame's
+     overflow:hidden (the global outer ring would be). */
+  .lr-frame-scroll:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
 
   /* Indeterminate hairline used by the route loader. */
   .loading-sweep {
