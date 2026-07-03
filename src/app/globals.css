@@ -597,7 +597,9 @@
   }
   .lr-frame {
     width: min(1040px, 92vw);
-    aspect-ratio: 16 / 9;
+    /* Portrait on phones (the dashboard collapses to one column there), 16:9
+       on wider screens where the full desktop layout fits. */
+    aspect-ratio: 3 / 4;
     max-width: 100%;
     margin-inline: auto;
     overflow: hidden;
@@ -608,6 +610,14 @@
       0 2px 0 0 color-mix(in oklab, var(--foreground) 6%, transparent) inset,
       0 50px 90px -30px rgb(0 0 0 / 0.65),
       0 20px 40px -25px rgb(0 0 0 / 0.5);
+  }
+  /* 16:9 only from lg up, where DashboardShell shows its full desktop layout
+     (sidebar + multi-column). Below that the dashboard is single-column, so a
+     portrait frame suits it. */
+  @media (min-width: 1024px) {
+    .lr-frame {
+      aspect-ratio: 16 / 9;
+    }
   }
   .lr-frame-scroll {
     height: 100%;

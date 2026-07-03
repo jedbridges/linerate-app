@@ -29,7 +29,13 @@ export function ConceptNav({ active }: { active: ConceptSlug }) {
     <header className="sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
       <div className="glass mx-auto flex h-13 max-w-6xl items-center justify-between gap-3 rounded-xl border px-4 shadow-lg sm:px-5">
         <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-          <Link href="/concepts" aria-label="LineRate concepts" className="shrink-0">
+          {/* Wordmark hidden on mobile so the switcher + CTA fit; it still
+              appears in the hero and footer. */}
+          <Link
+            href="/concepts"
+            aria-label="LineRate concepts"
+            className="hidden shrink-0 sm:block"
+          >
             <Wordmark className="h-3.5 w-auto sm:h-4" />
           </Link>
 
@@ -39,13 +45,14 @@ export function ConceptNav({ active }: { active: ConceptSlug }) {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs text-foreground-muted transition-colors hover:bg-muted hover:text-foreground"
+                aria-label={`Switch concept, current: ${current.name}`}
+                className="flex min-w-0 cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs text-foreground-muted transition-colors hover:bg-muted hover:text-foreground"
               >
                 <span className="font-mono text-foreground-subtle">
                   {current.index}
                 </span>
-                <span className="max-w-[9rem] truncate">{current.name}</span>
-                <ChevronDown className="size-3.5" />
+                <span className="truncate">{current.name}</span>
+                <ChevronDown className="size-3.5 shrink-0" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-72">

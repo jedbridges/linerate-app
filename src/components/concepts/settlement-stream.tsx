@@ -21,7 +21,7 @@ export function SettlementStream({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-surface",
+        "relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-surface sm:aspect-[16/9]",
         className,
       )}
       style={{
@@ -77,7 +77,9 @@ export function SettlementStream({ className }: { className?: string }) {
                 style={{ left }}
               >
                 <span className="block size-2 rounded-full border border-accent bg-page" />
-                <span className="absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-full whitespace-nowrap font-mono text-[11px] text-foreground">
+                {/* Party names are too many to fit across a phone; keep the
+                    amounts (below), which don't collide. */}
+                <span className="absolute -top-1 left-1/2 hidden -translate-x-1/2 -translate-y-full whitespace-nowrap font-mono text-[11px] text-foreground sm:block">
                   {e.party}
                 </span>
                 <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 translate-y-full whitespace-nowrap font-mono text-[11px] text-foreground-subtle">
