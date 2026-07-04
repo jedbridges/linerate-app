@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { SettlementStream } from "@/components/concepts/settlement-stream";
-import { DitherField } from "@/components/concepts/dither-field";
+import { HeroShader } from "@/components/concepts/hero-shader";
 import { Reveal } from "@/components/concepts/reveal";
 import { METRICS, FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
 
@@ -32,14 +32,13 @@ export default function RuntimeConcept() {
           </Reveal>
         </section>
 
-        {/* Full-width image anchored to the bottom of the viewport. Drop the
-            source at public/concepts/hero-runtime.jpg. */}
+        {/* Full-width brand shader anchored to the bottom of the viewport. */}
         <Reveal variant="load" delay={340}>
-          <DitherField className="h-[clamp(18rem,42vw,32rem)]" />
+          <HeroShader className="h-[clamp(18rem,42vw,32rem)]" />
         </Reveal>
       </div>
 
-      {/* Live illustration overlapping the image's bottom edge by 48px. */}
+      {/* Live illustration overlapping the shader's bottom edge by 48px. */}
       <section className="relative pb-20">
         <div className="relative z-10 mx-auto -mt-12 max-w-6xl px-6">
           <Reveal variant="load" delay={420} y={24}>
