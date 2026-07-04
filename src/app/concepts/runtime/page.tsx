@@ -26,7 +26,7 @@ export default function RuntimeConcept() {
           <Reveal
             as="h1"
             variant="load"
-            className="whitespace-nowrap text-[clamp(1.5rem,6vw,4.5rem)] font-semibold tracking-tight text-foreground leading-[1.02]"
+            className="text-display-md font-semibold tracking-tight text-foreground leading-[1.05]"
           >
             Contracts that run themselves.
           </Reveal>
