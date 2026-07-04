@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
-import { Download } from "lucide-react";
+import { Download, ArrowRight } from "lucide-react";
 
 import { slugify, withBase } from "@/lib/utils";
 import { SideNav, type NavGroup } from "@/components/side-nav";
@@ -230,6 +231,14 @@ export default function DesignSystemPage() {
           component below references those tokens; brand changes propagate
           automatically.
         </p>
+        <div className="mt-8">
+          <Button asChild size="lg">
+            <Link href="/concepts">
+              View the landing concepts
+              <ArrowRight />
+            </Link>
+          </Button>
+        </div>
           </div>
 
       {/* Get started: client-facing instructions + spec download */}
