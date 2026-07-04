@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { SettlementStream } from "@/components/concepts/settlement-stream";
+import { DitherField } from "@/components/concepts/dither-field";
 import { Reveal } from "@/components/concepts/reveal";
 import { METRICS, FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
 
@@ -18,48 +18,38 @@ export const metadata: Metadata = {
 export default function RuntimeConcept() {
   return (
     <ConceptChrome slug="runtime">
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-6 pt-16 pb-20 sm:pt-24">
-        <Reveal as="p" variant="load" className="eyebrow mb-6">
-          The runtime for infrastructure contracts
-        </Reveal>
-        <Reveal
-          as="h1"
-          variant="load"
-          delay={80}
-          className="max-w-[16ch] text-display-lg font-semibold tracking-tight text-foreground leading-[1.02]"
-        >
-          Contracts that run themselves.
-        </Reveal>
-        <Reveal
-          as="p"
-          variant="load"
-          delay={160}
-          className="mt-6 max-w-[54ch] text-lg leading-relaxed text-foreground-muted"
-        >
-          LineRate turns the agreement between infrastructure operators and their
-          counterparties into live software, running it continuously against real
-          operational and payment data. Settlement happens as the deal performs.
-          The month-end reconciliation cycle goes away.
-        </Reveal>
-        <Reveal
-          variant="load"
-          delay={240}
-          className="mt-9 flex flex-wrap items-center gap-3"
-        >
-          <Button size="lg">Request access</Button>
-          <Button asChild variant="ghost" size="lg">
-            <a href="#how">See how it works</a>
-          </Button>
-        </Reveal>
+      {/* Hero — the headline fills the space above a full-width image, both
+          sharing the first viewport below the sticky nav. The copy is pinned to
+          the bottom of its area so it sits just above the image. */}
+      <div className="flex min-h-[calc(100svh-5.25rem)] flex-col">
+        <section className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-end px-6 pb-14 pt-16">
+          <Reveal
+            as="h1"
+            variant="load"
+            className="whitespace-nowrap text-[clamp(1.5rem,6vw,4.5rem)] font-semibold tracking-tight text-foreground leading-[1.02]"
+          >
+            Contracts that run themselves.
+          </Reveal>
+        </section>
 
-        <Reveal variant="load" delay={340} y={24} className="mt-16">
-          <SettlementStream />
+        {/* Full-width image anchored to the bottom of the viewport. Drop the
+            source at public/concepts/hero-runtime.jpg. */}
+        <Reveal variant="load" delay={340}>
+          <DitherField className="h-[clamp(18rem,42vw,32rem)]" />
         </Reveal>
+      </div>
+
+      {/* Live illustration overlapping the image's bottom edge by 48px. */}
+      <section className="relative pb-20">
+        <div className="relative z-10 mx-auto -mt-12 max-w-6xl px-6">
+          <Reveal variant="load" delay={420} y={24}>
+            <SettlementStream />
+          </Reveal>
+        </div>
       </section>
 
       {/* Proof metrics */}
-      <section className="border-y border-border-subtle">
+      <section>
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-6 py-14 lg:grid-cols-4">
           {METRICS.map((m, i) => (
             <Reveal key={m.label} delay={i * 90}>
@@ -86,7 +76,7 @@ export default function RuntimeConcept() {
         </Reveal>
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2">
           {FLOW.map((f, i) => (
-            <Reveal key={f.step} delay={i * 80} className="border-t border-border pt-5">
+            <Reveal key={f.step} delay={i * 80} className="pt-5">
               <p className="ledger text-sm text-foreground-subtle">{f.step}</p>
               <h3 className="mt-3 text-lg font-medium text-foreground">
                 {f.title}
@@ -100,7 +90,7 @@ export default function RuntimeConcept() {
       </section>
 
       {/* Neutrality — the declarative moment */}
-      <section className="border-t border-border-subtle">
+      <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <Reveal as="p" className="eyebrow mb-6">
             Structural, not a promise

@@ -19,7 +19,7 @@ function GridLines({ columns = 4 }: { columns?: number }) {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 flex justify-center"
+      className="grid-lines pointer-events-none fixed inset-0 -z-10 flex justify-center"
     >
       <div
         className="grid h-full w-full max-w-6xl px-6"

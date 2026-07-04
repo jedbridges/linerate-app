@@ -412,6 +412,13 @@
   }
 }
 
+/* Pages that opt out (via a [data-no-grid-lines] marker) hide the global
+   vertical hairline backdrop. Concept 02 carries its own ledger rules.
+   Unlayered so it wins over the Tailwind `flex` utility on .grid-lines. */
+body:has([data-no-grid-lines]) .grid-lines {
+  display: none;
+}
+
 /* ─────────────────────────────────────────────────────────────────────────
    Entrance + loading motion. Snappy and smooth: short, eased, no bounce.
    Auto-disabled by the prefers-reduced-motion block above (it caps every
@@ -496,6 +503,35 @@
   }
   50% {
     box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 0%, transparent);
+  }
+}
+
+/* Copy confirmation on a colour swatch: the check badge springs in with a
+   slight overshoot, an expanding ring radiates once, and the whole thing
+   settles. Used by CopySwatch / CopyScale in the design system. */
+@keyframes lr-copy-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes lr-copy-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
   }
 }
 

@@ -4,6 +4,7 @@ import { Download } from "lucide-react";
 
 import { slugify, withBase } from "@/lib/utils";
 import { SideNav, type NavGroup } from "@/components/side-nav";
+import { CopySwatch, CopyScale } from "@/components/design-system/copy-swatch";
 import { Alert, AlertActions, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -136,27 +137,6 @@ function Section({
       {!description && <div className="mb-8" />}
       {children}
     </section>
-  );
-}
-
-function Swatch({
-  className,
-  name,
-  value,
-}: {
-  className: string;
-  name: string;
-  value: string;
-}) {
-  return (
-    <div>
-      <div
-        className={`h-16 rounded-md border border-border ${className}`}
-        aria-hidden
-      />
-      <p className="mt-2 text-sm text-foreground">{name}</p>
-      <p className="font-mono text-xs text-foreground-subtle">{value}</p>
-    </div>
   );
 }
 
@@ -414,14 +394,18 @@ export default function DesignSystemPage() {
       </Section>
 
       {/* Surfaces */}
-      <Section eyebrow="Color" title="Surfaces & roles">
+      <Section
+        eyebrow="Color"
+        title="Surfaces & roles"
+        description="Click any swatch to copy its resolved hex. Values track the active theme, so you copy what actually renders."
+      >
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          <Swatch className="bg-page" name="Page" value="bg-page" />
-          <Swatch className="bg-surface" name="Surface" value="bg-surface" />
-          <Swatch className="bg-raised" name="Raised" value="bg-raised" />
-          <Swatch className="bg-muted" name="Muted" value="bg-muted" />
-          <Swatch className="bg-primary" name="Primary" value="bg-primary" />
-          <Swatch className="bg-accent" name="Accent" value="bg-accent" />
+          <CopySwatch className="bg-page" name="Page" value="bg-page" />
+          <CopySwatch className="bg-surface" name="Surface" value="bg-surface" />
+          <CopySwatch className="bg-raised" name="Raised" value="bg-raised" />
+          <CopySwatch className="bg-muted" name="Muted" value="bg-muted" />
+          <CopySwatch className="bg-primary" name="Primary" value="bg-primary" />
+          <CopySwatch className="bg-accent" name="Accent" value="bg-accent" />
         </div>
       </Section>
 
@@ -429,22 +413,16 @@ export default function DesignSystemPage() {
       <Section
         eyebrow="Color"
         title="Neutral & amber scales"
-        description="Reference only. Use semantic tokens (bg-primary, bg-muted, bg-accent) in product code."
+        description="Reference only. Use semantic tokens (bg-primary, bg-muted, bg-accent) in product code. Hover a step to see its hex, click to copy."
       >
         <p className="mb-3 text-sm text-foreground-subtle">Ink family</p>
-        <div className="mb-8 flex overflow-hidden rounded-md border border-border">
-          {neutralScale.map((cls) => (
-            <div key={cls} className={`h-12 flex-1 ${cls}`} title={cls} />
-          ))}
+        <div className="mb-8">
+          <CopyScale scale={neutralScale} />
         </div>
         <p className="mb-3 text-sm text-foreground-subtle">
           Amber, signal color only
         </p>
-        <div className="flex overflow-hidden rounded-md border border-border">
-          {amberScale.map((cls) => (
-            <div key={cls} className={`h-12 flex-1 ${cls}`} title={cls} />
-          ))}
-        </div>
+        <CopyScale scale={amberScale} />
       </Section>
 
       {/* Buttons */}

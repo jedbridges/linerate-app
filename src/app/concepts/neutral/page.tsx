@@ -35,6 +35,9 @@ const OBJECTIONS = [
 export default function NeutralConcept() {
   return (
     <ConceptChrome slug="neutral">
+      {/* Opt out of the global vertical GridLines backdrop; this concept
+          carries its own ledger rules. */}
+      <span hidden data-no-grid-lines />
       {/* Hero */}
       <section className="mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 sm:pt-24 lg:grid-cols-12">
         <div className="lg:col-span-7">
@@ -81,7 +84,7 @@ export default function NeutralConcept() {
 
       {/* Metrics — ledger-ruled */}
       <section className="border-y border-border">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 divide-border-subtle px-6 sm:grid-cols-4 sm:divide-x">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 px-6 sm:grid-cols-4">
           {METRICS.map((m, i) => (
             <Reveal
               key={m.label}
@@ -160,15 +163,17 @@ export default function NeutralConcept() {
       </section>
 
       {/* Proof quote */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
-        <Reveal as="figure" className="mx-auto max-w-3xl text-center">
-          <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground sm:text-3xl">
-            &ldquo;{PROOF_QUOTE.quote}&rdquo;
-          </blockquote>
-          <figcaption className="mt-6 text-sm text-foreground-muted">
-            {PROOF_QUOTE.attribution}
-          </figcaption>
-        </Reveal>
+      <section className="border-t border-border-subtle">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <Reveal as="figure" className="mx-auto max-w-3xl text-center">
+            <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground sm:text-3xl">
+              &ldquo;{PROOF_QUOTE.quote}&rdquo;
+            </blockquote>
+            <figcaption className="mt-6 text-sm text-foreground-muted">
+              {PROOF_QUOTE.attribution}
+            </figcaption>
+          </Reveal>
+        </div>
       </section>
     </ConceptChrome>
   );
