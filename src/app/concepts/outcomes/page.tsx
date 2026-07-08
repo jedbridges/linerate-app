@@ -25,22 +25,22 @@ const BENEFITS = [
   {
     tag: "T+0",
     title: "Cash lands sooner",
-    body: "Settlement executes as the deal performs instead of weeks after the books close. Capital that used to idle in limbo goes back to work.",
+    body: "Settlement clears as the deal performs, so capital stops waiting on the books.",
   },
   {
     tag: "One record",
-    title: "Disputes lose their fuel",
-    body: "Both sides read the same neutral record all cycle, so there is no end-of-month surprise left to argue about.",
+    title: "Fewer disputes",
+    body: "Both sides read the same record all cycle. Month-end holds no surprises.",
   },
   {
     tag: "Zero close",
-    title: "Month-end stops being an event",
-    body: "No reconciliation scramble, no spreadsheet archaeology. Your controllers verify figures instead of rebuilding them.",
+    title: "No month-end scramble",
+    body: "Your controllers verify figures instead of rebuilding them.",
   },
   {
     tag: "Audit-ready",
     title: "Auditors get receipts",
-    body: "Every figure is hashed, timestamped, and exportable the moment it exists. Audit prep becomes an export, not a project.",
+    body: "Every figure is hashed, timestamped, and one click from export.",
   },
 ];
 
@@ -48,17 +48,17 @@ const STEPS = [
   {
     step: "01",
     title: "Your agreement goes in",
-    body: "We encode the commercial terms you already negotiated: pricing, volumes, uptime, penalties.",
+    body: "We encode the terms you already negotiated: pricing, volumes, uptime, penalties.",
   },
   {
     step: "02",
-    title: "It runs against real data",
-    body: "LineRate watches the deal perform against meters, invoices, and payments, keeping one running record both sides see.",
+    title: "It runs on live data",
+    body: "LineRate tracks the deal against meters, invoices, and payments, on one shared record.",
   },
   {
     step: "03",
     title: "Money moves on time",
-    body: "Settlement executes over the rails you already use, with an audit trail behind every entry.",
+    body: "Settlement clears over your existing rails, with an audit trail behind every entry.",
   },
 ];
 
@@ -86,10 +86,9 @@ export default function OutcomesConcept() {
             delay={160}
             className="mt-6 max-w-[52ch] text-lg leading-relaxed text-foreground-muted"
           >
-            LineRate runs your counterparty agreement against live operational
-            and payment data and settles it continuously. Cash lands sooner,
-            disputes have nothing to feed on, and month-end reconciliation
-            disappears.
+            LineRate settles your counterparty agreement continuously against
+            live data. Cash lands sooner, disputes fade, and month-end goes
+            away.
           </Reveal>
           <Reveal
             variant="load"
@@ -130,7 +129,7 @@ export default function OutcomesConcept() {
       {/* Benefits — the value prop, stated as outcomes */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal as="p" className="eyebrow mb-3">
-          What changes for you
+          What changes
         </Reveal>
         <Reveal
           as="h2"
@@ -191,7 +190,7 @@ export default function OutcomesConcept() {
       <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <Reveal as="p" className="eyebrow mb-6">
-            Structural, not a promise
+            Structural neutrality
           </Reveal>
           <Reveal
             as="h2"
@@ -203,11 +202,10 @@ export default function OutcomesConcept() {
           <Reveal
             as="p"
             delay={160}
-            className="mx-auto mt-6 max-w-[56ch] text-base leading-relaxed text-foreground-muted"
+            className="mx-auto mt-6 max-w-[52ch] text-base leading-relaxed text-foreground-muted"
           >
-            Not a host, a miner, or a broker. LineRate sits between the two sides
-            as the neutral system of record and runs the terms for both. Neutrality
-            is how the system is built, not a policy you have to trust.
+            LineRate sits between both sides as the system of record and runs the
+            terms for both. Neutrality is built into how it works.
           </Reveal>
         </div>
       </section>

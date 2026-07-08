@@ -35,9 +35,8 @@ export function ConceptChrome({
             Put your contracts on a neutral runtime.
           </h2>
           <p className="mx-auto mt-5 max-w-[52ch] text-base leading-relaxed text-foreground-muted">
-            Tell us about your counterparty agreements and where reconciliation
-            costs you. Qualified operators get a working session with the team,
-            not a demo reel.
+            Tell us where reconciliation costs you. Qualified operators get a
+            working session with the team.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button size="lg">Request access</Button>

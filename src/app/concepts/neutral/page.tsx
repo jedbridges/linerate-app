@@ -14,15 +14,15 @@ export const metadata: Metadata = {
 const OBJECTIONS = [
   {
     q: "Whose side are they on?",
-    a: "Neither. LineRate is not party to the deal, so the record is neutral by construction, not by pledge. Both counterparties read and settle against the same figures.",
+    a: "Neither. LineRate sits outside the deal, and both counterparties settle against the same figures.",
   },
   {
     q: "Is this real institutional infrastructure?",
-    a: "Auditable, hashed, and timestamped end to end, backed by OpenNode. Not a crypto experiment: settlement-grade infrastructure that stands up to your auditors.",
+    a: "Yes. Auditable, hashed, and timestamped end to end, backed by OpenNode, and built to stand up to your auditors.",
   },
   {
     q: "Will this be more work for my team?",
-    a: "A force multiplier, not another system to babysit. It runs continuously in the background; your controllers verify and export instead of rebuilding spreadsheets.",
+    a: "No. It runs in the background while your controllers verify and export figures they used to rebuild by hand.",
   },
 ];
 
@@ -58,10 +58,9 @@ export default function NeutralConcept() {
             delay={160}
             className="mt-6 max-w-[52ch] text-lg leading-relaxed text-foreground-muted"
           >
-            Between an infrastructure operator and its counterparty, LineRate is
-            the neutral layer that runs the contract and settles it continuously.
-            No favored party. No month-end reconciliation. One auditable source of
-            truth for both.
+            LineRate is the neutral layer between operator and counterparty. It
+            runs the contract, settles it continuously, and keeps one auditable
+            record both sides trust.
           </Reveal>
           <Reveal
             variant="load"

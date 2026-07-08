@@ -16,22 +16,22 @@ const FEATURES = [
   {
     icon: RefreshCw,
     title: "Continuous settlement",
-    body: "Settles as the deal performs against live data, not in a month-end scramble.",
+    body: "Settles as the deal performs, against live data.",
   },
   {
     icon: Scale,
     title: "Neutral system of record",
-    body: "One source of truth both you and your counterparty read from and trust.",
+    body: "One source of truth you and your counterparty both trust.",
   },
   {
     icon: FileCheck,
     title: "Full audit trail",
-    body: "Every figure hashed, timestamped, and exportable. Your auditors will be pleased.",
+    body: "Every figure hashed, timestamped, and one click from export.",
   },
   {
     icon: Banknote,
     title: "Freed capital",
-    body: "Capital that used to sit in reconciliation and disputes goes back to work.",
+    body: "Money that sat in reconciliation and disputes goes back to work.",
   },
 ];
 
@@ -64,8 +64,7 @@ export default function ConsoleConcept() {
         >
           LineRate runs your counterparty contracts as live software and settles
           them continuously against one neutral record. A force multiplier for
-          finance and ops, an operating console for experts, not another system to
-          babysit.
+          finance and ops.
         </Reveal>
         <Reveal
           variant="load"
@@ -86,7 +85,7 @@ export default function ConsoleConcept() {
           <DashboardShell className="rounded-none border-0 shadow-none" />
         </TiltFrame>
         <p className="mt-8 text-center text-sm text-foreground-subtle">
-          Scroll the console. This is the live product, not a screenshot.
+          Scroll the console. It is the live product.
         </p>
       </section>
 

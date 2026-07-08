@@ -92,7 +92,7 @@ export default function RuntimeConcept() {
       <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <Reveal as="p" className="eyebrow mb-6">
-            Structural, not a promise
+            Structural neutrality
           </Reveal>
           <Reveal
             as="h2"
@@ -106,9 +106,8 @@ export default function RuntimeConcept() {
             delay={160}
             className="mx-auto mt-6 max-w-[56ch] text-base leading-relaxed text-foreground-muted"
           >
-            Not a host, a miner, or a broker. LineRate sits between the two sides
-            as the neutral system of record and runs the terms for both. Neutrality
-            is how the system is built, not a policy you have to trust.
+            LineRate sits between both sides as the system of record and runs
+            the terms for both. Neutrality is built into how it works.
           </Reveal>
         </div>
       </section>

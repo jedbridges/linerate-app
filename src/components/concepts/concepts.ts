@@ -31,25 +31,18 @@ export const METRICS = [
 
 export const PROOF_QUOTE = {
   quote:
-    "LineRate settles our compute agreements continuously against one record we both trust. Month-end reconciliation, and the disputes that came with it, is gone.",
+    "LineRate settles our compute agreements continuously against one record we both trust. Month-end reconciliation is gone, and the disputes went with it.",
   // Velaura, pending naming permission; anonymized fallback per intake.
   attribution: "Treasury lead, a venture-backed AI infrastructure operator",
 };
 
-/* Positioning, straight from the intake's "what this is / is not" framing.
-   The banned terms become the differentiator. */
+/* Positioning: a short, positive statement of what LineRate is. */
 export const POSITIONING = {
   is: [
-    "A neutral system of record both sides settle against",
-    "A runtime that runs the contract continuously against live data",
-    "Settlement-grade, auditable infrastructure",
-    "An operating console for finance and ops experts",
-  ],
-  isnt: [
-    "A contract manager or e-signature tool",
-    "A reconciliation or reporting layer, after the fact",
-    "An insights dashboard or BI product",
-    "An AI document parser or a chatbot",
+    "One record both sides settle against",
+    "Runs the contract continuously against live data",
+    "Settlement-grade and auditable end to end",
+    "Built for finance and ops teams",
   ],
 };
 
@@ -68,21 +61,21 @@ export const FLOW = [
   {
     step: "01",
     title: "Encode the contract",
-    body: "Your agreement goes in and becomes a runtime, the terms as live software, not a document to interpret later.",
+    body: "Your agreement becomes live software, with the terms you negotiated.",
   },
   {
     step: "02",
     title: "Run it continuously",
-    body: "It runs against live operational and payment data, settling as the deal performs instead of waiting for month-end.",
+    body: "It runs against live operational and payment data, settling as the deal performs.",
   },
   {
     step: "03",
     title: "Agree on one record",
-    body: "Both sides read the same neutral source of truth, with a full audit trail behind every figure.",
+    body: "Both sides read the same source of truth, with an audit trail behind every figure.",
   },
   {
     step: "04",
     title: "Settle over any rail",
-    body: "Settlement executes over pluggable rails. Capital that used to sit in reconciliation is freed.",
+    body: "Settlement clears over your existing rails. Capital stops sitting in reconciliation.",
   },
 ];
