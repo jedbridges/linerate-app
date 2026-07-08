@@ -14,11 +14,12 @@ const TAGLINES: Record<string, string> = {
   runtime: "Contracts that run themselves.",
   neutral: "One record both sides of the deal trust.",
   console: "The reconciliation cycle goes away.",
+  outcomes: "Get paid as the deal performs.",
 };
 
 /*
- * Index of the three landing-page concepts. Each concept also carries a
- * header dropdown to switch between them once you're inside.
+ * Index of the landing-page concepts. Each concept also carries a header
+ * dropdown to switch between them once you're inside.
  */
 export default function ConceptsIndex() {
   return (
@@ -35,7 +36,7 @@ export default function ConceptsIndex() {
         delay={120}
         className="max-w-[22ch] text-display-sm font-semibold tracking-tight text-foreground leading-[1.08]"
       >
-        Three directions for the LineRate site.
+        Four directions for the LineRate site.
       </Reveal>
       <Reveal
         as="p"
@@ -43,11 +44,12 @@ export default function ConceptsIndex() {
         delay={180}
         className="mt-5 max-w-[60ch] text-base leading-relaxed text-foreground-muted"
       >
-        Same brand and design system, three angles on the story. Open one and use
-        the header dropdown to flip between them.
+        Same brand and design system, four angles on the story. Open one and use
+        the header dropdown to flip between them. 04 folds in the first round of
+        client feedback.
       </Reveal>
 
-      <div className="mt-14 grid gap-4 sm:grid-cols-3">
+      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {CONCEPTS.map((c, i) => (
           <Reveal
             key={c.slug}
