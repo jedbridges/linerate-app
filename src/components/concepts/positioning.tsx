@@ -6,8 +6,8 @@ import { POSITIONING, TRUST } from "./concepts";
 /*
  * Positioning block, shared across every concept: a plain "what it is / what it
  * isn't" statement that turns the intake's banned terms into the differentiator,
- * closed by a slim trust strip. Neutral in tone so it reads correctly under all
- * three concept voices.
+ * closed by a slim trust strip. Neutral in tone so it reads correctly under
+ * every concept voice.
  */
 export function Positioning() {
   return (

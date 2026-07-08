@@ -87,9 +87,9 @@ export default function OutcomesConcept() {
             className="mt-6 max-w-[52ch] text-lg leading-relaxed text-foreground-muted"
           >
             LineRate runs your counterparty agreement against live operational
-            and payment data, settling continuously as the deal performs. Cash
-            lands sooner, disputes have nothing to feed on, and month-end
-            reconciliation disappears.
+            and payment data and settles it continuously. Cash lands sooner,
+            disputes have nothing to feed on, and month-end reconciliation
+            disappears.
           </Reveal>
           <Reveal
             variant="load"
@@ -106,7 +106,10 @@ export default function OutcomesConcept() {
         {/* Live settlement stream: abstract proof of money moving, without
             showing product UI */}
         <Reveal variant="load" delay={320} className="lg:col-span-6">
-          <SettlementStream className="sm:aspect-[4/3]" />
+          <SettlementStream
+            className="sm:aspect-[4/3]"
+            caption="Settlement in motion"
+          />
         </Reveal>
       </section>
 
@@ -143,7 +146,7 @@ export default function OutcomesConcept() {
                 <h3 className="text-lg font-medium text-foreground">
                   {b.title}
                 </h3>
-                <span className="ledger text-sm text-foreground-subtle">
+                <span className="ledger shrink-0 whitespace-nowrap text-sm text-foreground-subtle">
                   {b.tag}
                 </span>
               </div>

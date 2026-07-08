@@ -17,7 +17,15 @@ const EVENTS = [
   { party: "Meridian", amount: "$1.9M" },
 ];
 
-export function SettlementStream({ className }: { className?: string }) {
+export function SettlementStream({
+  className,
+  caption = "Settling as the deal performs",
+}: {
+  className?: string;
+  /** Bottom-left caption. Override where the surrounding copy already says
+   *  "as the deal performs" so the phrase doesn't repeat on one screen. */
+  caption?: string;
+}) {
   return (
     <div
       className={cn(
@@ -93,9 +101,7 @@ export function SettlementStream({ className }: { className?: string }) {
 
       {/* Caption */}
       <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-5 py-4 sm:px-6">
-        <span className="eyebrow text-foreground-subtle">
-          Settling as the deal performs
-        </span>
+        <span className="eyebrow text-foreground-subtle">{caption}</span>
         <span className="ledger text-sm text-foreground-subtle">
           Cycle 4271
         </span>

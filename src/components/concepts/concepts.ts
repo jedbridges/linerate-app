@@ -17,7 +17,7 @@ export const CONCEPTS: {
   { slug: "runtime", index: "01", name: "Runtime", note: "Declarative conviction" },
   { slug: "neutral", index: "02", name: "Neutral ledger", note: "Institutional rails" },
   { slug: "console", index: "03", name: "Operating console", note: "Product craft" },
-  { slug: "outcomes", index: "04", name: "Outcomes", note: "Benefit-led, per client feedback" },
+  { slug: "outcomes", index: "04", name: "Outcomes", note: "Benefit-led" },
 ];
 
 /* Proof metrics. $500M+ is real (mining); MWh is the intended lead stat,
