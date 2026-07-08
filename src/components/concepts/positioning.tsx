@@ -11,7 +11,7 @@ import { POSITIONING, TRUST } from "./concepts";
  */
 export function Positioning() {
   return (
-    <section className="border-t border-border-subtle">
+    <section>
       <div className="mx-auto max-w-6xl px-6 py-24">
         <Reveal as="p" className="eyebrow mb-3">
           Where LineRate fits
@@ -67,7 +67,7 @@ export function Positioning() {
         {/* Trust strip */}
         <Reveal
           delay={160}
-          className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border-subtle pt-8"
+          className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-2 pt-8"
         >
           {TRUST.map((t) => (
             <span key={t} className="eyebrow text-foreground-subtle">

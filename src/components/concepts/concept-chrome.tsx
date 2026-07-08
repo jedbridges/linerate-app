@@ -49,7 +49,7 @@ export function ConceptChrome({
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border-subtle">
+      <footer>
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <Wordmark className="h-3.5 w-auto" />

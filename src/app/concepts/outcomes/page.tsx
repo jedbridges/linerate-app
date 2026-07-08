@@ -111,7 +111,7 @@ export default function OutcomesConcept() {
       </section>
 
       {/* Proof metrics */}
-      <section className="border-y border-border-subtle">
+      <section>
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-6 py-14 lg:grid-cols-4">
           {METRICS.map((m, i) => (
             <Reveal key={m.label} delay={i * 90}>
@@ -138,7 +138,7 @@ export default function OutcomesConcept() {
         </Reveal>
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2">
           {BENEFITS.map((b, i) => (
-            <Reveal key={b.title} delay={i * 80} className="border-t border-border pt-5">
+            <Reveal key={b.title} delay={i * 80} className="pt-5">
               <div className="flex items-baseline justify-between gap-4">
                 <h3 className="text-lg font-medium text-foreground">
                   {b.title}
@@ -156,7 +156,7 @@ export default function OutcomesConcept() {
       </section>
 
       {/* How it works — kept short and in plain terms */}
-      <section id="how" className="border-t border-border-subtle">
+      <section id="how">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <Reveal as="p" className="eyebrow mb-3">
             How it works
@@ -170,7 +170,7 @@ export default function OutcomesConcept() {
           </Reveal>
           <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-3">
             {STEPS.map((s, i) => (
-              <Reveal key={s.step} delay={i * 80} className="border-t border-border pt-5">
+              <Reveal key={s.step} delay={i * 80} className="pt-5">
                 <p className="ledger text-sm text-foreground-subtle">{s.step}</p>
                 <h3 className="mt-3 text-lg font-medium text-foreground">
                   {s.title}
@@ -185,7 +185,7 @@ export default function OutcomesConcept() {
       </section>
 
       {/* Neutrality — the declarative moment, kept from Runtime */}
-      <section className="border-t border-border-subtle">
+      <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <Reveal as="p" className="eyebrow mb-6">
             Structural, not a promise
