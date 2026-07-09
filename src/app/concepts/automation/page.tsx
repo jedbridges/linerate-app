@@ -124,7 +124,9 @@ export default function AutomationConcept() {
             delay={240}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <Button size="lg">Request access</Button>
+            <Button asChild size="lg">
+              <a href="#contact">Request access</a>
+            </Button>
             <Button asChild variant="ghost" size="lg">
               <a href="#how">How it works</a>
             </Button>
