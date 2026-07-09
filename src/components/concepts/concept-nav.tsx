@@ -82,7 +82,7 @@ export function ConceptNav({ active }: { active: ConceptSlug }) {
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-            <a href="#how">See how it works</a>
+            <a href="#how">How it works</a>
           </Button>
           <Button asChild size="sm">
             <a href="#contact">Request access</a>

@@ -73,7 +73,7 @@ export default function ConsoleConcept() {
         >
           <Button size="lg">Request access</Button>
           <Button asChild variant="ghost" size="lg">
-            <a href="#how">See how it works</a>
+            <a href="#how">How it works</a>
           </Button>
         </Reveal>
       </section>

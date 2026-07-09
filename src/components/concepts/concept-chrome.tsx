@@ -47,7 +47,7 @@ export function ConceptChrome({
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button size="lg">Request access</Button>
             <Button asChild variant="ghost" size="lg">
-              <a href="#how">See how it works</a>
+              <a href="#how">How it works</a>
             </Button>
           </div>
         </Reveal>

@@ -88,13 +88,18 @@ export function ContractModel({
       {/* Ledger: one row per clause, each reading live data into an amount.
           A scan band sweeps down to read as continuous execution. */}
       <div className="relative min-h-0 flex-1 px-5 py-3 sm:px-6">
-        {/* execution scan band */}
+        {/* execution scan line: a thin amber playhead that sweeps down the
+            rows so the ledger reads as continuously executing. Off-canvas at
+            rest and under reduced motion, so it never parks as a visible band. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-4 top-0 h-9 rounded-md sm:inset-x-5"
+          className="pointer-events-none absolute inset-x-4 top-0 h-px sm:inset-x-5"
           style={{
             background:
-              "linear-gradient(color-mix(in oklab, var(--accent) 0%, transparent), color-mix(in oklab, var(--accent) 10%, transparent), color-mix(in oklab, var(--accent) 0%, transparent))",
+              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 70%, transparent), transparent)",
+            boxShadow:
+              "0 0 10px 1px color-mix(in oklab, var(--accent) 45%, transparent)",
+            opacity: 0,
             animation: "lr-scan 5.6s cubic-bezier(0.4,0,0.2,1) infinite",
           }}
         />
