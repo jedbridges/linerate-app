@@ -30,7 +30,10 @@ const INTERACTIVE_ROUTES = new Set(["/concepts/automation"]);
 
 function GridLines({ columns = 4 }: { columns?: number }) {
   const pathname = usePathname();
-  const interactive = pathname != null && INTERACTIVE_ROUTES.has(pathname);
+  // trailingSlash is on (next.config), so usePathname yields "/foo/"; strip the
+  // trailing slash before matching so the route check lands.
+  const normalized = pathname?.replace(/\/+$/, "") || "/";
+  const interactive = INTERACTIVE_ROUTES.has(normalized);
 
   const trackRef = React.useRef<HTMLDivElement>(null);
   const lineRefs = React.useRef<Array<HTMLSpanElement | null>>([]);
