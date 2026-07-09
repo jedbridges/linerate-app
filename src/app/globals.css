@@ -471,7 +471,7 @@ body:has([data-no-grid-lines]) .grid-lines {
   .lr-tilt-panel {
     transform-style: preserve-3d;
     transform: rotateX(var(--tilt-rx, 0deg))
-      rotateY(calc(var(--tilt-base, 12deg) + var(--tilt-ry, 0deg)));
+      rotateY(calc(var(--tilt-base, -13deg) + var(--tilt-ry, 0deg)));
     will-change: transform;
   }
 }

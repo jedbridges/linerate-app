@@ -28,10 +28,10 @@ export function HeroPanelTilt({
       const r = el.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5; // -0.5..0.5
       const py = (e.clientY - r.top) / r.height - 0.5;
-      // Lean toward the cursor: small angles keep it tasteful (px/py are
-      // -0.5..0.5, so this is roughly a +/-4deg lean off the resting angle).
-      el.style.setProperty("--tilt-ry", `${(px * 8).toFixed(2)}deg`);
-      el.style.setProperty("--tilt-rx", `${(-py * 6).toFixed(2)}deg`);
+      // Lean toward the cursor (px/py are -0.5..0.5, so this is roughly a
+      // +/-6deg lean off the resting angle) — noticeable but still tasteful.
+      el.style.setProperty("--tilt-ry", `${(px * 12).toFixed(2)}deg`);
+      el.style.setProperty("--tilt-rx", `${(-py * 9).toFixed(2)}deg`);
     },
     [],
   );
