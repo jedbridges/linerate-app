@@ -86,14 +86,14 @@ export function ContractModel({
       </div>
 
       {/* Ledger: one row per clause, each reading live data into an amount.
-          A scan band sweeps down to read as continuous execution. */}
+          A scan line sweeps down to read as continuous execution. */}
       <div className="relative min-h-0 flex-1 px-5 py-3 sm:px-6">
         {/* execution scan line: a thin amber playhead that sweeps down the
             rows so the ledger reads as continuously executing. Off-canvas at
             rest and under reduced motion, so it never parks as a visible band. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-4 top-0 h-px sm:inset-x-5"
+          className="pointer-events-none absolute inset-x-4 h-px sm:inset-x-5"
           style={{
             background:
               "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 70%, transparent), transparent)",
@@ -105,7 +105,7 @@ export function ContractModel({
         />
 
         <div className="relative flex h-full flex-col justify-evenly gap-px">
-          {ROWS.map((r, i) => (
+          {ROWS.map((r) => (
             <div
               key={r.clause}
               className="flex items-baseline justify-between gap-3 py-1.5"
@@ -127,11 +127,6 @@ export function ContractModel({
                     "ledger text-sm tabular-nums",
                     r.accent ? "text-accent" : "text-foreground",
                   )}
-                  style={{
-                    animation: `lr-commit 5.6s ease-in-out ${
-                      i * 0.35
-                    }s infinite`,
-                  }}
                 >
                   {r.amount}
                 </span>
