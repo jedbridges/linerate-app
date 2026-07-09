@@ -82,6 +82,7 @@ export default function AutomationConcept() {
   return (
     <ConceptChrome
       slug="automation"
+      motion="snappy"
       positioningTitle="The neutral system of record for power-intensive compute."
       positioningItems={[
         "One record both sides settle against",

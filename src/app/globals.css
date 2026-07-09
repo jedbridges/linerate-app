@@ -441,6 +441,24 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Snappy scroll reveal: a touch more travel than lr-reveal and it clears its
+   opacity early (by 55%), so the piece reads as "arrived" well before it
+   finishes settling. Used only where main[data-motion="snappy"] retunes the
+   scroll range (concept 05). Transform + opacity only, GPU-friendly. */
+@keyframes lr-reveal-snap {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 18px));
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes lr-sweep {
   0% {
     transform: translateX(-100%);
@@ -605,6 +623,18 @@ body:has([data-no-grid-lines]) .grid-lines {
            up. Per-item `--reveal-i` nudges the start later for a soft stagger
            across a row. */
         animation-range: entry calc(4% + var(--reveal-i, 0) * 4%) cover 36%;
+      }
+
+      /* Snappy variant (concept 05): the reveal finishes within the first
+         ~third of the element's entry, so content pops decisively into place
+         as it comes in instead of tracking scroll all the way to centre. The
+         expo ease-out lands it crisply; a tighter 5%-per-item stagger keeps
+         rows lively without feeling slow. */
+      main[data-motion="snappy"] .lr-reveal {
+        animation-name: lr-reveal-snap;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        animation-range: entry calc(2% + var(--reveal-i, 0) * 5%) entry
+          calc(36% + var(--reveal-i, 0) * 5%);
       }
     }
   }

@@ -19,17 +19,21 @@ export function ConceptChrome({
   positioningTitle,
   positioningItems,
   ctaBody = "Tell us where reconciliation costs you. Qualified operators get a working session with the team.",
+  motion,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
   positioningTitle?: string;
   positioningItems?: string[];
   ctaBody?: string;
+  /** Opt a concept's main content into a snappier scroll-reveal (see the
+   *  main[data-motion="snappy"] rules in globals.css). */
+  motion?: "snappy";
 }) {
   return (
     <>
       <ConceptNav active={slug} />
-      <main>{children}</main>
+      <main data-motion={motion}>{children}</main>
 
       {/* Shared positioning: what LineRate is + trust strip */}
       <Positioning title={positioningTitle} items={positioningItems} />
