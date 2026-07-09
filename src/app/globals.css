@@ -42,6 +42,9 @@
   --color-neutral-200: #e5e5e5;
   --color-neutral-300: #d4d4d4;
   --color-neutral-400: #a3a3a3;
+  /* Half-step between 400 and 500, for subtle foreground on dark surfaces:
+     500 (#838383) is only 4.6:1 on neutral-900, borderline and reads light. */
+  --color-neutral-450: #949494;
   --color-neutral-500: #838383;
   --color-neutral-600: #5c5c5c;
   --color-neutral-700: #3f3f3f;
@@ -205,7 +208,10 @@
   /* Foregrounds */
   --foreground: var(--color-neutral-0);
   --foreground-muted: var(--color-neutral-400);
-  --foreground-subtle: var(--color-neutral-500);
+  /* neutral-450, not 500: 500 (#838383) is only ~4.6:1 on the surface
+     (neutral-900) and reads light at small sizes. 450 (#949494) clears
+     ~5.7:1 while staying dimmer than muted. Mirrors the light-mode bump. */
+  --foreground-subtle: var(--color-neutral-450);
   --foreground-disabled: var(--color-neutral-600);
   --foreground-inverse: var(--color-neutral-950);
 
