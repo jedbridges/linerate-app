@@ -57,17 +57,17 @@ const STEPS = [
   {
     step: "01",
     title: "The contract becomes a model",
-    body: "Pricing, floors, caps, true-ups, uptime terms, penalties: parsed into an executable model and bound to the signed document.",
+    body: "Pricing, floors, caps, true-ups, uptime terms, penalties: parsed into an executable model, bound to your signed agreement.",
   },
   {
     step: "02",
     title: "The model runs on live data",
-    body: "Meter reads, pool payouts, invoices, and FX feed the model continuously. Agentic checks flag anomalies, and every flag traces back to a clause, a cell, or a feed.",
+    body: "Meter reads, pool payouts, invoices, and FX feed the model live. Agentic checks flag anomalies back to a clause or a cell.",
   },
   {
     step: "03",
     title: "Settlement is the output",
-    body: "Money moves over your existing rails, with the amount, the timing, and the audit trail all derived from the executing contract.",
+    body: "Money moves over your existing rails, with amount, timing, and a full audit trail all derived from the executing contract.",
   },
 ];
 
