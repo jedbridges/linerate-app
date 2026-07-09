@@ -165,13 +165,11 @@ export default function AutomationConcept() {
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2">
           {BENEFITS.map((b, i) => (
             <Reveal key={b.title} delay={i * 80} className="pt-5">
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                 <h3 className="text-lg font-medium text-foreground">
                   {b.title}
                 </h3>
-                <span className="pill pill--accent mt-0.5 shrink-0">
-                  {b.tag}
-                </span>
+                <span className="pill pill--accent shrink-0">{b.tag}</span>
               </div>
               <p className="mt-2 max-w-[46ch] text-base leading-relaxed text-foreground-muted">
                 {b.body}
