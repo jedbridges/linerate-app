@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { ContractModel } from "@/components/concepts/contract-model";
+import { HeroPanelTilt } from "@/components/concepts/hero-panel-tilt";
 import { Reveal } from "@/components/concepts/reveal";
 
 export const metadata: Metadata = {
@@ -94,16 +95,16 @@ export default function AutomationConcept() {
       ctaBody="Tell us what reconciliation costs you, in hours, in deposits, in disputes. Qualified operators get a working session with the team."
     >
       {/* Hero: split layout carried over from concept 04 */}
-      <section className="mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 sm:pt-24 lg:grid-cols-12 lg:items-center">
+      <section className="mx-auto grid max-w-6xl gap-x-12 gap-y-16 px-6 pt-20 pb-24 sm:pt-28 lg:grid-cols-12 lg:items-center lg:gap-x-16 lg:pt-32 lg:pb-28">
         <div className="lg:col-span-6">
-          <Reveal as="p" variant="load" className="eyebrow mb-6">
+          <Reveal as="p" variant="load" className="eyebrow mb-7">
             Contract automation for power-intensive compute
           </Reveal>
           <Reveal
             as="h1"
             variant="load"
             delay={80}
-            className="text-display-md font-semibold tracking-tight text-foreground leading-[1.05]"
+            className="text-balance text-display-md font-semibold tracking-[-0.01em] text-foreground leading-[1.12]"
           >
             Turn complex contracts into systems that execute themselves.
           </Reveal>
@@ -111,7 +112,7 @@ export default function AutomationConcept() {
             as="p"
             variant="load"
             delay={160}
-            className="mt-6 max-w-[52ch] text-lg leading-relaxed text-foreground-muted"
+            className="mt-7 max-w-[50ch] text-lg leading-relaxed text-foreground-muted"
           >
             LineRate models your agreement (floors, caps, true-ups, profit
             splits) and runs it against live meter, pool, and invoice data.
@@ -131,10 +132,11 @@ export default function AutomationConcept() {
 
         {/* Contract-first hero visual: the contract executing into figures,
             not settlement on its own (which read as payment-first). It owns its
-            own load intro (the ledger assembles itself), so no outer Reveal. */}
-        <div className="lg:col-span-6">
+            own load intro (the ledger assembles itself), so no outer Reveal.
+            HeroPanelTilt rests it angled inward and leans it toward the cursor. */}
+        <HeroPanelTilt className="lg:col-span-6">
           <ContractModel className="sm:aspect-[4/3]" animateIn />
-        </div>
+        </HeroPanelTilt>
       </section>
 
       {/* Proof stats */}

@@ -459,6 +459,28 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Hero panel tilt (concept 05). Rests angled inward toward the page centre;
+   the HeroPanelTilt wrapper feeds --tilt-rx/--tilt-ry from the cursor and the
+   transition eases the lean. lg+ only, so the stacked mobile panel stays flat
+   and square-on. Kept at top level (not in @layer) so the nested media query
+   applies reliably. */
+.lr-tilt-panel {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (min-width: 64rem) {
+  .lr-tilt-panel {
+    transform-style: preserve-3d;
+    transform: rotateX(var(--tilt-rx, 0deg))
+      rotateY(calc(var(--tilt-base, 12deg) + var(--tilt-ry, 0deg)));
+    will-change: transform;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lr-tilt-panel {
+    transition: none;
+  }
+}
+
 /* Flow rail: a dotted line whose dots drift along it, connecting the concept
    05 steps (contract -> runs -> settles). Moves the background-position of a
    repeating dot gradient; the global reduced-motion cap freezes it to a plain
