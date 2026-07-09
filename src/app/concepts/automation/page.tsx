@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
-import { SettlementStream } from "@/components/concepts/settlement-stream";
+import { ContractModel } from "@/components/concepts/contract-model";
 import { Reveal } from "@/components/concepts/reveal";
 
 export const metadata: Metadata = {
@@ -127,13 +127,10 @@ export default function AutomationConcept() {
           </Reveal>
         </div>
 
-        {/* Live settlement stream: settlement language is correct on the
-            product surface itself */}
+        {/* Contract-first hero visual: the contract executing into figures,
+            not settlement on its own (which read as payment-first) */}
         <Reveal variant="load" delay={320} className="lg:col-span-6">
-          <SettlementStream
-            className="sm:aspect-[4/3]"
-            caption="Settlement in motion"
-          />
+          <ContractModel className="sm:aspect-[4/3]" />
         </Reveal>
       </section>
 

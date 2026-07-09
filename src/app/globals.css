@@ -495,6 +495,38 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Execution scan: a highlight band sweeping down the contract-model rows so
+   the ledger reads as continuously executing. Used by the ContractModel
+   visual. Auto-disabled under the global reduced-motion cap. */
+@keyframes lr-scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1100%);
+    opacity: 0;
+  }
+}
+
+/* Row commit: an amount briefly lifts into focus as the scan reaches its
+   row, so figures read as freshly computed rather than static. */
+@keyframes lr-commit {
+  0%,
+  100% {
+    color: var(--foreground);
+  }
+  50% {
+    color: var(--accent);
+  }
+}
+
 /* Soft amber breathing on the neutral node, so the centre reads as live. */
 @keyframes lr-pulse {
   0%,
