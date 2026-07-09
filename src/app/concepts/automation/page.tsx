@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
@@ -99,13 +98,15 @@ export default function AutomationConcept() {
     >
       {/* Hero: split layout carried over from concept 04 */}
       <section className="mx-auto grid max-w-6xl gap-x-12 gap-y-16 px-6 pt-20 pb-24 sm:pt-28 lg:grid-cols-12 lg:items-center lg:gap-x-16 lg:pt-32 lg:pb-28">
-        <div className="lg:col-span-6">
+        <div className="lg:col-span-7">
           <Reveal
             as="h1"
             variant="load"
-            className="text-balance text-display-md font-semibold tracking-[-0.01em] text-foreground leading-[1.12]"
+            className="text-balance text-[clamp(2.25rem,1.5rem+2.4vw,3.25rem)] font-semibold tracking-[-0.01em] text-foreground leading-[1.08]"
           >
-            Turn complex contracts into systems that execute themselves.
+            Turn complex contracts
+            <br className="hidden sm:block" /> into systems that execute
+            themselves.
           </Reveal>
           <Reveal
             as="p"
@@ -135,7 +136,7 @@ export default function AutomationConcept() {
             not settlement on its own (which read as payment-first). It owns its
             own load intro (the ledger assembles itself), so no outer Reveal.
             HeroPanelTilt rests it angled inward and leans it toward the cursor. */}
-        <HeroPanelTilt className="lg:col-span-6">
+        <HeroPanelTilt className="lg:col-span-5">
           <ContractModel className="sm:aspect-[4/3]" animateIn />
         </HeroPanelTilt>
       </section>
@@ -244,14 +245,15 @@ export default function AutomationConcept() {
       {/* Proof quote */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal as="figure" className="mx-auto max-w-3xl text-center">
-          {/* Neutral avatar placeholder: the quote is anonymized, so a
-              silhouette stands in until an attributed headshot can replace it. */}
-          <span
-            aria-hidden
-            className="mx-auto mb-8 flex size-14 items-center justify-center overflow-hidden rounded-full border border-border bg-surface text-foreground-subtle"
-          >
-            <User className="size-6" />
-          </span>
+          {/* Square avatar. Placeholder headshot (randomuser.me) until an
+              attributed photo can replace it; the quote is still anonymized. */}
+          <img
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/concepts/quote-avatar.jpg`}
+            alt=""
+            width={56}
+            height={56}
+            className="mx-auto mb-8 size-14 rounded-xl border border-border object-cover"
+          />
           <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground sm:text-3xl">
             &ldquo;{QUOTE.quote}&rdquo;
           </blockquote>
