@@ -47,16 +47,22 @@ function GridLines({ columns = 4 }: { columns?: number }) {
     );
     if (!media.matches) return;
 
-    // How close (px) the cursor must get before a line reaches full glow.
+    // How close (px) the cursor must get, horizontally, before a line reaches
+    // full glow. The vertical focus (how tightly the glow hugs the cursor along
+    // a line) lives in the CSS radial-gradient radius.
     const RADIUS = 150;
     let frame = 0;
     let lastX = 0;
+    let lastY = 0;
 
     const apply = () => {
       frame = 0;
       const track = trackRef.current;
       if (!track) return;
       const rect = track.getBoundingClientRect();
+      // Cursor Y (viewport space) is shared by every line: the glow centres on
+      // it and fades up/down. Set it once on the track; lines inherit --cy.
+      track.style.setProperty("--cy", `${(lastY - rect.top).toFixed(1)}px`);
       const lines = lineRefs.current;
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
@@ -71,6 +77,7 @@ function GridLines({ columns = 4 }: { columns?: number }) {
 
     const onMove = (e: PointerEvent) => {
       lastX = e.clientX;
+      lastY = e.clientY;
       if (frame) return;
       frame = requestAnimationFrame(apply);
     };

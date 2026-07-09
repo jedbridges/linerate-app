@@ -426,19 +426,34 @@ body:has([data-no-grid-lines]) .grid-lines {
 }
 
 /* Vertical grid hairlines. At rest each line is the subtle border. On the
-   interactive routes (concept 05) the cursor drives --g (0..1) per line, which
-   blends the fill toward border-strong: a touch lighter on dark, a touch darker
-   on light, so it reads as a glow in both themes. The background-color
-   transition trails the per-frame --g updates, which is what makes the follow
-   feel smooth. --g stays 0 everywhere else, so the resting look is unchanged. */
+   interactive routes (concept 05) the cursor drives two variables: --cy, the
+   pointer's Y along the line (set on the track, inherited by every line), and
+   --g (0..1) per line, its horizontal proximity to the cursor. A radial glow
+   centred on --cy blends toward border-strong (lighter on dark, darker on
+   light) so the highlight is bright next to the cursor and fades up and down
+   the line, rather than lifting the whole rule at once. --g is a registered
+   property so it eases when the cursor leaves; --g stays 0 everywhere else, so
+   the resting look is unchanged. */
+@property --g {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 .lr-grid-line {
   --g: 0;
-  background-color: color-mix(
-    in oklab,
-    var(--border-strong) calc(var(--g) * 55%),
-    var(--border-subtle)
+  /* How far the glow reaches up/down the line from the cursor. Smaller = more
+     focused on the cursor point. */
+  --glow-reach: 130px;
+  background-color: var(--border-subtle);
+  background-image: radial-gradient(
+    circle var(--glow-reach) at 50% var(--cy, -999px),
+    color-mix(in oklab, var(--border-strong) calc(var(--g) * 100%), transparent)
+      0%,
+    transparent 100%
   );
-  transition: background-color 220ms ease-out;
+  background-repeat: no-repeat;
+  transition: --g 200ms ease-out;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
