@@ -6,6 +6,7 @@ import { Wordmark } from "@/components/wordmark";
 import { ConceptNav } from "./concept-nav";
 import { Reveal } from "./reveal";
 import { Positioning } from "./positioning";
+import { RequestAccessForm } from "./request-access-form";
 import { type ConceptSlug } from "./concepts";
 
 /*
@@ -22,6 +23,7 @@ export function ConceptChrome({
   ctaBody = "Tell us where reconciliation costs you. Qualified operators get a working session with the team.",
   motion,
   ctaPanel = false,
+  ctaEmail = false,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
@@ -34,6 +36,8 @@ export function ConceptChrome({
   /** Wrap the closing CTA in an amber-tinted panel so it stands off the page
    *  (concept 05). Others keep the plain centred CTA. */
   ctaPanel?: boolean;
+  /** Replace the CTA's two buttons with an inline email capture (concept 05). */
+  ctaEmail?: boolean;
 }) {
   return (
     <>
@@ -60,12 +64,16 @@ export function ConceptChrome({
           <p className="mx-auto mt-5 max-w-[52ch] text-base leading-relaxed text-foreground-muted">
             {ctaBody}
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button size="lg">Request access</Button>
-            <Button asChild variant="ghost" size="lg">
-              <a href="#how">How it works</a>
-            </Button>
-          </div>
+          {ctaEmail ? (
+            <RequestAccessForm />
+          ) : (
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Button size="lg">Request access</Button>
+              <Button asChild variant="ghost" size="lg">
+                <a href="#how">How it works</a>
+              </Button>
+            </div>
+          )}
         </Reveal>
       </section>
 

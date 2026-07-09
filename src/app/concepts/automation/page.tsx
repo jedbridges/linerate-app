@@ -85,6 +85,7 @@ export default function AutomationConcept() {
       slug="automation"
       motion="snappy"
       ctaPanel
+      ctaEmail
       positioningTitle="The neutral system of record for power-intensive compute."
       positioningItems={[
         "One record both sides settle against",
