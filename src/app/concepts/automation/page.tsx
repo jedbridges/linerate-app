@@ -83,6 +83,7 @@ export default function AutomationConcept() {
     <ConceptChrome
       slug="automation"
       motion="snappy"
+      ctaPanel
       positioningTitle="The neutral system of record for power-intensive compute."
       positioningItems={[
         "One record both sides settle against",
@@ -192,18 +193,34 @@ export default function AutomationConcept() {
           >
             The contract becomes the system.
           </Reveal>
-          <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <Reveal key={s.step} delay={i * 80} className="pt-5">
-                <p className="ledger text-sm text-foreground-subtle">{s.step}</p>
-                <h3 className="mt-3 text-lg font-medium text-foreground">
-                  {s.title}
-                </h3>
-                <p className="mt-2 max-w-[40ch] text-base leading-relaxed text-foreground-muted">
-                  {s.body}
-                </p>
-              </Reveal>
-            ))}
+          <div className="relative mt-14">
+            {/* Animated flow rail connecting the steps (contract -> runs ->
+                settles): horizontal through the number row on sm+, vertical
+                down the left when the steps stack. The numbers sit as nodes,
+                masking the rail behind a page-coloured halo. */}
+            <span
+              aria-hidden
+              className="lr-flow-rail absolute inset-x-0 top-[9px] hidden h-0.5 sm:block"
+            />
+            <span
+              aria-hidden
+              className="lr-flow-rail-v absolute bottom-3 left-[3px] top-2 w-0.5 sm:hidden"
+            />
+            <div className="grid gap-x-8 gap-y-12 pl-7 sm:grid-cols-3 sm:pl-0">
+              {STEPS.map((s, i) => (
+                <Reveal key={s.step} delay={i * 80}>
+                  <p className="ledger relative inline-block bg-page pr-3 text-sm text-foreground-subtle">
+                    {s.step}
+                  </p>
+                  <h3 className="mt-3 text-lg font-medium text-foreground">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 max-w-[40ch] text-base leading-relaxed text-foreground-muted">
+                    {s.body}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

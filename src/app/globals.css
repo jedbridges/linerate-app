@@ -459,6 +459,22 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Flow rail: a dotted line whose dots drift along it, connecting the concept
+   05 steps (contract -> runs -> settles). Moves the background-position of a
+   repeating dot gradient; the global reduced-motion cap freezes it to a plain
+   dotted line. One period is 14px, so translating a full period loops
+   seamlessly. */
+@keyframes lr-rail-x {
+  to {
+    background-position: 14px 0;
+  }
+}
+@keyframes lr-rail-y {
+  to {
+    background-position: 0 14px;
+  }
+}
+
 /* Contract-model load intro: the panel frame rises in, then its rows stamp in
    one by one, so the ledger reads as the contract assembling itself on load
    (concept 05 hero). The frame's faint scale settle. Transform + opacity only. */
@@ -665,6 +681,80 @@ body:has([data-no-grid-lines]) .grid-lines {
       animation-delay: calc(0.58s + var(--cm-i, 0) * 0.07s);
       --reveal-y: 8px;
     }
+    .lr-flow-rail {
+      animation: lr-rail-x 0.9s linear infinite;
+    }
+    .lr-flow-rail-v {
+      animation: lr-rail-y 0.9s linear infinite;
+    }
+  }
+
+  /* Amber CTA panel (concept 05 closing CTA). A soft amber glow washes down
+     from the top over the surface, inside a hairline amber border, so the
+     final call lifts off the black. Theme-aware: the accent mix and surface
+     both flip per theme, so it stays a warm tint on light and a warm glow on
+     dark. */
+  .lr-cta-amber {
+    border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+    background:
+      radial-gradient(
+        118% 130% at 50% -12%,
+        color-mix(in oklab, var(--accent) 20%, transparent),
+        transparent 62%
+      ),
+      var(--surface);
+  }
+
+  /* Flow rail base (concept 05 steps). A dotted line of amber dots; the dots
+     drift under .lr-flow-rail's animation and sit still under reduced motion.
+     Edges fade out via a mask so the rail doesn't hard-cut at its ends. One
+     dot every 14px keeps it delicate. */
+  .lr-flow-rail,
+  .lr-flow-rail-v {
+    pointer-events: none;
+    --rail-dot: color-mix(in oklab, var(--accent) 60%, transparent);
+  }
+  .lr-flow-rail {
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--rail-dot) 0 3px,
+      transparent 3px 14px
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+  }
+  .lr-flow-rail-v {
+    background-image: repeating-linear-gradient(
+      180deg,
+      var(--rail-dot) 0 3px,
+      transparent 3px 14px
+    );
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
   }
 
   /* Frosted glass for floating chrome: header, the mobile nav disclosure,

@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/wordmark";
 import { ConceptNav } from "./concept-nav";
@@ -20,6 +21,7 @@ export function ConceptChrome({
   positioningItems,
   ctaBody = "Tell us where reconciliation costs you. Qualified operators get a working session with the team.",
   motion,
+  ctaPanel = false,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
@@ -29,6 +31,9 @@ export function ConceptChrome({
   /** Opt a concept's main content into a snappier scroll-reveal (see the
    *  main[data-motion="snappy"] rules in globals.css). */
   motion?: "snappy";
+  /** Wrap the closing CTA in an amber-tinted panel so it stands off the page
+   *  (concept 05). Others keep the plain centred CTA. */
+  ctaPanel?: boolean;
 }) {
   return (
     <>
@@ -40,7 +45,14 @@ export function ConceptChrome({
 
       {/* Closing CTA */}
       <section id="contact" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-        <Reveal className="mx-auto max-w-3xl text-center">
+        <Reveal
+          className={cn(
+            "mx-auto text-center",
+            ctaPanel
+              ? "lr-cta-amber max-w-4xl overflow-hidden rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
+              : "max-w-3xl",
+          )}
+        >
           <p className="eyebrow mb-4">Request access</p>
           <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
             Put your contracts on a neutral runtime.

@@ -34,10 +34,11 @@ export function Positioning({
           <ul className="grid gap-x-12 gap-y-4 sm:grid-cols-2">
             {items.map((item) => (
               <li key={item} className="flex gap-3">
-                <Check
-                  className="mt-0.5 size-4 shrink-0 text-accent"
-                  aria-hidden
-                />
+                {/* Box one line-height tall so the check optically centers on
+                    the first line (not the block), even if the item wraps. */}
+                <span className="flex h-[1.625rem] shrink-0 items-center">
+                  <Check className="size-4 text-accent" aria-hidden />
+                </span>
                 <span className="text-base leading-relaxed text-foreground">
                   {item}
                 </span>
