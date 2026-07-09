@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import { cn } from "@/lib/utils";
 
 /*
@@ -50,14 +52,24 @@ const NET = "$459,550";
 export function ContractModel({
   className,
   caption = "Contract, executing",
+  animateIn = false,
 }: {
   className?: string;
   caption?: string;
+  /** Play the load intro: the frame rises, then rows stamp in one by one, so
+   *  the ledger assembles itself. Off by default; concept 05's hero opts in. */
+  animateIn?: boolean;
 }) {
+  // Intro stagger index (header 0, rows 1-4, net 5, caption 6). Returns the
+  // --cm-i style only when the intro is on, so it's a no-op otherwise.
+  const cmStyle = (i: number): React.CSSProperties | undefined =>
+    animateIn ? ({ ["--cm-i" as string]: i } as React.CSSProperties) : undefined;
+
   return (
     <div
       className={cn(
         "relative flex aspect-square w-full flex-col overflow-hidden rounded-xl border border-border bg-surface sm:aspect-[16/9]",
+        animateIn && "lr-cm-anim",
         className,
       )}
       style={{
@@ -69,7 +81,13 @@ export function ContractModel({
       }}
     >
       {/* Top bar: live pill + the signed-contract hash the model is bound to */}
-      <div className="flex items-center justify-between px-5 pt-4 sm:px-6">
+      <div
+        className={cn(
+          "flex items-center justify-between px-5 pt-4 sm:px-6",
+          animateIn && "lr-cm-part",
+        )}
+        style={cmStyle(0)}
+      >
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-page/60 px-3 py-1">
           <span className="relative flex size-1.5">
             <span
@@ -105,10 +123,14 @@ export function ContractModel({
         />
 
         <div className="relative flex h-full flex-col justify-evenly gap-px">
-          {ROWS.map((r) => (
+          {ROWS.map((r, i) => (
             <div
               key={r.clause}
-              className="flex items-baseline justify-between gap-3 py-1.5"
+              className={cn(
+                "flex items-baseline justify-between gap-3 py-1.5",
+                animateIn && "lr-cm-part",
+              )}
+              style={cmStyle(i + 1)}
             >
               <span className="flex min-w-0 items-baseline gap-2">
                 <span className="truncate text-sm font-medium text-foreground">
@@ -137,7 +159,13 @@ export function ContractModel({
       </div>
 
       {/* Net settlement: the derived output */}
-      <div className="flex items-baseline justify-between border-t border-border px-5 py-3 sm:px-6">
+      <div
+        className={cn(
+          "flex items-baseline justify-between border-t border-border px-5 py-3 sm:px-6",
+          animateIn && "lr-cm-part",
+        )}
+        style={cmStyle(5)}
+      >
         <span className="eyebrow text-foreground-subtle">Net settlement</span>
         <span className="ledger text-xl font-medium tabular-nums text-foreground">
           {NET}
@@ -145,7 +173,13 @@ export function ContractModel({
       </div>
 
       {/* Caption */}
-      <div className="flex items-center justify-between px-5 pb-4 sm:px-6">
+      <div
+        className={cn(
+          "flex items-center justify-between px-5 pb-4 sm:px-6",
+          animateIn && "lr-cm-part",
+        )}
+        style={cmStyle(6)}
+      >
         <span className="eyebrow text-foreground-subtle">{caption}</span>
         <span className="ledger text-sm text-foreground-subtle">Cycle 4271</span>
       </div>

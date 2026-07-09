@@ -459,6 +459,20 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Contract-model load intro: the panel frame rises in, then its rows stamp in
+   one by one, so the ledger reads as the contract assembling itself on load
+   (concept 05 hero). The frame's faint scale settle. Transform + opacity only. */
+@keyframes lr-cm-frame {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes lr-sweep {
   0% {
     transform: translateX(-100%);
@@ -636,6 +650,20 @@ body:has([data-no-grid-lines]) .grid-lines {
         animation-range: entry calc(2% + var(--reveal-i, 0) * 5%) entry
           calc(36% + var(--reveal-i, 0) * 5%);
       }
+    }
+
+    /* Contract-model load intro (concept 05 hero). The frame rises first, then
+       each part stamps in on an expo ease-out, staggered by --cm-i, so the
+       ledger assembles itself. Base state is visible (set only here), so it
+       fails safe when motion is unsupported or reduced. */
+    .lr-cm-anim {
+      animation: lr-cm-frame 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+    }
+    .lr-cm-anim .lr-cm-part {
+      opacity: 0;
+      animation: lr-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: calc(0.58s + var(--cm-i, 0) * 0.07s);
+      --reveal-y: 8px;
     }
   }
 

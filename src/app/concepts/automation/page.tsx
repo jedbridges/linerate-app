@@ -129,10 +129,11 @@ export default function AutomationConcept() {
         </div>
 
         {/* Contract-first hero visual: the contract executing into figures,
-            not settlement on its own (which read as payment-first) */}
-        <Reveal variant="load" delay={320} className="lg:col-span-6">
-          <ContractModel className="sm:aspect-[4/3]" />
-        </Reveal>
+            not settlement on its own (which read as payment-first). It owns its
+            own load intro (the ledger assembles itself), so no outer Reveal. */}
+        <div className="lg:col-span-6">
+          <ContractModel className="sm:aspect-[4/3]" animateIn />
+        </div>
       </section>
 
       {/* Proof stats */}
