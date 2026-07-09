@@ -106,17 +106,27 @@ export function ContractModel({
       {/* Ledger: one row per clause, each reading live data into an amount.
           A scan line sweeps down to read as continuous execution. */}
       <div className="relative min-h-0 flex-1 px-5 py-3 sm:px-6">
-        {/* execution scan line: a thin amber playhead that sweeps down the
-            rows so the ledger reads as continuously executing. Off-canvas at
-            rest and under reduced motion, so it never parks as a visible band. */}
+        {/* execution scan: a soft amber highlight that sweeps down the rows so
+            the ledger reads as continuously executing. A gradiated glow (bright
+            core fading out in every direction) plus a crisp centre line for
+            definition. Both are off-canvas and invisible at rest and under
+            reduced motion, so nothing parks as a visible band. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-4 h-px sm:inset-x-5"
+          className="pointer-events-none absolute inset-x-0 h-12 -translate-y-1/2"
           style={{
             background:
-              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 70%, transparent), transparent)",
-            boxShadow:
-              "0 0 10px 1px color-mix(in oklab, var(--accent) 45%, transparent)",
+              "radial-gradient(72% 130% at 50% 50%, color-mix(in oklab, var(--accent) 30%, transparent) 0%, color-mix(in oklab, var(--accent) 9%, transparent) 45%, transparent 78%)",
+            opacity: 0,
+            animation: "lr-scan 5.6s cubic-bezier(0.4,0,0.2,1) infinite",
+          }}
+        />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-6 h-px -translate-y-1/2 sm:inset-x-8"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 85%, transparent) 50%, transparent)",
             opacity: 0,
             animation: "lr-scan 5.6s cubic-bezier(0.4,0,0.2,1) infinite",
           }}
