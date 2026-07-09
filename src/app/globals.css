@@ -833,4 +833,5 @@ body:has([data-no-grid-lines]) .grid-lines {
   .pill--success { background: var(--success-surface); color: var(--success-foreground); }
   .pill--pending { background: var(--pending-surface); color: var(--pending-foreground); }
   .pill--danger  { background: var(--danger-surface);  color: var(--danger-foreground);  }
+  .pill--accent  { background: var(--accent-surface);  color: var(--accent-foreground);  }
 }
