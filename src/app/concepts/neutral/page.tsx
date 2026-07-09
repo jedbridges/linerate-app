@@ -8,7 +8,7 @@ import { NeutralityDiagram } from "@/components/concepts/neutrality-diagram";
 import { METRICS, FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
 
 export const metadata: Metadata = {
-  title: "LineRate — Neutral ledger (concept 02)",
+  title: "LineRate · Neutral ledger (concept 02)",
 };
 
 const OBJECTIONS = [

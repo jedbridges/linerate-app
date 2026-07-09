@@ -7,7 +7,7 @@ import { Reveal } from "@/components/concepts/reveal";
 import { CONCEPTS } from "@/components/concepts/concepts";
 
 export const metadata: Metadata = {
-  title: "LineRate — Landing concepts",
+  title: "LineRate · Landing concepts",
 };
 
 const TAGLINES: Record<string, string> = {
@@ -15,6 +15,7 @@ const TAGLINES: Record<string, string> = {
   neutral: "One record both sides of the deal trust.",
   console: "The reconciliation cycle goes away.",
   outcomes: "Get paid as the deal performs.",
+  automation: "Turn complex contracts into systems that execute themselves.",
 };
 
 /*
@@ -36,7 +37,7 @@ export default function ConceptsIndex() {
         delay={120}
         className="max-w-[22ch] text-display-sm font-semibold tracking-tight text-foreground leading-[1.08]"
       >
-        Four directions for the LineRate site.
+        Five directions for the LineRate site.
       </Reveal>
       <Reveal
         as="p"
@@ -44,9 +45,9 @@ export default function ConceptsIndex() {
         delay={180}
         className="mt-5 max-w-[60ch] text-base leading-relaxed text-foreground-muted"
       >
-        Same brand and design system, four angles on the story. Open one and use
-        the header dropdown to flip between them. 04 folds in the first round of
-        client feedback.
+        Same brand and design system, five angles on the story. Open one and use
+        the header dropdown to flip between them. 04 and 05 fold in successive
+        rounds of client feedback.
       </Reveal>
 
       <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

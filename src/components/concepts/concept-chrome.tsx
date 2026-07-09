@@ -9,23 +9,30 @@ import { type ConceptSlug } from "./concepts";
 
 /*
  * Shared shell for every concept: the switcher nav on top, the page content,
- * then a common closing CTA (#contact) and footer so the three concepts stay
+ * then a common closing CTA (#contact) and footer so the concepts stay
  * consistent below the fold. Copy above the fold is where they differ.
+ * Positioning and CTA copy can be overridden per concept (05 repositions).
  */
 export function ConceptChrome({
   slug,
   children,
+  positioningTitle,
+  positioningItems,
+  ctaBody = "Tell us where reconciliation costs you. Qualified operators get a working session with the team.",
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
+  positioningTitle?: string;
+  positioningItems?: string[];
+  ctaBody?: string;
 }) {
   return (
     <>
       <ConceptNav active={slug} />
       <main>{children}</main>
 
-      {/* Shared positioning: what LineRate is / isn't + trust strip */}
-      <Positioning />
+      {/* Shared positioning: what LineRate is + trust strip */}
+      <Positioning title={positioningTitle} items={positioningItems} />
 
       {/* Closing CTA */}
       <section id="contact" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
@@ -35,8 +42,7 @@ export function ConceptChrome({
             Put your contracts on a neutral runtime.
           </h2>
           <p className="mx-auto mt-5 max-w-[52ch] text-base leading-relaxed text-foreground-muted">
-            Tell us where reconciliation costs you. Qualified operators get a
-            working session with the team.
+            {ctaBody}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button size="lg">Request access</Button>

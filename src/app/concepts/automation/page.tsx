@@ -4,73 +4,98 @@ import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { SettlementStream } from "@/components/concepts/settlement-stream";
 import { Reveal } from "@/components/concepts/reveal";
-import { METRICS, PROOF_QUOTE } from "@/components/concepts/concepts";
 
 export const metadata: Metadata = {
-  title: "LineRate · Outcomes (concept 04)",
+  title: "LineRate · Contract automation for power-intensive compute",
+  description:
+    "The contract automation platform for power-intensive compute. Model the agreement, run it on live data, settle continuously, with deposits reduced and every figure auditable by both parties.",
+  openGraph: {
+    title: "LineRate · Contract automation for power-intensive compute",
+  },
 };
 
 /*
- * Concept 04 — Outcomes. Built from client feedback on rounds 01-03:
- *  - Runtime's narrative structure, but with Neutral's denser split hero so
- *    the first screen isn't mostly negative space.
- *  - No product dashboard on the page (the UI will keep changing, and it's
- *    competitively better kept locked down). The abstract settlement stream
- *    stays as the hero visual.
- *  - Benefit-led copy: sells outcomes (cash sooner, fewer disputes, no
- *    month-end close) instead of mechanism (encoding contracts, runtimes).
+ * Concept 05, Contract automation. Copy repositioned per the 2026-07-08
+ * brief: contract-first (payment is the output of a correctly modeled,
+ * executing contract), operator vocabulary (floors, caps, true-ups, meter
+ * reads, exposure window, deposits, close), both-parties grammar throughout,
+ * and "agentic" used exactly once, grounded in auditability (step 02).
+ * Layout and structure are concept 04's, unchanged, per the brief's scope.
  */
+
+const STATS = [
+  { value: "$500M+", label: "Settled to date" },
+  { value: "480k", label: "MWh transacted" },
+  { value: "T+0", label: "Exposure window, down from 30+ days" },
+  { value: "Daily", label: "Close, verified by both parties" },
+];
 
 const BENEFITS = [
   {
     tag: "T+0",
-    title: "Cash lands sooner",
-    body: "Settlement clears as the deal performs, so capital stops waiting on the books.",
+    title: "Capital comes back",
+    body: "Daily settlement compresses counterparty exposure from 30+ days to one. Security deposits shrink, or go home.",
   },
   {
-    tag: "One record",
-    title: "Fewer disputes",
-    body: "Both sides read the same record all cycle. Month-end holds no surprises.",
+    tag: "Shared",
+    title: "One record, two parties",
+    body: "Both sides read the same contract, the same model, the same numbers, all cycle. Disputes attach to line items instead of email threads.",
   },
   {
-    tag: "Zero close",
-    title: "No month-end scramble",
+    tag: "Daily",
+    title: "Close becomes verification",
     body: "Your controllers verify figures instead of rebuilding them.",
   },
   {
-    tag: "Audit-ready",
-    title: "Auditors get receipts",
-    body: "Every figure is hashed, timestamped, and one click from export.",
+    tag: "Traceable",
+    title: "Audit-grade by default",
+    body: "Every figure traces to a clause, a meter read, or a payout, timestamped and one click from export.",
   },
 ];
 
 const STEPS = [
   {
     step: "01",
-    title: "Your agreement goes in",
-    body: "We encode the terms you already negotiated: pricing, volumes, uptime, penalties.",
+    title: "The contract becomes a model",
+    body: "Pricing, floors, caps, true-ups, uptime terms, penalties: parsed into an executable model and bound to the signed document.",
   },
   {
     step: "02",
-    title: "It runs on live data",
-    body: "LineRate tracks the deal against meters, invoices, and payments, on one shared record.",
+    title: "The model runs on live data",
+    body: "Meter reads, pool payouts, invoices, and FX feed the model continuously. Agentic checks flag anomalies, and every flag traces back to a clause, a cell, or a feed.",
   },
   {
     step: "03",
-    title: "Money moves on time",
-    body: "Settlement clears over your existing rails, with an audit trail behind every entry.",
+    title: "Settlement is the output",
+    body: "Money moves over your existing rails, with the amount, the timing, and the audit trail all derived from the executing contract.",
   },
 ];
 
-export default function OutcomesConcept() {
+// Illustrative pending confirmation (brief: confirm with Sky before publish).
+const QUOTE = {
+  quote:
+    "Both of us settle against one record we both trust. Our close is a verification step now, and disputes resolve inside the platform instead of over email.",
+  attribution: "Treasury lead, a venture-backed AI infrastructure operator",
+};
+
+export default function AutomationConcept() {
   return (
-    <ConceptChrome slug="outcomes">
-      {/* Hero — split layout (per feedback: Runtime's hero read as mostly
-          negative space; this borrows Neutral's denser two-column shape) */}
+    <ConceptChrome
+      slug="automation"
+      positioningTitle="The neutral system of record for power-intensive compute."
+      positioningItems={[
+        "One record both sides settle against",
+        "Executes the contract continuously against live data",
+        "Settlement-grade and auditable end to end",
+        "Built for controllers, CFOs, and ops leads",
+      ]}
+      ctaBody="Tell us what reconciliation costs you, in hours, in deposits, in disputes. Qualified operators get a working session with the team."
+    >
+      {/* Hero: split layout carried over from concept 04 */}
       <section className="mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 sm:pt-24 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-6">
           <Reveal as="p" variant="load" className="eyebrow mb-6">
-            Continuous settlement for infrastructure deals
+            Contract automation for power-intensive compute
           </Reveal>
           <Reveal
             as="h1"
@@ -78,7 +103,7 @@ export default function OutcomesConcept() {
             delay={80}
             className="text-display-md font-semibold tracking-tight text-foreground leading-[1.05]"
           >
-            Get paid as the deal performs.
+            Turn complex contracts into systems that execute themselves.
           </Reveal>
           <Reveal
             as="p"
@@ -86,9 +111,9 @@ export default function OutcomesConcept() {
             delay={160}
             className="mt-6 max-w-[52ch] text-lg leading-relaxed text-foreground-muted"
           >
-            LineRate settles your counterparty agreement continuously against
-            live data. Cash lands sooner, disputes fade, and month-end goes
-            away.
+            LineRate models your agreement (floors, caps, true-ups, profit
+            splits) and runs it against live meter, pool, and invoice data.
+            Both parties see the same numbers. Settlement is the output.
           </Reveal>
           <Reveal
             variant="load"
@@ -102,8 +127,8 @@ export default function OutcomesConcept() {
           </Reveal>
         </div>
 
-        {/* Live settlement stream: abstract proof of money moving, without
-            showing product UI */}
+        {/* Live settlement stream: settlement language is correct on the
+            product surface itself */}
         <Reveal variant="load" delay={320} className="lg:col-span-6">
           <SettlementStream
             className="sm:aspect-[4/3]"
@@ -112,10 +137,10 @@ export default function OutcomesConcept() {
         </Reveal>
       </section>
 
-      {/* Proof metrics */}
+      {/* Proof stats */}
       <section>
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-6 py-14 lg:grid-cols-4">
-          {METRICS.map((m, i) => (
+          {STATS.map((m, i) => (
             <Reveal key={m.label} delay={i * 90}>
               <p className="ledger text-4xl font-medium text-foreground">
                 {m.value}
@@ -126,7 +151,7 @@ export default function OutcomesConcept() {
         </div>
       </section>
 
-      {/* Benefits — the value prop, stated as outcomes */}
+      {/* What changes */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal as="p" className="eyebrow mb-3">
           What changes
@@ -134,9 +159,9 @@ export default function OutcomesConcept() {
         <Reveal
           as="h2"
           delay={80}
-          className="max-w-[26ch] text-3xl font-medium tracking-snug text-foreground sm:text-4xl"
+          className="max-w-[30ch] text-3xl font-medium tracking-snug text-foreground sm:text-4xl"
         >
-          Less waiting. Fewer disputes. No month-end close.
+          Capital comes back. Disputes get a home. Close becomes verification.
         </Reveal>
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2">
           {BENEFITS.map((b, i) => (
@@ -157,7 +182,7 @@ export default function OutcomesConcept() {
         </div>
       </section>
 
-      {/* How it works — kept short and in plain terms */}
+      {/* How it works */}
       <section id="how">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <Reveal as="p" className="eyebrow mb-3">
@@ -168,7 +193,7 @@ export default function OutcomesConcept() {
             delay={80}
             className="max-w-[22ch] text-3xl font-medium tracking-snug text-foreground sm:text-4xl"
           >
-            Contract in. Cash out. One shared record.
+            The contract becomes the system.
           </Reveal>
           <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-3">
             {STEPS.map((s, i) => (
@@ -186,7 +211,7 @@ export default function OutcomesConcept() {
         </div>
       </section>
 
-      {/* Neutrality — the declarative moment, kept from Runtime */}
+      {/* Neutrality */}
       <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <Reveal as="p" className="eyebrow mb-6">
@@ -204,8 +229,9 @@ export default function OutcomesConcept() {
             delay={160}
             className="mx-auto mt-6 max-w-[52ch] text-base leading-relaxed text-foreground-muted"
           >
-            LineRate sits between both sides as the system of record and runs the
-            terms for both. Neutrality is built into how it works.
+            LineRate runs the terms for both sides as the system of record. Our
+            fees are symmetric: we earn the same whichever way a cycle breaks.
+            Both parties can trust the math.
           </Reveal>
         </div>
       </section>
@@ -214,10 +240,10 @@ export default function OutcomesConcept() {
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal as="figure" className="mx-auto max-w-3xl">
           <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground sm:text-3xl">
-            &ldquo;{PROOF_QUOTE.quote}&rdquo;
+            &ldquo;{QUOTE.quote}&rdquo;
           </blockquote>
           <figcaption className="mt-6 text-sm text-foreground-muted">
-            {PROOF_QUOTE.attribution}
+            {QUOTE.attribution}
           </figcaption>
           <p className="mt-10 text-sm text-foreground-subtle">
             Proven in mining, live with AI compute. Backed by OpenNode.

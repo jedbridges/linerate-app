@@ -7,7 +7,7 @@ import { Reveal } from "@/components/concepts/reveal";
 import { METRICS, FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
 
 export const metadata: Metadata = {
-  title: "LineRate — Runtime (concept 01)",
+  title: "LineRate · Runtime (concept 01)",
 };
 
 /*

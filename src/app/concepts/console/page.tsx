@@ -9,7 +9,7 @@ import { DashboardShell } from "@/components/patterns/dashboard-shell";
 import { FLOW, PROOF_QUOTE } from "@/components/concepts/concepts";
 
 export const metadata: Metadata = {
-  title: "LineRate — Operating console (concept 03)",
+  title: "LineRate · Operating console (concept 03)",
 };
 
 const FEATURES = [

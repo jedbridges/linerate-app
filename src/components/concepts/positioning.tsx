@@ -7,8 +7,15 @@ import { POSITIONING, TRUST } from "./concepts";
  * Positioning block, shared across every concept: a short, positive statement
  * of what LineRate is, closed by a slim trust strip. Kept affirmative (no
  * "X, not Y" framing) so it reads cleanly under every concept voice.
+ * Title and items can be overridden per concept (05 repositions the category).
  */
-export function Positioning() {
+export function Positioning({
+  title = "The neutral system of record for infrastructure deals.",
+  items = POSITIONING.is,
+}: {
+  title?: string;
+  items?: string[];
+}) {
   return (
     <section>
       <div className="mx-auto max-w-6xl px-6 py-24">
@@ -20,12 +27,12 @@ export function Positioning() {
           delay={80}
           className="max-w-[22ch] text-3xl font-medium tracking-snug text-foreground sm:text-4xl"
         >
-          The neutral system of record for infrastructure deals.
+          {title}
         </Reveal>
 
         <Reveal delay={140} className="mt-12">
           <ul className="grid gap-x-12 gap-y-4 sm:grid-cols-2">
-            {POSITIONING.is.map((item) => (
+            {items.map((item) => (
               <li key={item} className="flex gap-3">
                 <Check
                   className="mt-0.5 size-4 shrink-0 text-accent"
