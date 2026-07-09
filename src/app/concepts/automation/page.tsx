@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
@@ -35,22 +36,22 @@ const BENEFITS = [
   {
     tag: "T+0",
     title: "Capital comes back",
-    body: "Daily settlement compresses counterparty exposure from 30+ days to one. Security deposits shrink, or go home.",
+    body: "Daily settlement compresses counterparty exposure from 30+ days to one, so the deposits shrink or go home.",
   },
   {
     tag: "Shared",
     title: "One record, two parties",
-    body: "Both sides read the same contract, the same model, the same numbers, all cycle. Disputes attach to line items instead of email threads.",
+    body: "Both sides read the same contract, model, and numbers all cycle. Disputes attach to line items, not email.",
   },
   {
     tag: "Daily",
     title: "Close becomes verification",
-    body: "Your controllers verify figures instead of rebuilding them.",
+    body: "Your controllers verify the figures the contract produced instead of rebuilding them by hand at the close.",
   },
   {
     tag: "Traceable",
     title: "Audit-grade by default",
-    body: "Every figure traces to a clause, a meter read, or a payout, timestamped and one click from export.",
+    body: "Every figure traces to a clause, a meter read or a payout, timestamped and one click from an audit export.",
   },
 ];
 
@@ -86,6 +87,7 @@ export default function AutomationConcept() {
       motion="snappy"
       ctaPanel
       ctaEmail
+      hideEyebrows
       positioningTitle="The neutral system of record for power-intensive compute."
       positioningItems={[
         "One record both sides settle against",
@@ -98,13 +100,9 @@ export default function AutomationConcept() {
       {/* Hero: split layout carried over from concept 04 */}
       <section className="mx-auto grid max-w-6xl gap-x-12 gap-y-16 px-6 pt-20 pb-24 sm:pt-28 lg:grid-cols-12 lg:items-center lg:gap-x-16 lg:pt-32 lg:pb-28">
         <div className="lg:col-span-6">
-          <Reveal as="p" variant="load" className="eyebrow mb-7">
-            Contract automation for power-intensive compute
-          </Reveal>
           <Reveal
             as="h1"
             variant="load"
-            delay={80}
             className="text-balance text-display-md font-semibold tracking-[-0.01em] text-foreground leading-[1.12]"
           >
             Turn complex contracts into systems that execute themselves.
@@ -158,12 +156,8 @@ export default function AutomationConcept() {
 
       {/* What changes */}
       <section className="mx-auto max-w-6xl px-6 py-24">
-        <Reveal as="p" className="eyebrow mb-3">
-          What changes
-        </Reveal>
         <Reveal
           as="h2"
-          delay={80}
           className="max-w-[30ch] text-3xl font-medium tracking-snug text-foreground sm:text-4xl"
         >
           Capital comes back. Disputes get a home. Close becomes verification.
@@ -188,12 +182,8 @@ export default function AutomationConcept() {
       {/* How it works */}
       <section id="how">
         <div className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal as="p" className="eyebrow mb-3">
-            How it works
-          </Reveal>
           <Reveal
             as="h2"
-            delay={80}
             className="max-w-[22ch] text-3xl font-medium tracking-snug text-foreground sm:text-4xl"
           >
             The contract becomes the system.
@@ -205,7 +195,7 @@ export default function AutomationConcept() {
                 masking the rail behind a page-coloured halo. */}
             <span
               aria-hidden
-              className="lr-flow-rail absolute inset-x-0 top-[9px] hidden h-0.5 sm:block"
+              className="lr-flow-rail absolute inset-x-0 top-[12px] hidden h-0.5 sm:block"
             />
             <span
               aria-hidden
@@ -233,12 +223,8 @@ export default function AutomationConcept() {
       {/* Neutrality */}
       <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
-          <Reveal as="p" className="eyebrow mb-6">
-            Structural neutrality
-          </Reveal>
           <Reveal
             as="h2"
-            delay={80}
             className="mx-auto max-w-[24ch] text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-6xl sm:leading-[1.05]"
           >
             We are not a party to your deal.
@@ -257,7 +243,15 @@ export default function AutomationConcept() {
 
       {/* Proof quote */}
       <section className="mx-auto max-w-6xl px-6 py-24">
-        <Reveal as="figure" className="mx-auto max-w-3xl">
+        <Reveal as="figure" className="mx-auto max-w-3xl text-center">
+          {/* Neutral avatar placeholder: the quote is anonymized, so a
+              silhouette stands in until an attributed headshot can replace it. */}
+          <span
+            aria-hidden
+            className="mx-auto mb-8 flex size-14 items-center justify-center overflow-hidden rounded-full border border-border bg-surface text-foreground-subtle"
+          >
+            <User className="size-6" />
+          </span>
           <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground sm:text-3xl">
             &ldquo;{QUOTE.quote}&rdquo;
           </blockquote>

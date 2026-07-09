@@ -24,6 +24,7 @@ export function ConceptChrome({
   motion,
   ctaPanel = false,
   ctaEmail = false,
+  hideEyebrows = false,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
@@ -38,6 +39,9 @@ export function ConceptChrome({
   ctaPanel?: boolean;
   /** Replace the CTA's two buttons with an inline email capture (concept 05). */
   ctaEmail?: boolean;
+  /** Drop the small section eyebrow labels (positioning + CTA) for a cleaner,
+   *  less cluttered read (concept 05). */
+  hideEyebrows?: boolean;
 }) {
   return (
     <>
@@ -45,7 +49,11 @@ export function ConceptChrome({
       <main data-motion={motion}>{children}</main>
 
       {/* Shared positioning: what LineRate is + trust strip */}
-      <Positioning title={positioningTitle} items={positioningItems} />
+      <Positioning
+        title={positioningTitle}
+        items={positioningItems}
+        hideEyebrow={hideEyebrows}
+      />
 
       {/* Closing CTA */}
       <section id="contact" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
@@ -57,7 +65,9 @@ export function ConceptChrome({
               : "max-w-3xl",
           )}
         >
-          <p className="eyebrow mb-4">Request access</p>
+          {!hideEyebrows && (
+            <p className="eyebrow mb-4">Request access</p>
+          )}
           <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
             Put your contracts on a neutral runtime.
           </h2>

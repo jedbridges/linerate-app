@@ -12,16 +12,20 @@ import { POSITIONING, TRUST } from "./concepts";
 export function Positioning({
   title = "The neutral system of record for infrastructure deals.",
   items = POSITIONING.is,
+  hideEyebrow = false,
 }: {
   title?: string;
   items?: string[];
+  hideEyebrow?: boolean;
 }) {
   return (
     <section>
       <div className="mx-auto max-w-6xl px-6 py-24">
-        <Reveal as="p" className="eyebrow mb-3">
-          Where LineRate fits
-        </Reveal>
+        {!hideEyebrow && (
+          <Reveal as="p" className="eyebrow mb-3">
+            Where LineRate fits
+          </Reveal>
+        )}
         <Reveal
           as="h2"
           delay={80}
