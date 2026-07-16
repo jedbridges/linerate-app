@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Server, Zap, Building2, Cpu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { ContractModel } from "@/components/concepts/contract-model";
 import { HeroPanelTilt } from "@/components/concepts/hero-panel-tilt";
+import { MarketsGrid } from "@/components/concepts/markets-grid";
 import { Reveal } from "@/components/concepts/reveal";
 
 export const metadata: Metadata = {
@@ -28,29 +28,6 @@ const STATS = [
   { value: "$500M+", label: "Processed annually" },
   { value: "700 MW", label: "Energy and critical compute settled" },
   { value: "100s", label: "Hours returned to finance teams" },
-];
-
-const MARKETS = [
-  {
-    icon: Server,
-    title: "Hosting services",
-    body: "Between hosting service providers and crypto miners.",
-  },
-  {
-    icon: Zap,
-    title: "Energy supply",
-    body: "Electricity and gas agreements between suppliers and offtakers.",
-  },
-  {
-    icon: Building2,
-    title: "Critical IT infrastructure",
-    body: "Critical IT lease agreements between operators and tenants.",
-  },
-  {
-    icon: Cpu,
-    title: "GPU capacity",
-    body: "Rental and consumption agreements between compute lessors and their customers.",
-  },
 ];
 
 const CHANGES = [
@@ -195,24 +172,7 @@ export default function OverviewConcept() {
         >
           Built for agreements that run on live data.
         </Reveal>
-        <div className="mt-14 grid gap-4 sm:grid-cols-2">
-          {MARKETS.map((m, i) => {
-            const Icon = m.icon;
-            return (
-              <Reveal key={m.title} delay={i * 80} className="flex">
-                <div className="group flex flex-1 flex-col rounded-xl border border-border bg-surface p-6 transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted">
-                  <Icon className="size-5 text-accent" aria-hidden />
-                  <h3 className="mt-4 text-lg font-medium text-foreground">
-                    {m.title}
-                  </h3>
-                  <p className="mt-2 text-base leading-relaxed text-foreground-muted">
-                    {m.body}
-                  </p>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
+        <MarketsGrid />
       </section>
 
       {/* What changes */}
