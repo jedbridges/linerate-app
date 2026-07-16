@@ -11,7 +11,8 @@ export type ConceptSlug =
   | "neutral"
   | "console"
   | "outcomes"
-  | "automation";
+  | "automation"
+  | "overview";
 
 export const CONCEPTS: {
   slug: ConceptSlug;
@@ -24,6 +25,7 @@ export const CONCEPTS: {
   { slug: "console", index: "03", name: "Operating console", note: "Product craft" },
   { slug: "outcomes", index: "04", name: "Outcomes", note: "Benefit-led" },
   { slug: "automation", index: "05", name: "Contract automation", note: "Contract-first repositioning" },
+  { slug: "overview", index: "06", name: "Overview", note: "Broader positioning" },
 ];
 
 /* Proof metrics. $500M+ is real (mining); MWh is the intended lead stat,

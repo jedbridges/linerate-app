@@ -16,6 +16,7 @@ const TAGLINES: Record<string, string> = {
   console: "The reconciliation cycle goes away.",
   outcomes: "Get paid as the deal performs.",
   automation: "Turn complex contracts into systems that execute themselves.",
+  overview: "Your contracts should settle themselves.",
 };
 
 /*
@@ -37,7 +38,7 @@ export default function ConceptsIndex() {
         delay={120}
         className="max-w-[22ch] text-display-sm font-semibold tracking-tight text-foreground leading-[1.08]"
       >
-        Five directions for the LineRate site.
+        Six directions for the LineRate site.
       </Reveal>
       <Reveal
         as="p"
@@ -45,12 +46,12 @@ export default function ConceptsIndex() {
         delay={180}
         className="mt-5 max-w-[60ch] text-base leading-relaxed text-foreground-muted"
       >
-        Same brand and design system, five angles on the story. Open one and use
-        the header dropdown to flip between them. 04 and 05 fold in successive
-        rounds of client feedback.
+        Same brand and design system, six angles on the story. Open one and use
+        the header dropdown to flip between them. 04, 05, and 06 fold in
+        successive rounds of client feedback.
       </Reveal>
 
-      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {CONCEPTS.map((c, i) => (
           <Reveal
             key={c.slug}

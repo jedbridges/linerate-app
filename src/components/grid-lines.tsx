@@ -26,7 +26,10 @@ import { usePathname } from "next/navigation";
 
 // Routes whose grid reacts to the cursor. Kept as a set so it is trivial to
 // extend if another concept wants the same treatment.
-const INTERACTIVE_ROUTES = new Set(["/concepts/automation"]);
+const INTERACTIVE_ROUTES = new Set([
+  "/concepts/automation",
+  "/concepts/overview",
+]);
 
 function GridLines({ columns = 4 }: { columns?: number }) {
   const pathname = usePathname();

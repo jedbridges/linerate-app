@@ -20,6 +20,7 @@ export function ConceptChrome({
   children,
   positioningTitle,
   positioningItems,
+  ctaTitle = "Put your contracts on a neutral runtime.",
   ctaBody = "Tell us where reconciliation costs you. Qualified operators get a working session with the team.",
   motion,
   ctaPanel = false,
@@ -30,6 +31,9 @@ export function ConceptChrome({
   children: React.ReactNode;
   positioningTitle?: string;
   positioningItems?: string[];
+  /** Heading for the closing CTA. Defaults to the shared line; concept 06
+   *  overrides it ("Give your contract a job."). */
+  ctaTitle?: string;
   ctaBody?: string;
   /** Opt a concept's main content into a snappier scroll-reveal (see the
    *  main[data-motion="snappy"] rules in globals.css). */
@@ -69,7 +73,7 @@ export function ConceptChrome({
             <p className="eyebrow mb-4">Request access</p>
           )}
           <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            Put your contracts on a neutral runtime.
+            {ctaTitle}
           </h2>
           <p className="mx-auto mt-5 max-w-[52ch] text-base leading-relaxed text-foreground-muted">
             {ctaBody}
