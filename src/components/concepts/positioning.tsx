@@ -2,7 +2,6 @@ import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
-import { InteractiveGrid } from "./interactive-grid";
 import { POSITIONING, TRUST } from "./concepts";
 
 /*
@@ -10,8 +9,7 @@ import { POSITIONING, TRUST } from "./concepts";
  * of what LineRate is, closed by a slim trust strip. Kept affirmative (no
  * "X, not Y" framing) so it reads cleanly under every concept voice.
  * Title and items can be overridden per concept (05 repositions the category).
- * `feature` (06) makes it a full-bleed, taller band with a cursor-reactive
- * line grid behind it, for more dominance on the page.
+ * `feature` (06) makes it a full-bleed, taller band for more dominance.
  */
 export function Positioning({
   title = "The neutral system of record for infrastructure deals.",
@@ -31,7 +29,6 @@ export function Positioning({
         feature && "overflow-hidden border-y border-border-subtle",
       )}
     >
-      {feature && <InteractiveGrid className="absolute inset-0 -z-10" />}
       <div
         className={cn(
           "relative mx-auto max-w-6xl px-6",
