@@ -95,12 +95,14 @@ export default function OverviewConcept() {
       ctaTitle="Give your contract a job."
       ctaBody="See how LineRate can turn your agreements into systems that calculate, reconcile, and settle themselves."
       positioningTitle="The system of record for complex agreements."
+      positioningFeature
       positioningItems={[
         "One model, jointly approved",
         "Every change versioned and traceable",
         "Live inputs continuously integrated",
         "Every calculation tied back to the agreement",
         "Automatic settlement over preferred payment rails",
+        "Disputes resolved beside the line item",
       ]}
     >
       {/* Hero: split layout carried over from concept 05 */}
@@ -218,7 +220,9 @@ export default function OverviewConcept() {
                 delay={i * 70}
                 className="flex gap-5"
               >
-                <span className="ledger relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-sm text-foreground">
+                {/* Translucent + blurred node so the flowing rail reads as
+                    movement behind the digit. */}
+                <span className="ledger relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-page/40 text-sm text-foreground backdrop-blur-[3px]">
                   {s.step}
                 </span>
                 <div className="pt-1.5">
@@ -267,7 +271,7 @@ export default function OverviewConcept() {
             alt=""
             width={56}
             height={56}
-            className="mx-auto mb-8 size-14 rounded-xl border border-border object-cover"
+            className="mx-auto mb-8 size-14 rounded-md border border-border object-cover"
           />
           <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground sm:text-3xl">
             &ldquo;{QUOTE.quote}&rdquo;

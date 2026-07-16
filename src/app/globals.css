@@ -758,6 +758,49 @@ body:has([data-no-grid-lines]) .grid-lines {
       var(--surface);
   }
 
+  /* Interactive line grid (concept 06 feature band). A faint static grid, with
+     a brighter amber grid revealed only inside a soft radial spotlight that
+     tracks the cursor (--mx/--my/--on set by InteractiveGrid). Off (opacity 0)
+     at rest, on touch, and under reduced motion. */
+  .lr-igrid {
+    --lr-cell: 54px;
+    background-image:
+      linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+    background-size: var(--lr-cell) var(--lr-cell);
+    background-position: center;
+  }
+  .lr-igrid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--accent) 60%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--accent) 60%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: var(--lr-cell) var(--lr-cell);
+    background-position: center;
+    opacity: var(--on, 0);
+    transition: opacity 320ms ease;
+    -webkit-mask-image: radial-gradient(
+      circle 150px at var(--mx, 50%) var(--my, 50%),
+      #000 0%,
+      transparent 65%
+    );
+    mask-image: radial-gradient(
+      circle 150px at var(--mx, 50%) var(--my, 50%),
+      #000 0%,
+      transparent 65%
+    );
+  }
+
   /* Flow rail base (concept 05 steps). A dotted line of amber dots; the dots
      drift under .lr-flow-rail's animation and sit still under reduced motion.
      Edges fade out via a mask so the rail doesn't hard-cut at its ends. One

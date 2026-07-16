@@ -1,6 +1,8 @@
 import { Check } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
+import { InteractiveGrid } from "./interactive-grid";
 import { POSITIONING, TRUST } from "./concepts";
 
 /*
@@ -8,19 +10,34 @@ import { POSITIONING, TRUST } from "./concepts";
  * of what LineRate is, closed by a slim trust strip. Kept affirmative (no
  * "X, not Y" framing) so it reads cleanly under every concept voice.
  * Title and items can be overridden per concept (05 repositions the category).
+ * `feature` (06) makes it a full-bleed, taller band with a cursor-reactive
+ * line grid behind it, for more dominance on the page.
  */
 export function Positioning({
   title = "The neutral system of record for infrastructure deals.",
   items = POSITIONING.is,
   hideEyebrow = false,
+  feature = false,
 }: {
   title?: string;
   items?: string[];
   hideEyebrow?: boolean;
+  feature?: boolean;
 }) {
   return (
-    <section>
-      <div className="mx-auto max-w-6xl px-6 py-24">
+    <section
+      className={cn(
+        "relative",
+        feature && "overflow-hidden border-y border-border-subtle",
+      )}
+    >
+      {feature && <InteractiveGrid className="absolute inset-0 -z-10" />}
+      <div
+        className={cn(
+          "relative mx-auto max-w-6xl px-6",
+          feature ? "py-32 sm:py-44" : "py-24",
+        )}
+      >
         {!hideEyebrow && (
           <Reveal as="p" className="eyebrow mb-3">
             Where LineRate fits

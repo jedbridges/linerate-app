@@ -26,6 +26,7 @@ export function ConceptChrome({
   ctaPanel = false,
   ctaEmail = false,
   hideEyebrows = false,
+  positioningFeature = false,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
@@ -46,6 +47,9 @@ export function ConceptChrome({
   /** Drop the small section eyebrow labels (positioning + CTA) for a cleaner,
    *  less cluttered read (concept 05). */
   hideEyebrows?: boolean;
+  /** Render the positioning block as a full-bleed, taller feature band with a
+   *  cursor-reactive line grid behind it (concept 06). */
+  positioningFeature?: boolean;
 }) {
   return (
     <>
@@ -57,6 +61,7 @@ export function ConceptChrome({
         title={positioningTitle}
         items={positioningItems}
         hideEyebrow={hideEyebrows}
+        feature={positioningFeature}
       />
 
       {/* Closing CTA */}

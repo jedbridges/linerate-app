@@ -113,20 +113,29 @@ export function ContractModel({
             reduced motion, so nothing parks as a visible band. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 h-12 -translate-y-1/2"
+          className="pointer-events-none absolute inset-x-0 h-14 -translate-y-1/2"
           style={{
             background:
-              "radial-gradient(72% 130% at 50% 50%, color-mix(in oklab, var(--accent) 30%, transparent) 0%, color-mix(in oklab, var(--accent) 9%, transparent) 45%, transparent 78%)",
+              "radial-gradient(72% 130% at 50% 50%, color-mix(in oklab, var(--accent) 28%, transparent) 0%, color-mix(in oklab, var(--accent) 8%, transparent) 45%, transparent 78%)",
+            // feather the top and bottom so the sweep fades in/out vertically
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent)",
+            maskImage:
+              "linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent)",
             opacity: 0,
             animation: "lr-scan 5.6s cubic-bezier(0.4,0,0.2,1) infinite",
           }}
         />
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-6 h-px -translate-y-1/2 sm:inset-x-8"
+          className="pointer-events-none absolute inset-x-6 h-2 -translate-y-1/2 sm:inset-x-8"
           style={{
             background:
-              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 85%, transparent) 50%, transparent)",
+              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 80%, transparent) 50%, transparent)",
+            // feather the core streak vertically so it has no hard edge
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent, #000, transparent)",
+            maskImage: "linear-gradient(to bottom, transparent, #000, transparent)",
             opacity: 0,
             animation: "lr-scan 5.6s cubic-bezier(0.4,0,0.2,1) infinite",
           }}
@@ -168,17 +177,30 @@ export function ContractModel({
         </div>
       </div>
 
-      {/* Net settlement: the derived output */}
+      {/* Net settlement: the derived output. An amber bar under the amount
+          marks it as the total and draws the eye. */}
       <div
         className={cn(
-          "flex items-baseline justify-between border-t border-border px-5 py-3 sm:px-6",
+          "flex items-end justify-between border-t border-border px-5 py-3 sm:px-6",
           animateIn && "lr-cm-part",
         )}
         style={cmStyle(5)}
       >
         <span className="eyebrow text-foreground-subtle">Net settlement</span>
-        <span className="ledger text-xl font-medium tabular-nums text-foreground">
-          {NET}
+        <span className="flex flex-col items-end gap-1.5">
+          <span className="ledger text-xl font-medium tabular-nums text-foreground">
+            {NET}
+          </span>
+          <span
+            aria-hidden
+            className="h-1.5 w-full rounded-full"
+            style={{
+              background:
+                "linear-gradient(90deg, color-mix(in oklab, var(--accent) 25%, transparent), var(--accent))",
+              boxShadow:
+                "0 0 12px 1px color-mix(in oklab, var(--accent) 45%, transparent)",
+            }}
+          />
         </span>
       </div>
 
