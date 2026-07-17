@@ -640,6 +640,43 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* How-it-works progress rail (concept 06 desktop): a faint dotted track threads
+   the numbered nodes; the amber fill grows to the active node with the same
+   650ms ease as the preview swap, so it reaches the next digit exactly as that
+   step's UI settles. The fill's dots drift downward so it reads as travelling.
+   Both heights are driven inline from the measured node centres. */
+.lr-hiw-rail {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--foreground) 20%, transparent) 0 2px,
+    transparent 2px 11px
+  );
+}
+.lr-hiw-rail-fill {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--accent) 0 2px,
+    transparent 2px 11px
+  );
+  background-size: 1px 11px;
+  transition: height 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes lr-hiw-flow {
+  to {
+    background-position: 0 11px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lr-hiw-rail-fill {
+    animation: lr-hiw-flow 0.85s linear infinite;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lr-hiw-rail-fill {
+    transition: none;
+  }
+}
+
 @keyframes lr-sweep {
   0% {
     transform: translateX(-100%);

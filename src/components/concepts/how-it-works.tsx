@@ -321,6 +321,32 @@ const STEPS = [
 export function HowItWorks() {
   const [active, setActive] = React.useState(0);
   const items = React.useRef<(HTMLElement | null)[]>([]);
+  const ol = React.useRef<HTMLOListElement>(null);
+  const nodes = React.useRef<(HTMLElement | null)[]>([]);
+  // Centre-Y of each numbered node relative to the list, so the amber rail can
+  // grow to the active node. Measured (node spacing isn't uniform: the steps
+  // are vertically centred and bodies differ in height) and kept fresh on
+  // resize/reflow.
+  const [nodeYs, setNodeYs] = React.useState<number[]>([]);
+
+  React.useEffect(() => {
+    const measure = () =>
+      setNodeYs(
+        nodes.current.map((n) => (n ? n.offsetTop + n.offsetHeight / 2 : 0)),
+      );
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (ol.current) ro.observe(ol.current);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  const railTop = nodeYs[0] ?? 0;
+  const railEnd = nodeYs[nodeYs.length - 1] ?? 0;
+  const railActive = nodeYs[active] ?? 0;
 
   React.useEffect(() => {
     // A zero-height band across the viewport middle: the step whose box the
@@ -349,7 +375,24 @@ export function HowItWorks() {
         {/* Trailing bottom runway so the sticky panel can stay vertically
             centred through the final step instead of detaching and riding up
             (which clipped the last preview against the viewport top). */}
-        <ol className="pb-[30vh] lg:order-1">
+        <ol ref={ol} className="relative pb-[30vh] lg:order-1">
+          {/* Progress rail: a dotted track threading the nodes, with an amber
+              fill that advances to the active node in step with the preview
+              swap. Positioned from the measured node centres. */}
+          {nodeYs.length > 0 && (
+            <>
+              <span
+                aria-hidden
+                className="lr-hiw-rail pointer-events-none absolute left-5 w-px -translate-x-1/2"
+                style={{ top: railTop, height: Math.max(0, railEnd - railTop) }}
+              />
+              <span
+                aria-hidden
+                className="lr-hiw-rail-fill pointer-events-none absolute left-5 w-px -translate-x-1/2"
+                style={{ top: railTop, height: Math.max(0, railActive - railTop) }}
+              />
+            </>
+          )}
           {STEPS.map((s, i) => (
             <li
               key={s.step}
@@ -361,11 +404,14 @@ export function HowItWorks() {
             >
               <div className="flex items-center gap-4">
                 <span
+                  ref={(el) => {
+                    nodes.current[i] = el;
+                  }}
                   className={cn(
-                    "flex size-10 shrink-0 items-center justify-center rounded-full border text-sm transition-colors duration-300",
+                    "relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border text-sm transition-colors duration-300",
                     i === active
-                      ? "border-accent bg-accent/10 text-accent"
-                      : "border-border text-foreground-subtle",
+                      ? "border-accent bg-accent text-neutral-950"
+                      : "border-border bg-page text-foreground-subtle",
                   )}
                 >
                   {s.step}
@@ -423,7 +469,7 @@ export function HowItWorks() {
         {STEPS.map((s) => (
           <div key={s.step}>
             <div className="flex items-center gap-4">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-accent bg-accent/10 text-sm text-accent">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm text-neutral-950">
                 {s.step}
               </span>
               <h3 className="text-lg font-medium text-foreground">{s.title}</h3>
