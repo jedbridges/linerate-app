@@ -92,6 +92,7 @@ export default function OverviewConcept() {
       hideEyebrows
       ctaPanel
       ctaEmail
+      ctaShader
       ctaTitle="Give your contract a job."
       ctaBody="See how LineRate can turn your agreements into systems that calculate, reconcile, and settle themselves."
       positioningTitle="The system of record for complex agreements."

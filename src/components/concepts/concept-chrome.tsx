@@ -7,6 +7,7 @@ import { ConceptNav } from "./concept-nav";
 import { Reveal } from "./reveal";
 import { Positioning } from "./positioning";
 import { RequestAccessForm } from "./request-access-form";
+import { CtaShader } from "./cta-shader";
 import { type ConceptSlug } from "./concepts";
 
 /*
@@ -27,6 +28,7 @@ export function ConceptChrome({
   ctaEmail = false,
   hideEyebrows = false,
   positioningFeature = false,
+  ctaShader = false,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
@@ -50,6 +52,9 @@ export function ConceptChrome({
   /** Render the positioning block as a full-bleed, taller feature band with a
    *  cursor-reactive line grid behind it (concept 06). */
   positioningFeature?: boolean;
+  /** Enlarge the CTA panel and drop a subtle cursor-reactive line shader
+   *  behind it (concept 06). Requires ctaPanel. */
+  ctaShader?: boolean;
 }) {
   return (
     <>
@@ -68,31 +73,36 @@ export function ConceptChrome({
       <section id="contact" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
         <Reveal
           className={cn(
-            "mx-auto text-center",
-            ctaPanel
-              ? "lr-cta-amber max-w-4xl overflow-hidden rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
-              : "max-w-3xl",
+            "relative mx-auto text-center",
+            ctaPanel &&
+              "lr-cta-amber overflow-hidden rounded-3xl px-6 sm:px-16",
+            ctaShader
+              ? "max-w-5xl py-20 sm:py-28"
+              : ctaPanel
+                ? "max-w-4xl py-16 sm:py-20"
+                : "max-w-3xl",
           )}
         >
-          {!hideEyebrows && (
-            <p className="eyebrow mb-4">Request access</p>
-          )}
-          <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            {ctaTitle}
-          </h2>
-          <p className="mx-auto mt-5 max-w-[52ch] text-base leading-relaxed text-foreground-muted">
-            {ctaBody}
-          </p>
-          {ctaEmail ? (
-            <RequestAccessForm />
-          ) : (
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Button size="lg">Request access</Button>
-              <Button asChild variant="ghost" size="lg">
-                <a href="#how">How it works</a>
-              </Button>
-            </div>
-          )}
+          {ctaShader && <CtaShader />}
+          <div className="relative z-10">
+            {!hideEyebrows && <p className="eyebrow mb-4">Request access</p>}
+            <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+              {ctaTitle}
+            </h2>
+            <p className="mx-auto mt-5 max-w-[52ch] text-base leading-relaxed text-foreground-muted">
+              {ctaBody}
+            </p>
+            {ctaEmail ? (
+              <RequestAccessForm />
+            ) : (
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <Button size="lg">Request access</Button>
+                <Button asChild variant="ghost" size="lg">
+                  <a href="#how">How it works</a>
+                </Button>
+              </div>
+            )}
+          </div>
         </Reveal>
       </section>
 
