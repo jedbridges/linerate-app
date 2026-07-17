@@ -1,13 +1,14 @@
 import * as React from "react";
+import Script from "next/script";
 
-import { cn } from "@/lib/utils";
+import { cn, withBase } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/wordmark";
 import { ConceptNav } from "./concept-nav";
 import { Reveal } from "./reveal";
 import { Positioning } from "./positioning";
 import { RequestAccessForm } from "./request-access-form";
-import { CtaShader } from "./cta-shader";
+import { CtaLineScreen } from "./cta-line-screen";
 import { type ConceptSlug } from "./concepts";
 
 /*
@@ -71,6 +72,10 @@ export function ConceptChrome({
 }) {
   return (
     <>
+      {/* Load the <line-screen> element for the CTA background (concept 06). */}
+      {ctaShader && (
+        <Script src={withBase("/line-screen.js")} strategy="afterInteractive" />
+      )}
       <ConceptNav active={slug} hideSwitcher={hideSwitcher} />
       <main data-motion={motion}>{children}</main>
 
@@ -96,15 +101,18 @@ export function ConceptChrome({
             "relative text-center",
             ctaPanel && "lr-cta-amber overflow-hidden",
             ctaShader
-              ? "border-0 px-6 py-24 sm:py-32"
+              ? "border-0 pb-24 sm:pb-32"
               : ctaPanel
                 ? "mx-auto max-w-4xl rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
                 : "mx-auto max-w-3xl",
           )}
         >
-          {ctaShader && <CtaShader />}
+          {ctaShader && <CtaLineScreen />}
           <div
-            className={cn("relative z-10", ctaShader && "mx-auto max-w-3xl")}
+            className={cn(
+              "relative z-10",
+              ctaShader && "mx-auto -mt-[9vw] max-w-3xl px-6",
+            )}
           >
             {!hideEyebrows && <p className="eyebrow mb-4">Request access</p>}
             <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
