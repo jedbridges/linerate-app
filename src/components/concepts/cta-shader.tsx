@@ -21,9 +21,8 @@ const AMBER_LINE = "#df8e2a";
 const TRANSPARENT = "#00000000";
 const BASE_ROT = 6; // resting line angle (deg)
 
-// Feather the lines toward the panel edges so the texture fades out softly.
-const EDGE_FEATHER =
-  "radial-gradient(120% 120% at 50% 50%, #000 25%, transparent 82%)";
+// Fade the lines out toward the bottom of the panel.
+const BOTTOM_FADE = "linear-gradient(to bottom, #000 4%, transparent 90%)";
 
 const FILL = {
   position: "absolute",
@@ -110,28 +109,28 @@ export function CtaShader({ className }: { className?: string }) {
     <div
       ref={rootRef}
       aria-hidden
-      className={cn("pointer-events-none absolute inset-0 -z-0", className)}
+      className={cn("pointer-events-none absolute inset-0 z-0", className)}
     >
       {mounted && (
         <Waves
           colorFront={AMBER_LINE}
           colorBack={TRANSPARENT}
-          shape={1.9}
-          frequency={0.5}
-          amplitude={0.28}
-          spacing={1.3}
-          proportion={0.12}
-          softness={0.95}
+          shape={1}
+          frequency={0}
+          amplitude={0}
+          spacing={1.5}
+          proportion={0.1}
+          softness={0.9}
           scale={2.4}
           rotation={dyn.rot}
           offsetX={dyn.x}
           offsetY={dyn.y}
           style={{
             ...FILL,
-            opacity: shown ? 0.16 : 0,
+            opacity: shown ? 0.18 : 0,
             transition: "opacity 600ms ease",
-            WebkitMaskImage: EDGE_FEATHER,
-            maskImage: EDGE_FEATHER,
+            WebkitMaskImage: BOTTOM_FADE,
+            maskImage: BOTTOM_FADE,
           }}
         />
       )}
