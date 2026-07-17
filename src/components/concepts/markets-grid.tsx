@@ -41,7 +41,11 @@ const MARKETS = [
 
 export function MarketsGrid() {
   const ref = React.useRef<HTMLDivElement>(null);
-  const [anim, setAnim] = React.useState<"idle" | "armed" | "play">("idle");
+  // Undefined until mounted so the attribute isn't in the SSR HTML (no
+  // hydration mismatch); the effect adds "armed" then "play" on the client.
+  const [anim, setAnim] = React.useState<"armed" | "play" | undefined>(
+    undefined,
+  );
 
   React.useEffect(() => {
     const el = ref.current;
