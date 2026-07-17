@@ -5,6 +5,7 @@ import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { ContractModel } from "@/components/concepts/contract-model";
 import { HeroPanelTilt } from "@/components/concepts/hero-panel-tilt";
 import { MarketsGrid } from "@/components/concepts/markets-grid";
+import { StatsCounter } from "@/components/concepts/stats-counter";
 import { Reveal } from "@/components/concepts/reveal";
 
 export const metadata: Metadata = {
@@ -23,12 +24,6 @@ export const metadata: Metadata = {
  * copy is kept verbatim; the doc's "Linerate" renders as "LineRate" per the
  * agreed naming.
  */
-
-const STATS = [
-  { value: "$500M+", label: "Processed annually" },
-  { value: "700 MW", label: "Energy and critical compute settled" },
-  { value: "100s", label: "Hours returned to finance teams" },
-];
 
 const CHANGES = [
   {
@@ -155,16 +150,7 @@ export default function OverviewConcept() {
         >
           One agreement. One model. One record.
         </Reveal>
-        <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3">
-          {STATS.map((m, i) => (
-            <Reveal key={m.label} delay={i * 90}>
-              <p className="ledger text-4xl font-medium text-foreground">
-                {m.value}
-              </p>
-              <p className="mt-2 text-sm text-foreground-muted">{m.label}</p>
-            </Reveal>
-          ))}
-        </div>
+        <StatsCounter />
       </section>
 
       {/* Markets — signature moment: broader positioning across four markets */}
