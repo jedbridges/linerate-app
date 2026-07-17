@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
@@ -73,9 +74,24 @@ const STEPS = [
 ];
 
 // Illustrative quote (avatar is a placeholder headshot; confirm before publish).
+// The body reads in a muted gray with the load-bearing phrases (the concrete
+// pain, then the payoff) lifted to full-strength foreground so the eye lands
+// on the transformation. `em` marks a segment for the white highlight.
 const QUOTE = {
-  quote:
-    "Before LineRate, both teams rebuilt the settlement every month from separate data and spreadsheets. Disputes took weeks to resolve, and reconciliation decisions were scattered across constantly changing email threads. Now we review one shared record, resolve exceptions in the platform, and settle with confidence.",
+  parts: [
+    { t: "Before LineRate, both teams " },
+    { t: "rebuilt the settlement every month", em: true },
+    { t: " from separate data and spreadsheets. " },
+    { t: "Disputes took weeks to resolve", em: true },
+    {
+      t: ", and reconciliation decisions were scattered across constantly changing email threads. Now we ",
+    },
+    {
+      t: "review one shared record, resolve exceptions in the platform, and settle with confidence",
+      em: true,
+    },
+    { t: "." },
+  ] as { t: string; em?: boolean }[],
   attribution: "Finance lead, critical infrastructure operator",
 };
 
@@ -268,8 +284,18 @@ export default function OverviewConcept() {
             height={56}
             className="mx-auto mb-8 size-14 rounded-md border border-border object-cover"
           />
-          <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground sm:text-3xl">
-            &ldquo;{QUOTE.quote}&rdquo;
+          <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground-muted sm:text-3xl">
+            &ldquo;
+            {QUOTE.parts.map((p, i) =>
+              p.em ? (
+                <span key={i} className="text-foreground">
+                  {p.t}
+                </span>
+              ) : (
+                <React.Fragment key={i}>{p.t}</React.Fragment>
+              ),
+            )}
+            &rdquo;
           </blockquote>
           <figcaption className="mt-6 text-sm text-foreground-muted">
             {QUOTE.attribution}
