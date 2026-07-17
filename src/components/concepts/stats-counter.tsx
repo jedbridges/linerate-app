@@ -72,7 +72,10 @@ export function StatsCounter() {
     >
       {STATS.map((s, i) => (
         <div key={s.label}>
-          <p className="ledger text-4xl font-medium text-foreground">
+          {/* Fixed-height, centered value box: NumberFlow's custom element
+              renders taller than plain text, so pin a shared height to keep
+              every value's baseline — and the labels below — aligned. */}
+          <p className="ledger flex h-14 items-center text-4xl font-medium text-foreground">
             {s.text ? (
               s.text
             ) : (
