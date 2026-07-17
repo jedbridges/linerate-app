@@ -120,9 +120,10 @@ export function ConceptChrome({
         </Reveal>
       </section>
 
-      {/* Footer */}
-      <footer>
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+      {/* Footer — its own full-bleed band, lifted a shade off the page with a
+          hairline top border so it reads as a distinct element. */}
+      <footer className="mt-16 border-t border-border bg-surface">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <Wordmark className="h-3.5 w-auto" />
             <span className="text-xs text-foreground-subtle">by OpenNode</span>
