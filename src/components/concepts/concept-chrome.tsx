@@ -96,7 +96,7 @@ export function ConceptChrome({
             "relative text-center",
             ctaPanel && "lr-cta-amber overflow-hidden",
             ctaShader
-              ? "px-6 py-24 sm:py-32"
+              ? "border-0 px-6 py-24 sm:py-32"
               : ctaPanel
                 ? "mx-auto max-w-4xl rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
                 : "mx-auto max-w-3xl",
@@ -129,7 +129,7 @@ export function ConceptChrome({
 
       {/* Footer — its own full-bleed band, lifted a shade off the page with a
           hairline top border so it reads as a distinct element. */}
-      <footer className="mt-16 border-t border-border bg-surface">
+      <footer className="border-t border-border bg-surface">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <Wordmark className="h-3.5 w-auto" />
