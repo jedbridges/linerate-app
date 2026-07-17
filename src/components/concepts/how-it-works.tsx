@@ -5,6 +5,7 @@ import { ArrowDown, ArrowRight, Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { HeroPanelTilt } from "./hero-panel-tilt";
+import { PreviewGlow } from "./preview-glow";
 
 /*
  * Concept 06 "how it works" — a scroll-driven walkthrough. The five steps
@@ -33,7 +34,7 @@ function PreviewFrame({
 }) {
   return (
     <div
-      className="lr-preview-glow relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-surface"
+      className="relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-surface"
       style={{
         backgroundImage:
           "linear-gradient(var(--stream-grid) 1px, transparent 1px), linear-gradient(90deg, var(--stream-grid) 1px, transparent 1px)",
@@ -441,8 +442,10 @@ export function HowItWorks() {
 
         <div className="lg:order-2">
           <div className="sticky top-1/2 -translate-y-1/2">
-            <HeroPanelTilt>
-              <div className="relative aspect-[4/3] w-full">
+            <div className="relative">
+              <PreviewGlow parallax />
+              <HeroPanelTilt>
+                <div className="relative aspect-[4/3] w-full">
                 {STEPS.map((s, i) => (
                   <div
                     key={s.step}
@@ -458,7 +461,8 @@ export function HowItWorks() {
                   </div>
                 ))}
               </div>
-            </HeroPanelTilt>
+              </HeroPanelTilt>
+            </div>
           </div>
         </div>
       </div>
@@ -477,7 +481,8 @@ export function HowItWorks() {
             <p className="mt-3 text-base leading-relaxed text-foreground-muted">
               {s.body}
             </p>
-            <div className="lr-hiw-card mt-6 aspect-[4/3]">
+            <div className="lr-hiw-card relative mt-6 aspect-[4/3]">
+              <PreviewGlow />
               <s.Preview />
             </div>
           </div>

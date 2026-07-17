@@ -640,16 +640,6 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
-/* Faint amber aura behind the how-it-works preview panels (concept 06). Two
-   layered, wide-blurred amber shadows read as a soft glow behind the card
-   rather than a hard edge; box-shadow isn't clipped by the panel's own
-   overflow-hidden. Kept low-opacity so it stays a whisper. */
-.lr-preview-glow {
-  box-shadow:
-    0 0 54px -12px color-mix(in oklab, var(--accent) 22%, transparent),
-    0 18px 50px -20px color-mix(in oklab, var(--accent) 24%, transparent);
-}
-
 /* How-it-works progress rail (concept 06 desktop): a faint dotted track threads
    the numbered nodes; the amber fill grows to the active node with the same
    650ms ease as the preview swap, so it reaches the next digit exactly as that
