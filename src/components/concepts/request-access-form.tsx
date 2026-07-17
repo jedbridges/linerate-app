@@ -20,10 +20,13 @@ export function RequestAccessForm() {
     return (
       <p
         role="status"
-        className="mt-9 inline-flex items-center gap-2.5 text-base text-foreground"
+        className="lr-success mt-9 inline-flex items-center gap-2.5 text-base text-foreground"
       >
-        <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-surface">
-          <Check className="size-4 text-accent-foreground" aria-hidden />
+        <span className="lr-success-badge flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-surface">
+          <Check
+            className="lr-success-check size-4 text-accent-foreground"
+            aria-hidden
+          />
         </span>
         Thanks, we&rsquo;ll be in touch.
       </p>

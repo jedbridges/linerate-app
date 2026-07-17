@@ -542,6 +542,50 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Request-access success: the confirmation rises in, the amber badge scales
+   up, and the check draws itself, so the moment lands rather than just
+   appearing. Base state is visible so it fails safe under reduced motion. */
+@keyframes lr-success-rise {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lr-badge-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lr-check-draw {
+  from {
+    stroke-dashoffset: 26;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lr-success {
+    animation: lr-success-rise 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .lr-success-badge {
+    animation: lr-badge-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+  }
+  .lr-success-check path {
+    stroke-dasharray: 26;
+    animation: lr-check-draw 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
+  }
+}
+
 @keyframes lr-sweep {
   0% {
     transform: translateX(-100%);
