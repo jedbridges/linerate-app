@@ -83,22 +83,29 @@ export function ConceptChrome({
         feature={positioningFeature}
       />
 
-      {/* Closing CTA */}
-      <section id="contact" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+      {/* Closing CTA. Concept 06 (ctaShader) spans a full-bleed amber band;
+          others keep the centred rounded panel / plain CTA. */}
+      <section
+        id="contact"
+        className={cn(
+          ctaShader ? "" : "mx-auto max-w-6xl px-6 py-24 sm:py-32",
+        )}
+      >
         <Reveal
           className={cn(
-            "relative mx-auto text-center",
-            ctaPanel &&
-              "lr-cta-amber overflow-hidden rounded-3xl px-6 sm:px-16",
+            "relative text-center",
+            ctaPanel && "lr-cta-amber overflow-hidden",
             ctaShader
-              ? "max-w-5xl py-20 sm:py-28"
+              ? "px-6 py-24 sm:py-32"
               : ctaPanel
-                ? "max-w-4xl py-16 sm:py-20"
-                : "max-w-3xl",
+                ? "mx-auto max-w-4xl rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
+                : "mx-auto max-w-3xl",
           )}
         >
           {ctaShader && <CtaShader />}
-          <div className="relative z-10">
+          <div
+            className={cn("relative z-10", ctaShader && "mx-auto max-w-3xl")}
+          >
             {!hideEyebrows && <p className="eyebrow mb-4">Request access</p>}
             <h2 className="text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
               {ctaTitle}
