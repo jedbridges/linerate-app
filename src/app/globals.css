@@ -586,10 +586,13 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
-/* Markets icons draw in as they enter view (concept 06): a clip wipe from the
-   bottom plus a fade, scrubbed on the scroll (view) timeline so it needs no
-   JS. clip-path + opacity only, so the group-hover scale stays untouched.
-   Fails safe to fully visible where view() is unsupported or motion is off. */
+/* Markets icons draw in when the grid reveals (concept 06): a one-shot
+   bottom-to-top clip wipe plus fade, played by MarketsGrid via an
+   IntersectionObserver (data-market-anim: armed -> play), staggered per icon
+   by --icon-i. Not tied to scroll position. clip-path + opacity only, so the
+   group-hover scale stays untouched. Fails safe to fully visible: the hidden
+   "armed" state only exists under no-preference, and JS never arms under
+   reduced motion. */
 @keyframes lr-icon-reveal {
   from {
     clip-path: inset(100% 0 0 0);
@@ -601,13 +604,13 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .lr-market-icon {
-      opacity: 0;
-      animation: lr-icon-reveal 1s linear both;
-      animation-timeline: view();
-      animation-range: entry 14% cover 26%;
-    }
+  [data-market-anim="armed"] .lr-market-icon {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+  }
+  [data-market-anim="play"] .lr-market-icon {
+    animation: lr-icon-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--icon-i, 0) * 0.12s);
   }
 }
 

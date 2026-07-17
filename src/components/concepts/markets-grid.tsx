@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { HardDrives, Lightning, Buildings, Cpu } from "@phosphor-icons/react";
 
 import { Reveal } from "./reveal";
@@ -9,6 +10,11 @@ import { Reveal } from "./reveal";
  * the brand amber via currentColor — the duotone weight renders a translucent
  * secondary layer over the solid primary, so a single amber colour reads as
  * two tones. Client component because Phosphor icons read React context.
+ *
+ * The icons play a one-shot clip wipe (not scroll-scrubbed) when the grid
+ * first enters view: an IntersectionObserver arms them hidden (while still
+ * below the fold), then flips to "play" so the staggered wipe runs once. Under
+ * reduced motion the grid stays idle and the icons render fully visible.
  */
 const MARKETS = [
   {
@@ -34,13 +40,40 @@ const MARKETS = [
 ];
 
 export function MarketsGrid() {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [anim, setAnim] = React.useState<"idle" | "armed" | "play">("idle");
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Hide the icons while they're still below the fold, then play once on view.
+    setAnim("armed");
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnim("play");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className="mt-14 grid gap-4 sm:grid-cols-2">
+    <div
+      ref={ref}
+      data-market-anim={anim}
+      className="mt-14 grid gap-4 sm:grid-cols-2"
+    >
       {MARKETS.map((m, i) => (
         <Reveal key={m.title} delay={i * 80} className="flex">
           <div className="group flex flex-1 flex-col rounded-xl border border-border bg-surface p-6 transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted">
             <m.Icon
               weight="duotone"
+              style={{ ["--icon-i" as string]: i } as React.CSSProperties}
               className="lr-market-icon size-8 text-accent transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-110"
               aria-hidden
             />
