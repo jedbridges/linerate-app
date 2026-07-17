@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
 import { ContractModel } from "@/components/concepts/contract-model";
 import { HeroPanelTilt } from "@/components/concepts/hero-panel-tilt";
+import { HowItWorks } from "@/components/concepts/how-it-works";
 import { MarketsGrid } from "@/components/concepts/markets-grid";
 import { StatsCounter } from "@/components/concepts/stats-counter";
 import { Reveal } from "@/components/concepts/reveal";
@@ -42,34 +43,6 @@ const CHANGES = [
   {
     title: "Every result is auditable",
     body: "Trace each obligation back to the contract term, source data, model version, and approval history.",
-  },
-];
-
-const STEPS = [
-  {
-    step: "01",
-    title: "Build the canonical model",
-    body: "LineRate converts the agreement into a shared calculation model covering pricing, floors, caps, true-ups, fees, penalties, and settlement rules.",
-  },
-  {
-    step: "02",
-    title: "Connect the live inputs",
-    body: "Meter data, energy usage, infrastructure telemetry, payouts, invoices, market data, and other contract inputs flow into the model automatically.",
-  },
-  {
-    step: "03",
-    title: "Review, amend & approve",
-    body: "Both parties can inspect the logic, propose changes, approve new versions, and preserve a complete history.",
-  },
-  {
-    step: "04",
-    title: "Calculate & coordinate settlement",
-    body: "The model continuously determines each party's obligations and routes approved settlement through connected bank accounts and crypto addresses.",
-  },
-  {
-    step: "05",
-    title: "Reconcile & audit",
-    body: "Every result traces back to the governing term, source data, model version, and approval record.",
   },
 ];
 
@@ -208,7 +181,8 @@ export default function OverviewConcept() {
         </div>
       </section>
 
-      {/* How it works — signature moment: vertical animated process timeline */}
+      {/* How it works — signature moment: scroll-driven walkthrough where a
+          sticky, angled product-UI panel swaps as each step becomes active. */}
       <section id="how" className="mx-auto max-w-6xl px-6 py-24">
         <Reveal
           as="h2"
@@ -216,38 +190,7 @@ export default function OverviewConcept() {
         >
           The contract becomes the system.
         </Reveal>
-        <div className="relative mt-14 max-w-3xl">
-          {/* Animated dotted rail threading the numbered nodes (contract ->
-              runs -> settles). Node circles mask it as they cross. */}
-          <span
-            aria-hidden
-            className="lr-flow-rail-v absolute top-5 bottom-5 left-[19px] w-0.5"
-          />
-          <ol className="space-y-9">
-            {STEPS.map((s, i) => (
-              <Reveal
-                as="li"
-                key={s.step}
-                delay={i * 70}
-                className="flex gap-5"
-              >
-                {/* Translucent + blurred node so the flowing rail reads as
-                    movement behind the digit. */}
-                <span className="ledger relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-page/40 text-sm text-foreground backdrop-blur-[3px]">
-                  {s.step}
-                </span>
-                <div className="pt-1.5">
-                  <h3 className="text-lg font-medium text-foreground">
-                    {s.title}
-                  </h3>
-                  <p className="mt-1.5 max-w-[52ch] text-base leading-relaxed text-foreground-muted">
-                    {s.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+        <HowItWorks />
       </section>
 
       {/* Neutrality */}

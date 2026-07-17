@@ -614,6 +614,32 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* How-it-works mobile cards (concept 06): each step's example UI fades and
+   un-blurs into place as it scrolls in, mirroring the desktop panel's swap.
+   Rides a view() timeline so it plays once on entry; where scroll timelines or
+   motion are unavailable it simply rests visible (base state below). */
+@keyframes lr-hiw-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .lr-hiw-card {
+      animation: lr-hiw-in linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 34%;
+    }
+  }
+}
+
 @keyframes lr-sweep {
   0% {
     transform: translateX(-100%);
