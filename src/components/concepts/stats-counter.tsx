@@ -10,10 +10,19 @@ import NumberFlow from "@number-flow/react";
  * Reduced motion shows the final values immediately.
  */
 
-const STATS: { n: number; prefix?: string; suffix: string; label: string }[] = [
+// Figures are no-space "number + unit" for consistency ($500M+, 700MW). The
+// third is a word, not a count ("100s" read as "100 seconds"): it shows
+// "Hundreds" with the unit (hours) carried by the label.
+const STATS: {
+  n?: number;
+  text?: string;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+}[] = [
   { n: 500, prefix: "$", suffix: "M+", label: "Processed annually" },
-  { n: 700, suffix: " MW", label: "Energy and critical compute settled" },
-  { n: 100, suffix: "s", label: "Hours returned to finance teams" },
+  { n: 700, suffix: "MW", label: "Energy and critical compute settled" },
+  { text: "Hundreds", label: "Hours returned to finance teams" },
 ];
 
 export function StatsCounter() {
@@ -26,7 +35,7 @@ export function StatsCounter() {
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setValues(STATS.map((s) => s.n));
+      setValues(STATS.map((s) => s.n ?? 0));
       return;
     }
     const timers: ReturnType<typeof setTimeout>[] = [];
@@ -35,11 +44,12 @@ export function StatsCounter() {
         if (!entry.isIntersecting) return;
         io.disconnect();
         STATS.forEach((s, i) => {
+          if (s.n == null) return; // static text stat, nothing to count
           timers.push(
             setTimeout(() => {
               setValues((v) => {
                 const next = [...v];
-                next[i] = s.n;
+                next[i] = s.n as number;
                 return next;
               });
             }, i * 140),
@@ -63,16 +73,20 @@ export function StatsCounter() {
       {STATS.map((s, i) => (
         <div key={s.label}>
           <p className="ledger text-4xl font-medium text-foreground">
-            <NumberFlow
-              value={values[i]}
-              prefix={s.prefix}
-              suffix={s.suffix}
-              spinTiming={{
-                duration: 1000,
-                easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-              willChange
-            />
+            {s.text ? (
+              s.text
+            ) : (
+              <NumberFlow
+                value={values[i]}
+                prefix={s.prefix}
+                suffix={s.suffix}
+                spinTiming={{
+                  duration: 1000,
+                  easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+                willChange
+              />
+            )}
           </p>
           <p className="mt-2 text-sm text-foreground-muted">{s.label}</p>
         </div>

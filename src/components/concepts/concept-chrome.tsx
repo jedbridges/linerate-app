@@ -31,6 +31,7 @@ export function ConceptChrome({
   hideEyebrows = false,
   positioningFeature = false,
   ctaShader = false,
+  hideSwitcher = false,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
@@ -64,10 +65,13 @@ export function ConceptChrome({
   /** Enlarge the CTA panel and drop a subtle cursor-reactive line shader
    *  behind it (concept 06). Requires ctaPanel. */
   ctaShader?: boolean;
+  /** Hide the concept-switcher dropdown for a clean product header
+   *  (concept 06). */
+  hideSwitcher?: boolean;
 }) {
   return (
     <>
-      <ConceptNav active={slug} />
+      <ConceptNav active={slug} hideSwitcher={hideSwitcher} />
       <main data-motion={motion}>{children}</main>
 
       {/* Shared positioning: what LineRate is + trust strip */}

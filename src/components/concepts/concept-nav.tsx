@@ -22,25 +22,34 @@ import { CONCEPTS, type ConceptSlug } from "./concepts";
  * between the three landing directions), and the CTA pair (ghost secondary +
  * primary, per the pairing rule). Frosted glass, matching the system chrome.
  */
-export function ConceptNav({ active }: { active: ConceptSlug }) {
+export function ConceptNav({
+  active,
+  hideSwitcher = false,
+}: {
+  active: ConceptSlug;
+  /** Drop the concept-switcher dropdown for a clean, product-style header
+   *  (concept 06). The wordmark then shows on all breakpoints. */
+  hideSwitcher?: boolean;
+}) {
   const current = CONCEPTS.find((c) => c.slug === active) ?? CONCEPTS[0];
 
   return (
     <header className="sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
       <div className="glass mx-auto flex h-13 max-w-6xl items-center justify-between gap-3 rounded-xl border px-4 shadow-lg sm:px-5">
         <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-          {/* Wordmark hidden on mobile so the switcher + CTA fit; it still
-              appears in the hero and footer. */}
+          {/* Wordmark hidden on mobile when the switcher is present (so switcher
+              + CTA fit); shown on all breakpoints once the switcher is gone. */}
           <Link
             href="/concepts"
             aria-label="LineRate concepts"
-            className="hidden shrink-0 sm:block"
+            className={cn("shrink-0", !hideSwitcher && "hidden sm:block")}
           >
             <Wordmark className="h-3.5 w-auto sm:h-4" />
           </Link>
 
           {/* Non-modal: a modal dropdown scroll-locks the body, which breaks
               the sticky header (the whole nav vanishes) when opened mid-page. */}
+          {!hideSwitcher && (
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <button
@@ -78,6 +87,7 @@ export function ConceptNav({ active }: { active: ConceptSlug }) {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          )}
         </div>
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">

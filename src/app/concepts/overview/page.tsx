@@ -85,6 +85,7 @@ export default function OverviewConcept() {
       slug="overview"
       motion="snappy"
       hideEyebrows
+      hideSwitcher
       ctaPanel
       ctaEmail
       ctaShader
