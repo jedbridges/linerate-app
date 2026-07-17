@@ -129,19 +129,8 @@ export default function OverviewConcept() {
             coordinate settlement in one neutral, auditable platform.
           </Reveal>
           <Reveal
-            as="p"
             variant="load"
-            delay={220}
-            className="mt-4 max-w-[54ch] text-base leading-relaxed text-foreground-subtle"
-          >
-            Both parties work from the same model, approve changes together, and
-            trace every result back to the contract and its underlying data.
-            Never spend time rebuilding settlement calculations or resolving
-            disputes. Keep your team focused on your business&rsquo;s growth.
-          </Reveal>
-          <Reveal
-            variant="load"
-            delay={300}
+            delay={240}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
             <Button asChild size="lg">
