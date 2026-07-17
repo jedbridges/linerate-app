@@ -346,7 +346,10 @@ export function HowItWorks() {
       {/* Desktop: steps scroll on the left, the sticky example swaps on the
           right, angled like the hero. */}
       <div className="mt-16 hidden lg:grid lg:grid-cols-2 lg:gap-16">
-        <ol className="lg:order-1">
+        {/* Trailing bottom runway so the sticky panel can stay vertically
+            centred through the final step instead of detaching and riding up
+            (which clipped the last preview against the viewport top). */}
+        <ol className="pb-[30vh] lg:order-1">
           {STEPS.map((s, i) => (
             <li
               key={s.step}
