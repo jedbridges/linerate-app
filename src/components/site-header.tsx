@@ -3,10 +3,15 @@
 import * as React from "react";
 import { ChevronDown } from "lucide-react";
 
-import { cn, slugify } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { HomeLink } from "@/components/home-link";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { NavList, useScrollSpy, type NavGroup } from "@/components/side-nav";
+import {
+  NavList,
+  useScrollSpy,
+  sectionIds,
+  type NavGroup,
+} from "@/components/side-nav";
 import { useView, navigateToNav } from "@/components/view-store";
 
 /*
@@ -23,10 +28,7 @@ import { useView, navigateToNav } from "@/components/view-store";
  * As an overlay it never changes layout, so taps land on the right section.
  */
 export function SiteHeader({ groups }: { groups: NavGroup[] }) {
-  const ids = React.useMemo(
-    () => groups.flatMap((g) => g.items.map(slugify)),
-    [groups]
-  );
+  const ids = React.useMemo(() => sectionIds(groups), [groups]);
   const view = useView();
   const [active, setActive] = useScrollSpy(ids, view);
   const activeId = view === "shell" ? "shell" : active;

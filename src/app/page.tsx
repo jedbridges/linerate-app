@@ -193,6 +193,10 @@ const NAV: NavGroup[] = [
     ],
   },
   {
+    group: "Effects",
+    items: [{ label: "Line screen", href: "/effects/line-screen" }],
+  },
+  {
     group: "Demos",
     items: ["Shell"],
   },

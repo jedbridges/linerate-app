@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 
 import { cn, slugify } from "@/lib/utils";
 import { scrollToSection } from "@/lib/scroll";
@@ -22,10 +23,23 @@ export { scrollToSection };
  * on each <section>.
  */
 
+/* A nav item is either an in-page section (a string label, scroll-spied via
+   its slugified id) or a link to another route ({ label, href }). Route links
+   render as real <Link>s and are never scrollspy-active. */
+export type NavLink = { label: string; href: string };
+export type NavItem = string | NavLink;
+
 export type NavGroup = {
   group: string;
-  items: string[];
+  items: NavItem[];
 };
+
+/* Only in-page (string) items participate in the scrollspy. */
+export function sectionIds(groups: NavGroup[]) {
+  return groups.flatMap((g) =>
+    g.items.filter((i): i is string => typeof i === "string").map(slugify),
+  );
+}
 
 /* Scrollspy: returns the id of the section currently in the reading zone.
    `rerun` re-attaches the observer when its value changes, needed when the
@@ -69,7 +83,21 @@ export function NavList({
         <div key={g.group}>
           <p className="eyebrow mb-3">{g.group}</p>
           <ul className="flex flex-col gap-0.5 border-l border-border">
-            {g.items.map((label) => {
+            {g.items.map((item) => {
+              // Route link: navigates to another page, never scrollspy-active.
+              if (typeof item !== "string") {
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="-ml-px block border-l border-transparent py-1.5 pl-4 text-sm text-foreground-muted transition-colors hover:border-border-strong hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              }
+              const label = item;
               const id = slugify(label);
               const isActive = active === id;
               return (
@@ -103,10 +131,7 @@ export function NavList({
 /* Desktop: a sticky left rail, always visible at lg+. Below lg the same list
    lives in the header's Contents disclosure (see SiteHeader). */
 export function SideNav({ groups }: { groups: NavGroup[] }) {
-  const ids = React.useMemo(
-    () => groups.flatMap((g) => g.items.map(slugify)),
-    [groups]
-  );
+  const ids = React.useMemo(() => sectionIds(groups), [groups]);
   const view = useView();
   const [active, setActive] = useScrollSpy(ids, view);
   // In the shell view the "shell" item is active; otherwise the scrollspy id.
