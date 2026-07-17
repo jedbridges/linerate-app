@@ -7,6 +7,7 @@ import { ContractModel } from "@/components/concepts/contract-model";
 import { HeroPanelTilt } from "@/components/concepts/hero-panel-tilt";
 import { HowItWorks } from "@/components/concepts/how-it-works";
 import { MarketsGrid } from "@/components/concepts/markets-grid";
+import { PreviewGlow } from "@/components/concepts/preview-glow";
 import { StatsCounter } from "@/components/concepts/stats-counter";
 import { Reveal } from "@/components/concepts/reveal";
 
@@ -133,10 +134,14 @@ export default function OverviewConcept() {
         </div>
 
         {/* Contract-first hero visual: the contract executing into figures.
-            HeroPanelTilt rests it angled inward and leans it toward the cursor. */}
-        <HeroPanelTilt className="lg:col-span-5">
-          <ContractModel className="sm:aspect-[4/3]" animateIn />
-        </HeroPanelTilt>
+            HeroPanelTilt rests it angled inward and leans it toward the cursor;
+            a blurred amber orb sits behind it (offset upper-right, parallax). */}
+        <div className="relative lg:col-span-5">
+          <PreviewGlow parallax />
+          <HeroPanelTilt>
+            <ContractModel className="sm:aspect-[4/3]" animateIn />
+          </HeroPanelTilt>
+        </div>
       </section>
 
       {/* Proof stats — "One agreement. One model. One record." */}

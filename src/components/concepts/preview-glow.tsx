@@ -5,11 +5,16 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /*
- * A big, massively-blurred amber orb that sits behind the how-it-works preview
- * panels (concept 06) as a soft light source. With `parallax`, it eases toward
- * the cursor for a subtle sense of depth (desktop only in practice — it tracks
- * the pointer). Purely decorative; ignores the cursor under reduced motion.
+ * A big, massively-blurred amber orb that sits behind a panel (the hero and the
+ * how-it-works previews on concept 06) as a soft light source. It rests off
+ * centre toward the upper right so the light reads as directional rather than a
+ * symmetric halo. With `parallax`, it eases toward the cursor for a subtle
+ * sense of depth. The resting offset is a transform (no layout/scroll impact),
+ * and parallax composes on top of it. Decorative; ignores the cursor under
+ * reduced motion.
  */
+const REST = "translate(15%, -17%)";
+
 export function PreviewGlow({
   className,
   parallax = false,
@@ -35,7 +40,7 @@ export function PreviewGlow({
       raf = 0;
       cx += (tx - cx) * 0.07;
       cy += (ty - cy) * 0.07;
-      el.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
+      el.style.transform = `${REST} translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
       if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
         raf = requestAnimationFrame(tick);
       }
@@ -67,7 +72,8 @@ export function PreviewGlow({
     >
       <div
         ref={orb}
-        className="aspect-square w-[85%] rounded-full bg-accent opacity-25 blur-[110px] will-change-transform"
+        style={{ transform: REST }}
+        className="aspect-square w-[80%] rounded-full bg-accent opacity-25 blur-[110px] will-change-transform"
       />
     </div>
   );
