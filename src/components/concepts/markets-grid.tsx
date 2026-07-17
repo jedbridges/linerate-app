@@ -41,7 +41,7 @@ export function MarketsGrid() {
           <div className="group flex flex-1 flex-col rounded-xl border border-border bg-surface p-6 transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted">
             <m.Icon
               weight="duotone"
-              className="size-8 text-accent transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-110"
+              className="lr-market-icon size-8 text-accent transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-110"
               aria-hidden
             />
             <h3 className="mt-4 text-lg font-medium text-foreground">
