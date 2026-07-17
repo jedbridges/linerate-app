@@ -13,7 +13,7 @@ import { cn, withBase } from "@/lib/utils";
  * amber), so this stays interactive; the copy sits above it (z-10).
  */
 const FADE =
-  "linear-gradient(to bottom, #000 0%, #000 22%, rgba(0,0,0,0.35) 55%, transparent 82%)";
+  "linear-gradient(to bottom, #000 0%, #000 46%, rgba(0,0,0,0.4) 72%, transparent 90%)";
 
 export function CtaLineScreen({ className }: { className?: string }) {
   return (
@@ -24,14 +24,14 @@ export function CtaLineScreen({ className }: { className?: string }) {
     >
       <line-screen
         src={withBase("/handshake.jpg")}
-        frequency="108"
-        contrast="1.05"
+        frequency="150"
+        contrast="1.35"
         exposure="0"
         bleed="1"
         focus="1"
         warp="0.3"
         angle="0"
-        style={{ display: "block", width: "100%", aspectRatio: "32 / 9" }}
+        style={{ display: "block", width: "100%", aspectRatio: "2.4 / 1" }}
       />
     </div>
   );

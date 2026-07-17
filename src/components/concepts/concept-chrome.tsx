@@ -111,7 +111,7 @@ export function ConceptChrome({
           <div
             className={cn(
               "relative z-10",
-              ctaShader && "mx-auto -mt-[9vw] max-w-3xl px-6",
+              ctaShader && "mx-auto -mt-[11vw] max-w-3xl px-6",
             )}
           >
             {!hideEyebrows && <p className="eyebrow mb-4">Request access</p>}
