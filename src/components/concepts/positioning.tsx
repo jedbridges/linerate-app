@@ -14,11 +14,13 @@ import { POSITIONING, TRUST } from "./concepts";
 export function Positioning({
   title = "The neutral system of record for infrastructure deals.",
   items = POSITIONING.is,
+  trust = TRUST,
   hideEyebrow = false,
   feature = false,
 }: {
   title?: string;
   items?: string[];
+  trust?: string[];
   hideEyebrow?: boolean;
   feature?: boolean;
 }) {
@@ -70,7 +72,7 @@ export function Positioning({
           delay={200}
           className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-2 pt-8"
         >
-          {TRUST.map((t) => (
+          {trust.map((t) => (
             <span key={t} className="eyebrow text-foreground-subtle">
               {t}
             </span>

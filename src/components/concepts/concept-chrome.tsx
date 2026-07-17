@@ -21,6 +21,8 @@ export function ConceptChrome({
   children,
   positioningTitle,
   positioningItems,
+  positioningTrust,
+  footerTagline,
   ctaTitle = "Put your contracts on a neutral runtime.",
   ctaBody = "Tell us where reconciliation costs you. Qualified operators get a working session with the team.",
   motion,
@@ -34,6 +36,13 @@ export function ConceptChrome({
   children: React.ReactNode;
   positioningTitle?: string;
   positioningItems?: string[];
+  /** Override the positioning trust strip. Concept 06 broadens it beyond the
+   *  bitcoin-mining framing. Defaults to the shared TRUST. */
+  positioningTrust?: string[];
+  /** Replace the two footer credibility markers with a single tagline
+   *  sentence (concept 06: "Neutral by design. Auditable by default. Always
+   *  settling."). Defaults to the shared markers. */
+  footerTagline?: string;
   /** Heading for the closing CTA. Defaults to the shared line; concept 06
    *  overrides it ("Give your contract a job."). */
   ctaTitle?: string;
@@ -65,6 +74,7 @@ export function ConceptChrome({
       <Positioning
         title={positioningTitle}
         items={positioningItems}
+        trust={positioningTrust}
         hideEyebrow={hideEyebrows}
         feature={positioningFeature}
       />
@@ -114,11 +124,22 @@ export function ConceptChrome({
             <span className="text-xs text-foreground-subtle">by OpenNode</span>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-foreground-subtle">
-            <span>Auditable by design</span>
-            <span>Neutral system of record</span>
+            {footerTagline ? (
+              <span>{footerTagline}</span>
+            ) : (
+              <>
+                <span>Auditable by design</span>
+                <span>Neutral system of record</span>
+              </>
+            )}
             <a href="#" className="transition-colors hover:text-foreground">
               Terms
             </a>
+            {footerTagline && (
+              <a href="#" className="transition-colors hover:text-foreground">
+                Privacy
+              </a>
+            )}
             <span>© LineRate</span>
           </div>
         </div>

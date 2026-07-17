@@ -100,6 +100,13 @@ export default function OverviewConcept() {
         "Automatic settlement over preferred payment rails",
         "Disputes resolved beside the line item",
       ]}
+      positioningTrust={[
+        "Backed by OpenNode",
+        "$500M+ processed annually",
+        "Live across hosting, energy & compute",
+        "Auditable by design",
+      ]}
+      footerTagline="Neutral by design. Auditable by default. Always settling."
     >
       {/* Hero: split layout carried over from concept 05 */}
       <section className="mx-auto grid max-w-6xl gap-x-12 gap-y-16 px-6 pt-20 pb-24 sm:pt-28 lg:grid-cols-12 lg:items-center lg:gap-x-16 lg:pt-32 lg:pb-28">
@@ -122,8 +129,19 @@ export default function OverviewConcept() {
             coordinate settlement in one neutral, auditable platform.
           </Reveal>
           <Reveal
+            as="p"
             variant="load"
-            delay={240}
+            delay={220}
+            className="mt-4 max-w-[54ch] text-base leading-relaxed text-foreground-subtle"
+          >
+            Both parties work from the same model, approve changes together, and
+            trace every result back to the contract and its underlying data.
+            Never spend time rebuilding settlement calculations or resolving
+            disputes. Keep your team focused on your business&rsquo;s growth.
+          </Reveal>
+          <Reveal
+            variant="load"
+            delay={300}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
             <Button asChild size="lg">
