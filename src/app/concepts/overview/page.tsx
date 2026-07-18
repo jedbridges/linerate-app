@@ -139,7 +139,7 @@ export default function OverviewConcept() {
         <div className="relative lg:col-span-5">
           <PreviewGlow parallax />
           <HeroPanelTilt>
-            <ContractModel className="sm:aspect-[4/3]" animateIn />
+            <ContractModel className="lr-card-lift sm:aspect-[4/3]" animateIn />
           </HeroPanelTilt>
         </div>
       </section>

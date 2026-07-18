@@ -34,7 +34,7 @@ function PreviewFrame({
 }) {
   return (
     <div
-      className="relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-surface"
+      className="lr-card-lift relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-surface"
       style={{
         backgroundImage:
           "linear-gradient(var(--stream-grid) 1px, transparent 1px), linear-gradient(90deg, var(--stream-grid) 1px, transparent 1px)",
