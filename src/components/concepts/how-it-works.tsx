@@ -350,19 +350,34 @@ export function HowItWorks() {
   const railActive = nodeYs[active] ?? 0;
 
   React.useEffect(() => {
-    // A zero-height band across the viewport middle: the step whose box the
-    // centre line sits inside becomes active. Tall per-step runways mean one
-    // owns the centre at a time; the observer only runs where the desktop
-    // steps are laid out (they're display:none below lg, so mobile is inert).
+    // The step whose box the viewport centre line sits inside becomes active.
+    //
+    // The band must have real height: a rootMargin of -50%/-50% collapses the
+    // root to zero height, and a zero-area root never reports an intersection,
+    // which silently pinned the active step to the first item. So keep a short
+    // band (10% of the viewport) straddling the centre, track what's currently
+    // in it, and pick the one that actually contains the centre line.
+    const inBand = new Set<HTMLElement>();
+    const pick = () => {
+      const mid = window.innerHeight / 2;
+      for (const el of inBand) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= mid && r.bottom >= mid) {
+          setActive(Number(el.dataset.index));
+          return;
+        }
+      }
+    };
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setActive(Number((e.target as HTMLElement).dataset.index));
-          }
-        });
+        for (const e of entries) {
+          const el = e.target as HTMLElement;
+          if (e.isIntersecting) inBand.add(el);
+          else inBand.delete(el);
+        }
+        pick();
       },
-      { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
     );
     items.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
