@@ -101,7 +101,7 @@ export function ConceptChrome({
             "relative text-center",
             ctaPanel && "lr-cta-amber overflow-hidden",
             ctaShader
-              ? "border-0 pb-24 sm:pb-32"
+              ? "border-0 pb-40 sm:pb-56"
               : ctaPanel
                 ? "mx-auto max-w-4xl rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
                 : "mx-auto max-w-3xl",
