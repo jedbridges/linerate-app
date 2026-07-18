@@ -632,7 +632,7 @@ body:has([data-no-grid-lines]) .grid-lines {
 }
 /* Realistic, light elevation for the concept-06 panels that float over the
    amber orb (hero contract model + how-it-works previews). Three layered casts
-   — a tight contact shadow, a mid ambient, and a soft far cast — read as depth
+   (a tight contact shadow, a mid ambient, and a soft far cast) read as depth
    and darken the amber right around the card so it lifts off the glow. */
 .lr-card-lift {
   box-shadow:

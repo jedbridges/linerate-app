@@ -35,9 +35,11 @@ function Slider({
           className="absolute h-full bg-foreground/45"
         />
       </SliderPrimitive.Track>
+      {/* 12px visual thumb, but an invisible ::before expands the pointer/touch
+          target to ~44px so it's comfortable to grab on touch devices. */}
       <SliderPrimitive.Thumb
         data-slot="slider-thumb"
-        className="block size-3 rounded-full bg-foreground shadow-sm transition-transform hover:scale-110 focus-visible:outline-none"
+        className="relative block size-3 rounded-full bg-foreground shadow-sm transition-transform before:absolute before:top-1/2 before:left-1/2 before:size-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] hover:scale-110 focus-visible:outline-none"
       />
     </SliderPrimitive.Root>
   );
