@@ -8,7 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 /*
- * Line Screen lab — the interactive tuner around the <line-screen> custom
+ * Line Screen lab: the interactive tuner around the <line-screen> custom
  * element (public/line-screen.js, loaded once by the route). Tuner state lives
  * in React and is passed to the element as string attributes; the element
  * re-renders itself via attributeChangedCallback, so there's no controlled
@@ -196,6 +196,8 @@ export function LineScreenLab() {
       <div className="overflow-hidden rounded-xl border border-border">
         <line-screen
           ref={live}
+          role="img"
+          aria-label="Live preview: the sample photograph rendered as a line halftone"
           src={src}
           frequency={String(vals.frequency)}
           contrast={String(vals.contrast)}
@@ -208,7 +210,7 @@ export function LineScreenLab() {
         />
       </div>
 
-      {/* 01 — Tune */}
+      {/* 01: Tune */}
       <div className="mt-16 mb-6 flex items-baseline gap-4 border-b border-border pb-3">
         <h2 className="text-lg font-medium text-foreground">
           <span className="mr-3 font-mono text-xs text-foreground-subtle">01</span>
@@ -266,7 +268,9 @@ export function LineScreenLab() {
           </ToggleGroup>
 
           <Button asChild variant="secondary" size="sm">
-            <label className="cursor-pointer">
+            {/* File input is visually hidden, so surface its keyboard focus on
+                the label (which is the styled control). */}
+            <label className="cursor-pointer has-[:focus-visible]:shadow-[0_0_0_2px_var(--page),0_0_0_4px_var(--foreground)]">
               Load image
               <input
                 type="file"
@@ -297,7 +301,7 @@ export function LineScreenLab() {
         </div>
       </div>
 
-      {/* 02 — Embed */}
+      {/* 02: Embed */}
       <div className="mt-16 mb-6 flex items-baseline gap-4 border-b border-border pb-3">
         <h2 className="text-lg font-medium text-foreground">
           <span className="mr-3 font-mono text-xs text-foreground-subtle">02</span>

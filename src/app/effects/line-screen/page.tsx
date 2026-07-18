@@ -7,7 +7,7 @@ import { HomeLink } from "@/components/home-link";
 import { LineScreenLab } from "@/components/effects/line-screen-lab";
 
 export const metadata: Metadata = {
-  title: "Line screen — LineRate design system",
+  title: "Line screen · LineRate design system",
   description:
     "A WebGL line-halftone effect as a zero-dependency <line-screen> custom element, with a live tuner and copy-paste embed.",
 };

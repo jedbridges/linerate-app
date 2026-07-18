@@ -8,7 +8,7 @@ import { HeroPanelTilt } from "./hero-panel-tilt";
 import { PreviewGlow } from "./preview-glow";
 
 /*
- * Concept 06 "how it works" — a scroll-driven walkthrough. The five steps
+ * Concept 06 "how it works": a scroll-driven walkthrough. The five steps
  * scroll down the left; a sticky panel on the right shows an example of the
  * product UI for whichever step is currently centred in the viewport (the
  * first is active by default). Changing the active step cross-fades the panel
@@ -75,7 +75,7 @@ function CheckDot() {
   );
 }
 
-/* 01 — the agreement compiling into a shared calculation model. */
+/* 01: the agreement compiling into a shared calculation model. */
 function ModelPreview() {
   const terms = [
     "Pricing",
@@ -118,7 +118,7 @@ function ModelPreview() {
   );
 }
 
-/* 02 — live inputs streaming into the model. */
+/* 02: live inputs streaming into the model. */
 function InputsPreview() {
   const rows = [
     { name: "Meter data", value: "4.21M kWh" },
@@ -150,7 +150,7 @@ function InputsPreview() {
   );
 }
 
-/* 03 — both parties reviewing and approving versions. */
+/* 03: both parties reviewing and approving versions. */
 function ApprovalsPreview() {
   return (
     <PreviewFrame title="Versions" hint="v4 proposed">
@@ -209,7 +209,7 @@ function VersionRow({
   );
 }
 
-/* 04 — obligations calculated and settlement routed over payment rails. */
+/* 04: obligations calculated and settlement routed over payment rails. */
 function SettlementPreview() {
   return (
     <PreviewFrame title="Settlement" hint="Cycle 4271">
@@ -257,7 +257,7 @@ function RailRow({ rail, amount }: { rail: string; amount: string }) {
   );
 }
 
-/* 05 — a single result traced back through the audit chain. */
+/* 05: a single result traced back through the audit chain. */
 function AuditPreview() {
   const trace = [
     { label: "Governing term", value: "Clause 4.2" },
@@ -446,21 +446,21 @@ export function HowItWorks() {
               <PreviewGlow parallax />
               <HeroPanelTilt>
                 <div className="relative aspect-[4/3] w-full">
-                {STEPS.map((s, i) => (
-                  <div
-                    key={s.step}
-                    aria-hidden={i !== active}
-                    className={cn(
-                      "absolute inset-0 transition-[opacity,transform,filter] duration-[650ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
-                      i === active
-                        ? "translate-y-0 scale-100 opacity-100 blur-0"
-                        : "pointer-events-none translate-y-6 scale-[0.96] opacity-0 blur-[10px]",
-                    )}
-                  >
-                    <s.Preview />
-                  </div>
-                ))}
-              </div>
+                  {STEPS.map((s, i) => (
+                    <div
+                      key={s.step}
+                      aria-hidden={i !== active}
+                      className={cn(
+                        "absolute inset-0 transition-[opacity,transform,filter] duration-[650ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
+                        i === active
+                          ? "translate-y-0 scale-100 opacity-100 blur-0"
+                          : "pointer-events-none translate-y-6 scale-[0.96] opacity-0 blur-[10px]",
+                      )}
+                    >
+                      <s.Preview />
+                    </div>
+                  ))}
+                </div>
               </HeroPanelTilt>
             </div>
           </div>

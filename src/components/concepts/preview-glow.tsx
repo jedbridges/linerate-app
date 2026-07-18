@@ -73,7 +73,12 @@ export function PreviewGlow({
       <div
         ref={orb}
         style={{ transform: REST }}
-        className="aspect-square w-[80%] rounded-full bg-accent opacity-25 blur-[110px] will-change-transform"
+        className={cn(
+          "aspect-square w-[80%] rounded-full bg-accent opacity-25 blur-[110px]",
+          // Only promote to its own layer when it actually animates; a static
+          // orb (mobile) shouldn't hold a compositor layer.
+          parallax && "will-change-transform",
+        )}
       />
     </div>
   );
