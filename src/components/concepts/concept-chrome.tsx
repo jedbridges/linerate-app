@@ -110,7 +110,7 @@ export function ConceptChrome({
       <section
         id="contact"
         className={cn(
-          ctaShader ? "" : "mx-auto max-w-6xl px-6 py-24 sm:py-32",
+          ctaShader ? "lr-cta-band" : "mx-auto max-w-6xl px-6 py-24 sm:py-32",
         )}
       >
         <Reveal

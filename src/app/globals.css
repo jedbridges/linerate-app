@@ -1023,6 +1023,15 @@ body:has([data-no-grid-lines]) .grid-lines {
       var(--surface);
   }
 
+  /* Closing-CTA band (concept 06). The cross-hatch banner masks down into this
+     colour rather than into --page, so the fade lands on a shade adjacent to
+     the footer instead of dropping to the darkest value on the page. Mixed off
+     --surface (the footer) toward --page, which keeps it a step off the footer
+     in both themes rather than hard-coding a hex. */
+  .lr-cta-band {
+    background: color-mix(in oklab, var(--surface) 70%, var(--page));
+  }
+
   /* Flow rail base (concept 05 steps). A dotted line of amber dots; the dots
      drift under .lr-flow-rail's animation and sit still under reduced motion.
      Edges fade out via a mask so the rail doesn't hard-cut at its ends. One

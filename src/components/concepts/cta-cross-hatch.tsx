@@ -21,8 +21,27 @@ import { cn, withBase } from "@/lib/utils";
  * light bleed toward accent (which matches paper) dissolves the hatching into
  * the background.
  */
-const FADE =
-  "linear-gradient(to bottom, #000 0%, #000 46%, rgba(0,0,0,0.4) 72%, transparent 90%)";
+/*
+ * Alpha ramp for the bottom fade. A linear-gradient interpolates linearly
+ * between stops, so a three-stop mask reads as two straight segments with a
+ * visible kink where they meet. These stops trace an ease-in-out curve instead,
+ * and run all the way to the bottom edge, so the hatching dissolves into the
+ * band with no seam. It lands on .lr-cta-band, not on --page.
+ */
+const FADE = `linear-gradient(to bottom, #000 0%, #000 40%, ${[
+  [45, 0.98],
+  [52, 0.92],
+  [59, 0.82],
+  [66, 0.68],
+  [73, 0.52],
+  [80, 0.36],
+  [86, 0.22],
+  [92, 0.11],
+  [96, 0.04],
+  [100, 0],
+]
+  .map(([pos, a]) => `rgba(0,0,0,${a}) ${pos}%`)
+  .join(", ")})`;
 
 export function CtaCrossHatch({ className }: { className?: string }) {
   return (
