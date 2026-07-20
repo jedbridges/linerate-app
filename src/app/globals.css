@@ -626,6 +626,49 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Market dialogs (concept 06): the settlement slip posts like a ledger. Rows
+   land in sequence (--row-i staggers them), the status pill confirms last,
+   the header art wipes in with the grid's clip language, and the pinned close
+   floats up after the content has landed. Everything rests visible under
+   reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .lr-slip-row {
+    animation: lr-slip-post 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(0.12s + var(--row-i, 0) * 0.07s);
+  }
+  .lr-slip-pill {
+    animation: lr-pill-confirm 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.55s;
+  }
+  .lr-dialog-art {
+    animation: lr-icon-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .lr-dialog-close-in {
+    animation: lr-slip-post 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.35s;
+  }
+}
+@keyframes lr-slip-post {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lr-pill-confirm {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* How-it-works mobile cards (concept 06): each step's example UI fades and
    un-blurs into place as it scrolls in, mirroring the desktop panel's swap.
    Rides a view() timeline so it plays once on entry; where scroll timelines or

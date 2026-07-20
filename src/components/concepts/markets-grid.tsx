@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { X } from "@phosphor-icons/react";
+import { Plus, X } from "@phosphor-icons/react";
 
 import { withBase } from "@/lib/utils";
 import {
@@ -128,6 +128,41 @@ const MARKETS = [
   },
 ];
 
+/* The dialog's cycle total counts up over ~700ms, so the settlement computes
+   in front of you the way the product's own console would show it. Tabular
+   mono figures keep the width stable while the digits run. Only dollar totals
+   animate; anything else (or reduced motion) renders static. */
+function useSettledFigure(raw: string) {
+  // Static cases (non-dollar values, reduced motion) are decided in the
+  // initializer, so the effect never has to set state synchronously. The
+  // dialog mounts on click, client-side only, so matchMedia is available.
+  const animate =
+    /^\$[\d,]+\.\d{2}$/.test(raw) &&
+    typeof window !== "undefined" &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [text, setText] = React.useState(animate ? "$0.00" : raw);
+  React.useEffect(() => {
+    if (!animate) return;
+    const target = parseFloat(raw.replace(/[$,]/g, ""));
+    const fmt = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+    const t0 = performance.now();
+    const dur = 700;
+    let raf = 0;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 4);
+      setText(fmt.format(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [raw, animate]);
+  return text;
+}
+
 /* The settlement-slip vignette inside each dialog. Values are illustrative,
    but they follow the product's ledger rules: every figure mono + tabular,
    labels sans, the last row carrying the cycle total. */
@@ -136,14 +171,19 @@ function MarketExample({
 }: {
   example: (typeof MARKETS)[number]["example"];
 }) {
+  const total = example.rows[example.rows.length - 1];
+  const settled = useSettledFigure(total[1]);
   return (
     <figure className="m-0">
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
-        <div className="flex items-center justify-between border-b border-border px-5 py-3.5">
+        <div
+          style={{ ["--row-i" as string]: 0 } as React.CSSProperties}
+          className="lr-slip-row flex items-center justify-between border-b border-border px-5 py-3.5"
+        >
           <span className="text-xs tracking-wide text-foreground-subtle uppercase">
             {example.eyebrow}
           </span>
-          <span className="rounded-sm border border-border px-2 py-0.5 text-[10px] font-medium tracking-wide text-foreground-muted uppercase">
+          <span className="lr-slip-pill rounded-sm border border-border px-2 py-0.5 text-[10px] font-medium tracking-wide text-foreground-muted uppercase">
             {example.pill}
           </span>
         </div>
@@ -151,10 +191,11 @@ function MarketExample({
           {example.rows.map(([label, value], i) => (
             <div
               key={label}
+              style={{ ["--row-i" as string]: i + 1 } as React.CSSProperties}
               className={
                 i === example.rows.length - 1
-                  ? "flex items-baseline justify-between border-t border-border px-5 py-3.5"
-                  : "flex items-baseline justify-between border-t border-border-subtle px-5 py-3 first:border-t-0"
+                  ? "lr-slip-row flex items-baseline justify-between border-t border-border px-5 py-3.5"
+                  : "lr-slip-row flex items-baseline justify-between border-t border-border-subtle px-5 py-3 first:border-t-0"
               }
             >
               <dt className="text-sm text-foreground-muted">{label}</dt>
@@ -165,7 +206,7 @@ function MarketExample({
                     : "font-mono text-sm tabular-nums text-foreground"
                 }
               >
-                {value}
+                {i === example.rows.length - 1 ? settled : value}
               </dd>
             </div>
           ))}
@@ -219,7 +260,7 @@ export function MarketsGrid() {
             type="button"
             onClick={() => setOpenIdx(i)}
             aria-haspopup="dialog"
-            className="group flex flex-1 cursor-pointer overflow-hidden rounded-xl border border-border bg-surface text-left transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted"
+            className="group relative flex flex-1 cursor-pointer overflow-hidden rounded-xl border border-border bg-surface text-left transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted"
           >
             {/* The art is absolutely positioned so its intrinsic 640px size
                 never enters layout: the card keeps taking its height from the
@@ -239,12 +280,21 @@ export function MarketsGrid() {
                 aria-hidden
               />
             </div>
-            <div className="flex flex-col justify-center p-6">
+            <div className="flex flex-col justify-center p-6 pr-14">
               <h3 className="text-lg font-medium text-foreground">{m.title}</h3>
               <p className="mt-2 text-base leading-relaxed text-foreground-muted">
                 {m.body}
               </p>
             </div>
+            {/* The open affordance, persistent so touch users see it too. On
+                hover it quarter-turns; the dialog's pinned close rotates the
+                same way, so the way in and the way out rhyme. */}
+            <span
+              aria-hidden
+              className="absolute right-4 bottom-4 flex size-7 items-center justify-center rounded-full border border-border text-foreground-subtle transition-[color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:rotate-90 group-hover:border-border-strong group-hover:text-foreground"
+            >
+              <Plus className="size-4" />
+            </span>
           </button>
         </Reveal>
       ))}
@@ -266,7 +316,7 @@ export function MarketsGrid() {
                 alt=""
                 width={640}
                 height={640}
-                className="size-20 rounded-lg border border-border object-cover"
+                className="lr-dialog-art size-20 rounded-lg border border-border object-cover"
                 aria-hidden
               />
               <DialogTitle className="mt-4 text-2xl">{open.title}</DialogTitle>
@@ -292,13 +342,16 @@ export function MarketsGrid() {
                 floats over the content near the bottom edge no matter how far
                 the dialog has scrolled. pointer-events split so the dead
                 space either side of the button still scrolls/clicks through. */}
-            <div className="pointer-events-none sticky bottom-0 flex justify-center pt-6 pb-5">
+            <div className="lr-dialog-close-in pointer-events-none sticky bottom-0 flex justify-center pt-6 pb-5">
               <DialogClose asChild>
                 <button
                   type="button"
-                  className="glass glass-strong pointer-events-auto flex size-11 cursor-pointer items-center justify-center rounded-full border border-border text-foreground-muted transition-colors hover:text-foreground active:scale-95"
+                  className="glass glass-strong pointer-events-auto flex size-11 cursor-pointer items-center justify-center rounded-full border border-border text-foreground-muted transition-colors hover:text-foreground active:scale-95 [&:hover_svg]:rotate-90"
                 >
-                  <X className="size-5" aria-hidden />
+                  <X
+                    className="size-5 transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)]"
+                    aria-hidden
+                  />
                   <span className="sr-only">Close</span>
                 </button>
               </DialogClose>
