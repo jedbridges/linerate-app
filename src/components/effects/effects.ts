@@ -138,7 +138,11 @@ export const CROSS_HATCH: EffectConfig = {
   size: "~5KB gz",
   sizeLong: "~5KB gzipped",
   params: [
-    { id: "grid", label: "Grid", min: 20, max: 240, step: 1, val: 32 },
+    /* Capped at 120, not 240. Past ~120 the marks are too fine to read as
+       construction and the effect collapses into flat texture, so the top half
+       of the old range was unusable and it cost resolution where the useful
+       values actually sit (the CTA runs at 49). */
+    { id: "grid", label: "Grid", min: 20, max: 120, step: 1, val: 32 },
     { id: "levels", label: "Hatch passes", min: 1, max: 6, step: 1, val: 4 },
     { id: "weight", label: "Stroke weight", min: 0.05, max: 0.5, step: 0.01, val: 0.22 },
     { id: "contrast", label: "Contrast", min: 0.5, max: 4, step: 0.05, val: 1.05 },
