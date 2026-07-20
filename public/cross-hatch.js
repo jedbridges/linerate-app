@@ -15,12 +15,12 @@
  *
  * Attributes (all optional except src):
  *   src         image URL
- *   grid        cells across the short edge   (default 40)
+ *   grid        cells across the short edge   (default 32)
  *   levels      hatch passes, 1-6             (default 4)
- *   weight      stroke weight, share of cell  (default 0.26)
+ *   weight      stroke weight, share of cell  (default 0.22)
  *   angle       lattice rotation in radians, 0 = horizontal + vertical (default 0)
- *   contrast    tonal contrast               (default 1.15)
- *   exposure    tonal lift                   (default 0.12)
+ *   contrast    tonal contrast               (default 1.05)
+ *   exposure    tonal lift                   (default 0.16)
  *   bleed       amber bleed under cursor     (default 0.85)
  *   focus       cursor lattice focus         (default 0.5)
  *   ink         hex, dark color        (default #0A0A0A)
@@ -139,12 +139,12 @@ void main() {
 }`;
 
 const DEFAULTS = {
-  grid: 40,
+  grid: 32,
   levels: 4,
-  weight: 0.26,
+  weight: 0.22,
   angle: 0,
-  contrast: 1.15,
-  exposure: 0.12,
+  contrast: 1.05,
+  exposure: 0.16,
   bleed: 0.85,
   focus: 0.5,
   ink: '#0A0A0A',

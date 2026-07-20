@@ -15,6 +15,11 @@ import { cn } from "@/lib/utils";
  */
 const REST = "translate(15%, -17%)";
 
+/** Total px of drift across the full viewport, so the orb moves +/- TRAVEL/2. */
+const TRAVEL = 90;
+/** Per-frame follow. Low enough to feel like weight, high enough not to lag. */
+const EASE = 0.12;
+
 export function PreviewGlow({
   className,
   parallax = false,
@@ -38,8 +43,8 @@ export function PreviewGlow({
 
     const tick = () => {
       raf = 0;
-      cx += (tx - cx) * 0.07;
-      cy += (ty - cy) * 0.07;
+      cx += (tx - cx) * EASE;
+      cy += (ty - cy) * EASE;
       el.style.transform = `${REST} translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
       if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
         raf = requestAnimationFrame(tick);
@@ -47,11 +52,16 @@ export function PreviewGlow({
     };
 
     const onMove = (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      // Offset of the cursor from the orb centre, normalised, then scaled to a
-      // gentle travel range. The orb drifts toward the pointer.
-      tx = ((e.clientX - (r.left + r.width / 2)) / (window.innerWidth || 1)) * 90;
-      ty = ((e.clientY - (r.top + r.height / 2)) / (window.innerHeight || 1)) * 90;
+      // Where the cursor sits in the viewport, not where it sits relative to the
+      // orb. Measuring against the orb's own rect made the target depend on
+      // scroll position — the orb lives in a sticky/scrolling container, so
+      // scrolling moved its rect without firing this handler (stale target) and
+      // pushed the computed offset up without bound as the orb travelled away
+      // from the cursor, which then crawled into place. This is
+      // scroll-independent, bounded to +/- TRAVEL/2 by construction, and avoids
+      // forcing a layout on every pointer move.
+      tx = (e.clientX / (window.innerWidth || 1) - 0.5) * TRAVEL;
+      ty = (e.clientY / (window.innerHeight || 1) - 0.5) * TRAVEL;
       if (!raf) raf = requestAnimationFrame(tick);
     };
 
