@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { HardDrives, Lightning, Buildings, Cpu, X } from "@phosphor-icons/react";
+import { X } from "@phosphor-icons/react";
 
+import { withBase } from "@/lib/utils";
 import {
   Dialog,
   DialogClose,
@@ -13,15 +14,17 @@ import {
 import { Reveal } from "./reveal";
 
 /*
- * Markets grid for concept 06. Two-tone (duotone) Phosphor icons tinted with
- * the brand amber via currentColor — the duotone weight renders a translucent
- * secondary layer over the solid primary, so a single amber colour reads as
- * two tones. Client component because Phosphor icons read React context.
+ * Markets grid for concept 06. Each card carries a square amber-duotone
+ * halftone illustration (public/markets/*, 640px squares) instead of an icon;
+ * the same brand treatment as the CTA cross-hatch, so the grid and the closing
+ * band read as one family.
  *
- * The icons play a one-shot clip wipe (not scroll-scrubbed) when the grid
- * first enters view: an IntersectionObserver arms them hidden (while still
- * below the fold), then flips to "play" so the staggered wipe runs once. Under
- * reduced motion the grid stays idle and the icons render fully visible.
+ * The illustrations play a one-shot clip wipe (not scroll-scrubbed) when the
+ * grid first enters view: an IntersectionObserver arms them hidden (while
+ * still below the fold), then flips to "play" so the staggered wipe runs once
+ * (the lr-market-icon rules animate opacity + clip-path, so they apply to any
+ * element). Under reduced motion the grid stays idle and the images render
+ * fully visible.
  *
  * Layout: the icon sits in a square full-height panel down the left edge
  * rather than above the copy, so each card reads as a block plus a label. The
@@ -40,7 +43,7 @@ import { Reveal } from "./reveal";
  */
 const MARKETS = [
   {
-    Icon: HardDrives,
+    image: "/markets/hosting.jpg",
     title: "Hosting services",
     body: "Between hosting service providers and crypto miners.",
     more: [
@@ -61,7 +64,7 @@ const MARKETS = [
     },
   },
   {
-    Icon: Lightning,
+    image: "/markets/energy.jpg",
     title: "Energy supply",
     body: "Electricity and gas agreements between suppliers and offtakers.",
     more: [
@@ -82,7 +85,7 @@ const MARKETS = [
     },
   },
   {
-    Icon: Buildings,
+    image: "/markets/infrastructure.jpg",
     title: "Critical IT infrastructure",
     body: "Critical IT lease agreements between operators and tenants.",
     more: [
@@ -103,7 +106,7 @@ const MARKETS = [
     },
   },
   {
-    Icon: Cpu,
+    image: "/markets/gpu.jpg",
     title: "GPU capacity",
     body: "Rental and consumption agreements between compute lessors and their customers.",
     more: [
@@ -218,11 +221,21 @@ export function MarketsGrid() {
             aria-haspopup="dialog"
             className="group flex flex-1 cursor-pointer overflow-hidden rounded-xl border border-border bg-surface text-left transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted"
           >
-            <div className="flex aspect-square shrink-0 items-center justify-center border-r border-border bg-page">
-              <m.Icon
-                weight="duotone"
+            {/* The art is absolutely positioned so its intrinsic 640px size
+                never enters layout: the card keeps taking its height from the
+                text column, and aspect-square derives the panel's width from
+                that stretched height (same mechanism as the icon version).
+                The wipe class and --icon-i drive the same staggered entrance
+                the icons had; hover zooms the art inside the clipped square. */}
+            <div className="relative aspect-square shrink-0 overflow-hidden border-r border-border bg-page">
+              <img
+                src={withBase(m.image)}
+                alt=""
+                width={640}
+                height={640}
+                loading="lazy"
                 style={{ ["--icon-i" as string]: i } as React.CSSProperties}
-                className="lr-market-icon size-9 text-accent transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-110"
+                className="lr-market-icon absolute inset-0 size-full object-cover transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-105"
                 aria-hidden
               />
             </div>
@@ -248,9 +261,12 @@ export function MarketsGrid() {
             className="block max-h-[85dvh] w-full max-w-[calc(100%-2rem)] gap-0 overflow-y-auto rounded-xl p-0 sm:max-w-xl"
           >
             <div className="p-6 pb-0 sm:p-8 sm:pb-0">
-              <open.Icon
-                weight="duotone"
-                className="size-9 text-accent"
+              <img
+                src={withBase(open.image)}
+                alt=""
+                width={640}
+                height={640}
+                className="size-20 rounded-lg border border-border object-cover"
                 aria-hidden
               />
               <DialogTitle className="mt-4 text-2xl">{open.title}</DialogTitle>
