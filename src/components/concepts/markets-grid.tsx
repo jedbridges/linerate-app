@@ -15,6 +15,13 @@ import { Reveal } from "./reveal";
  * first enters view: an IntersectionObserver arms them hidden (while still
  * below the fold), then flips to "play" so the staggered wipe runs once. Under
  * reduced motion the grid stays idle and the icons render fully visible.
+ *
+ * Layout: the icon sits in a full-height panel down the left edge rather than
+ * above the copy, so each card reads as a block plus a label. The panel is
+ * bg-page, not bg-muted, because the card's own hover state is bg-muted and a
+ * muted panel would dissolve into the card exactly when it's being pointed at.
+ * bg-page steps away from bg-surface in both themes (darker on dark, lighter on
+ * light), so the panel holds its edge either way.
  */
 const MARKETS = [
   {
@@ -74,19 +81,21 @@ export function MarketsGrid() {
     >
       {MARKETS.map((m, i) => (
         <Reveal key={m.title} delay={i * 80} className="flex">
-          <div className="group flex flex-1 flex-col rounded-xl border border-border bg-surface p-6 transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted">
-            <m.Icon
-              weight="duotone"
-              style={{ ["--icon-i" as string]: i } as React.CSSProperties}
-              className="lr-market-icon size-8 text-accent transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-110"
-              aria-hidden
-            />
-            <h3 className="mt-4 text-lg font-medium text-foreground">
-              {m.title}
-            </h3>
-            <p className="mt-2 text-base leading-relaxed text-foreground-muted">
-              {m.body}
-            </p>
+          <div className="group flex flex-1 overflow-hidden rounded-xl border border-border bg-surface transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted">
+            <div className="flex w-24 shrink-0 items-center justify-center border-r border-border bg-page sm:w-28">
+              <m.Icon
+                weight="duotone"
+                style={{ ["--icon-i" as string]: i } as React.CSSProperties}
+                className="lr-market-icon size-9 text-accent transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-110"
+                aria-hidden
+              />
+            </div>
+            <div className="flex flex-col justify-center p-6">
+              <h3 className="text-lg font-medium text-foreground">{m.title}</h3>
+              <p className="mt-2 text-base leading-relaxed text-foreground-muted">
+                {m.body}
+              </p>
+            </div>
           </div>
         </Reveal>
       ))}
