@@ -26,7 +26,7 @@ type EffectAttributes = {
 
 type LineScreenAttributes = EffectAttributes & {
   frequency?: string;
-  warp?: string;
+  magnet?: string;
 };
 
 type CrossHatchAttributes = EffectAttributes & {

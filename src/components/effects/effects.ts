@@ -82,7 +82,7 @@ export const COLOR_DEFAULTS: Colors = {
 export const LINE_SCREEN: EffectConfig = {
   tag: "line-screen",
   script: "/line-screen.js",
-  version: 2,
+  version: 3,
   download: "linerate-line-screen.png",
   previewLabel:
     "Live preview: the sample photograph rendered as a line halftone",
@@ -96,7 +96,7 @@ export const LINE_SCREEN: EffectConfig = {
     { id: "exposure", label: "Exposure", min: -0.4, max: 0.4, step: 0.01, val: 0 },
     { id: "bleed", label: "Amber bleed", min: 0, max: 1, step: 0.01, val: 0.85 },
     { id: "focus", label: "Cursor focus", min: 0, max: 1, step: 0.01, val: 0.5 },
-    { id: "warp", label: "Cursor warp", min: 0, max: 0.3, step: 0.005, val: 0.04 },
+    { id: "magnet", label: "Cursor magnetism", min: 0, max: 1, step: 0.01, val: 0.45 },
   ],
   toggle: {
     id: "angle",
@@ -129,7 +129,7 @@ export const LINE_SCREEN: EffectConfig = {
 export const CROSS_HATCH: EffectConfig = {
   tag: "cross-hatch",
   script: "/cross-hatch.js",
-  version: 2,
+  version: 3,
   download: "linerate-cross-hatch.png",
   previewLabel:
     "Live preview: the sample photograph rendered as geometric cross-hatching",
