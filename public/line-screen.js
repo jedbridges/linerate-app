@@ -1,7 +1,9 @@
 /**
  * <line-screen>
  * A WebGL fragment shader that renders any photograph as a coarse line halftone.
- * Interactive: cursor tightens line density (photo resolves) and bleeds an amber accent.
+ * Interactive: the cursor tightens line density (photo resolves), bends the rules
+ * toward itself like a magnet, and bleeds an amber accent. The photograph itself
+ * is never distorted; only the line pattern responds.
  *
  * Usage:
  *   <line-screen src="/handshake.jpg"></line-screen>
@@ -14,7 +16,7 @@
  *   exposure    tonal lift            (default 0)
  *   bleed       amber bleed under cursor    (default 0.85)
  *   focus       cursor line-density focus   (default 0.5)
- *   warp        cursor lens warp            (default 0.04)
+ *   magnet      cursor magnetism, lines bend toward it (default 0.45)
  *   angle       line angle in radians       (default 0)
  *   ink         hex, dark color        (default #0A0A0A)
  *   paper       hex, light color       (default #EFEBDD)
@@ -47,11 +49,14 @@ uniform float uContrast;
 uniform float uLift;
 uniform float uBleed;
 uniform float uFocus;
-uniform float uWarp;
+uniform float uMagnet;
 uniform float uHover;
 uniform vec3  uInk;
 uniform vec3  uPaper;
 uniform vec3  uAccent;
+
+/* Radius of the cursor's magnetic field, in screen-height units. */
+const float MAG_SIGMA = 0.30;
 
 void main() {
   // object-fit: cover mapping
@@ -68,18 +73,26 @@ void main() {
   float d = distance(vUv * vec2(cA, 1.0), uMouse * vec2(cA, 1.0));
   float prox = smoothstep(0.45, 0.0, d) * uHover;
 
-  vec2 uv = sUV;
-  if (uWarp > 0.001) {
-    vec2 dir = vUv - uMouse;
-    uv += dir * prox * uWarp;
-  }
-
-  vec3 img = texture2D(uImage, uv).rgb;
+  // The photograph is sampled undistorted. Everything the cursor does happens
+  // to the lines, not to the image.
+  vec3 img = texture2D(uImage, sUV).rgb;
   float lum = dot(img, vec3(0.299, 0.587, 0.114));
   lum = clamp((lum - 0.5) * uContrast + 0.5 + uLift, 0.0, 1.0);
 
   // line screen in screen space so line width is constant
   vec2 p = vUv * vec2(cA, 1.0);
+
+  // Magnetism: pull the *pattern* coordinate toward the cursor so the rules
+  // bend and gather around it, the way filings line up along a field. The
+  // offset is deliberately left un-normalised, so the pull falls back to zero
+  // at the cursor itself and peaks in a ring around it. That avoids both the
+  // lens bulge of a displacement map and the cusp a normalised pull leaves
+  // directly under the pointer.
+  vec2 toM = uMouse * vec2(cA, 1.0) - p;
+  float md = length(toM);
+  float field = exp(-md * md / (2.0 * MAG_SIGMA * MAG_SIGMA));
+  p += toM * field * uMagnet * uHover;
+
   float c = cos(uAngle), s = sin(uAngle);
   vec2 rp = mat2(c, -s, s, c) * p;
   float freq = mix(uFrequency, uFrequency * 3.5, prox * uFocus);
@@ -99,13 +112,13 @@ const DEFAULTS = {
   exposure: 0,
   bleed: 0.85,
   focus: 0.5,
-  warp: 0.04,
+  magnet: 0.45,
   angle: 0,
   ink: '#0A0A0A',
   paper: '#EFEBDD',
   accent: '#DF8E2A',
 };
-const NUM_KEYS = ['frequency','contrast','exposure','bleed','focus','warp','angle'];
+const NUM_KEYS = ['frequency','contrast','exposure','bleed','focus','magnet','angle'];
 const HEX_KEYS = ['ink','paper','accent'];
 
 const hexToRgb = (h) => {
@@ -116,7 +129,7 @@ const hexToRgb = (h) => {
 
 class LineScreen extends HTMLElement {
   static get observedAttributes() {
-    return ['src','frequency','contrast','exposure','bleed','focus','warp','angle','ink','paper','accent','interactive'];
+    return ['src','frequency','contrast','exposure','bleed','focus','magnet','angle','ink','paper','accent','interactive'];
   }
 
   constructor() {
@@ -276,7 +289,7 @@ class LineScreen extends HTMLElement {
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
     this._U = {};
-    for (const n of ['uImage','uResolution','uImageSize','uMouse','uFrequency','uAngle','uContrast','uLift','uBleed','uFocus','uWarp','uHover','uInk','uPaper','uAccent']) {
+    for (const n of ['uImage','uResolution','uImageSize','uMouse','uFrequency','uAngle','uContrast','uLift','uBleed','uFocus','uMagnet','uHover','uInk','uPaper','uAccent']) {
       this._U[n] = gl.getUniformLocation(prog, n);
     }
 
@@ -330,7 +343,7 @@ class LineScreen extends HTMLElement {
     gl.uniform1f(U.uLift, s.exposure);
     gl.uniform1f(U.uBleed, s.bleed);
     gl.uniform1f(U.uFocus, s.focus);
-    gl.uniform1f(U.uWarp, s.warp);
+    gl.uniform1f(U.uMagnet, s.magnet);
     gl.uniform3fv(U.uInk, hexToRgb(s.ink));
     gl.uniform3fv(U.uPaper, hexToRgb(s.paper));
     gl.uniform3fv(U.uAccent, hexToRgb(s.accent));

@@ -13,7 +13,7 @@ import { cn, withBase } from "@/lib/utils";
  *
  * Tuned as an amber duotone: paper is the brand amber and ink is near-black, so
  * the photo reads as amber-on-dark linework rather than the parchment default.
- * focus/warp are 0 (no line tightening, no lens warp), but bleed is live and
+ * focus/magnet are 0 (no line tightening, no cursor bend), but bleed is live and
  * accent matches paper, so the lines dissolve into the background under the
  * cursor. That dissolve is the only cursor response, which is why pointer
  * tracking stays enabled.
@@ -35,7 +35,7 @@ export function CtaLineScreen({ className }: { className?: string }) {
         exposure="0.01"
         bleed="0.85"
         focus="0"
-        warp="0"
+        magnet="0"
         angle="0"
         ink="#0A0A0A"
         paper="#df8e2a"
