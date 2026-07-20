@@ -70,9 +70,28 @@ const DEFAULTS: Vals = {
   angle: 0,
 };
 
+/* The element's three colour attributes. "paper" is the light field the lines
+ * sit on (background) and "ink" is the line colour itself (foreground);
+ * "accent" is what the cursor pools into, so it's what the Amber bleed slider
+ * actually blends toward. */
+type ColorId = "paper" | "ink" | "accent";
+type Colors = Record<ColorId, string>;
+
+const COLORS: { id: ColorId; label: string }[] = [
+  { id: "paper", label: "Background" },
+  { id: "ink", label: "Foreground" },
+  { id: "accent", label: "Accent" },
+];
+
+const COLOR_DEFAULTS: Colors = {
+  paper: "#EFEBDD",
+  ink: "#0A0A0A",
+  accent: "#DF8E2A",
+};
+
 // Rounded, ordered attributes for the embed snippet. src is always the shipped
 // default; the local "Load image" upload only affects this preview.
-function toEmbed(v: Vals) {
+function toEmbed(v: Vals, c: Colors) {
   return {
     src: "/handshake.jpg",
     frequency: Math.round(v.frequency),
@@ -82,11 +101,14 @@ function toEmbed(v: Vals) {
     focus: +v.focus.toFixed(2),
     warp: +v.warp.toFixed(3),
     angle: +v.angle.toFixed(4),
+    ink: c.ink,
+    paper: c.paper,
+    accent: c.accent,
   };
 }
 
-function embedText(v: Vals) {
-  const attrs = Object.entries(toEmbed(v))
+function embedText(v: Vals, c: Colors) {
+  const attrs = Object.entries(toEmbed(v, c))
     .map(([k, val]) => `  ${k}="${val}"`)
     .join("\n");
   return (
@@ -97,8 +119,8 @@ function embedText(v: Vals) {
   );
 }
 
-function EmbedCode({ vals }: { vals: Vals }) {
-  const entries = Object.entries(toEmbed(vals));
+function EmbedCode({ vals, colors }: { vals: Vals; colors: Colors }) {
+  const entries = Object.entries(toEmbed(vals, colors));
   return (
     <code className="font-mono text-[13px] leading-relaxed">
       <span className="text-foreground-subtle italic">
@@ -135,6 +157,7 @@ function EmbedCode({ vals }: { vals: Vals }) {
 export function LineScreenLab() {
   const live = React.useRef<LineScreenEl>(null);
   const [vals, setVals] = React.useState<Vals>(DEFAULTS);
+  const [colors, setColors] = React.useState<Colors>(COLOR_DEFAULTS);
   const [src, setSrc] = React.useState(withBase("/handshake.jpg"));
   const [exportLabel, setExportLabel] = React.useState("Export PNG");
   const [copyEmbedLabel, setCopyEmbedLabel] = React.useState("Copy embed code");
@@ -147,6 +170,7 @@ export function LineScreenLab() {
 
   const reset = React.useCallback(() => {
     setVals(DEFAULTS);
+    setColors(COLOR_DEFAULTS);
     setSrc(withBase("/handshake.jpg"));
   }, []);
 
@@ -206,6 +230,9 @@ export function LineScreenLab() {
           focus={String(vals.focus)}
           warp={String(vals.warp)}
           angle={String(vals.angle)}
+          ink={colors.ink}
+          paper={colors.paper}
+          accent={colors.accent}
           style={{ display: "block", width: "100%", aspectRatio: "32 / 9" }}
         />
       </div>
@@ -253,6 +280,39 @@ export function LineScreenLab() {
           ))}
         </div>
 
+        {/* Colours: a swatch that shows the current value with the native
+            colour input laid invisibly over it, so the control matches the
+            panel instead of rendering an OS-styled picker. */}
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-border px-5 py-4">
+          {COLORS.map((c) => (
+            <div key={c.id} className="flex items-center gap-3">
+              <label
+                htmlFor={`color-${c.id}`}
+                className="text-sm text-foreground-muted"
+              >
+                {c.label}
+              </label>
+              <output className="font-mono text-xs tracking-wide text-foreground-muted">
+                {colors[c.id].toUpperCase()}
+              </output>
+              <span
+                className="relative block size-6 overflow-hidden rounded-md border border-border has-[:focus-visible]:shadow-[0_0_0_2px_var(--page),0_0_0_4px_var(--foreground)]"
+                style={{ backgroundColor: colors[c.id] }}
+              >
+                <input
+                  id={`color-${c.id}`}
+                  type="color"
+                  value={colors[c.id].toLowerCase()}
+                  onChange={(e) =>
+                    setColors((prev) => ({ ...prev, [c.id]: e.target.value }))
+                  }
+                  className="absolute inset-0 size-full cursor-pointer opacity-0"
+                />
+              </span>
+            </div>
+          ))}
+        </div>
+
         <div className="flex flex-wrap items-center gap-2 border-t border-border px-5 py-4">
           <ToggleGroup
             type="single"
@@ -293,7 +353,7 @@ export function LineScreenLab() {
             variant="primary"
             size="sm"
             onClick={() =>
-              copy(embedText(vals), setCopyEmbedLabel, "Copied", "Copy embed code")
+              copy(embedText(vals, colors), setCopyEmbedLabel, "Copied", "Copy embed code")
             }
           >
             {copyEmbedLabel}
@@ -325,7 +385,7 @@ export function LineScreenLab() {
       <div className="relative overflow-hidden rounded-xl border border-border bg-raised">
         <button
           type="button"
-          onClick={() => copy(embedText(vals), setCopyLiveLabel, "Copied", "Copy")}
+          onClick={() => copy(embedText(vals, colors), setCopyLiveLabel, "Copied", "Copy")}
           className={cn(
             "absolute top-3 right-3 cursor-pointer rounded-md border border-border px-2.5 py-1 font-mono text-[11px] tracking-wide text-foreground-muted uppercase transition-colors hover:text-foreground",
             copyLiveLabel === "Copied" && "border-accent text-accent",
@@ -334,7 +394,7 @@ export function LineScreenLab() {
           {copyLiveLabel}
         </button>
         <pre className="overflow-x-auto p-5">
-          <EmbedCode vals={vals} />
+          <EmbedCode vals={vals} colors={colors} />
         </pre>
       </div>
 
