@@ -83,21 +83,21 @@ function EmbedCode({
           {"  "}
           <span className="text-foreground-muted">{k}</span>
           <span className="text-foreground-subtle">=</span>
-          <span className="text-accent">{`"${v}"`}</span>
+          <span className="text-foreground">{`"${v}"`}</span>
           {"\n"}
         </React.Fragment>
       ))}
       {"  "}
       <span className="text-foreground-muted">style</span>
       <span className="text-foreground-subtle">=</span>
-      <span className="text-accent">{`"${styleAttr(cfg)}"`}</span>
+      <span className="text-foreground">{`"${styleAttr(cfg)}"`}</span>
       {"\n"}
       <span className="text-foreground-subtle">{`></${cfg.tag}>`}</span>
       {"\n"}
       <span className="text-foreground-subtle">{"<script "}</span>
       <span className="text-foreground-muted">src</span>
       <span className="text-foreground-subtle">=</span>
-      <span className="text-accent">{`"${cfg.script}"`}</span>
+      <span className="text-foreground">{`"${cfg.script}"`}</span>
       <span className="text-foreground-subtle">{" defer></script>"}</span>
     </code>
   );
@@ -190,7 +190,7 @@ export function EffectLab({ config }: { config: EffectConfig }) {
   return (
     <div>
       {/* Preview */}
-      <div className="overflow-hidden rounded-xl border border-border">
+      <div className="overflow-hidden rounded-lg border border-border">
         {preview}
       </div>
 
@@ -205,7 +205,12 @@ export function EffectLab({ config }: { config: EffectConfig }) {
         </span>
       </div>
 
-      <div className="rounded-xl border border-border bg-raised">
+      {/* bg-surface, not bg-raised: in dark, --raised, --muted and --border are
+          all neutral-800, so a raised panel swallows its own dividers and the
+          ToggleGroup's track and active fill. --surface is neutral-900, which
+          gives all three contrast. DESIGN.md also scopes --raised to modals and
+          popovers, and specifies bg-surface for cards. */}
+      <div className="rounded-lg border border-border bg-surface">
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h3 className="text-sm font-medium text-foreground">Parameters</h3>
           <span className="text-xs text-foreground-subtle">
@@ -220,7 +225,10 @@ export function EffectLab({ config }: { config: EffectConfig }) {
                 <label htmlFor={p.id} className="text-sm text-foreground-muted">
                   {p.label}
                 </label>
-                <output className="font-mono text-xs tabular-nums text-accent">
+                <output
+                  htmlFor={p.id}
+                  className="font-mono text-xs tabular-nums text-foreground"
+                >
                   {vals[p.id].toFixed(decimals(p.step))}
                 </output>
               </div>
@@ -344,7 +352,7 @@ export function EffectLab({ config }: { config: EffectConfig }) {
         , so you can also bind them from any framework.
       </p>
 
-      <div className="relative overflow-hidden rounded-xl border border-border bg-raised">
+      <div className="relative overflow-hidden rounded-lg border border-border bg-surface">
         <button
           type="button"
           onClick={() =>
@@ -357,7 +365,7 @@ export function EffectLab({ config }: { config: EffectConfig }) {
           }
           className={cn(
             "absolute top-3 right-3 cursor-pointer rounded-md border border-border px-2.5 py-1 font-mono text-[11px] tracking-wide text-foreground-muted uppercase transition-colors hover:text-foreground",
-            copyLiveLabel === "Copied" && "border-accent text-accent",
+            copyLiveLabel === "Copied" && "border-foreground text-foreground",
           )}
         >
           {copyLiveLabel}

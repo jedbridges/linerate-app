@@ -22,7 +22,12 @@ export const metadata: Metadata = {
 export default function CrossHatchPage() {
   return (
     <>
-      <Script src={withBase(CROSS_HATCH.script)} strategy="afterInteractive" />
+      {/* ?v= so a shader change actually reaches returning visitors; /public
+          files aren't content-hashed. See EffectConfig.version. */}
+      <Script
+        src={`${withBase(CROSS_HATCH.script)}?v=${CROSS_HATCH.version}`}
+        strategy="afterInteractive"
+      />
 
       <div className="mx-auto max-w-5xl px-6 pb-24">
         {/* Top bar: wordmark home + mono breadcrumb */}

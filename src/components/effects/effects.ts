@@ -41,6 +41,13 @@ export type EffectToggle = {
 export type EffectConfig = {
   tag: string;
   script: string;
+  /* Cache-buster for the element script. Next.js content-hashes its own
+     bundles, but /public files are served at a fixed URL, so a shader change
+     never reaches anyone who has already loaded the page: the app picks up new
+     defaults while the browser keeps the old element. Bump this whenever the
+     shipped .js changes. Only the page's loader uses it; the copy-paste embed
+     stays on the clean path. */
+  version: number;
   download: string;
   previewLabel: string;
   aspect: string;
@@ -75,6 +82,7 @@ export const COLOR_DEFAULTS: Colors = {
 export const LINE_SCREEN: EffectConfig = {
   tag: "line-screen",
   script: "/line-screen.js",
+  version: 2,
   download: "linerate-line-screen.png",
   previewLabel:
     "Live preview: the sample photograph rendered as a line halftone",
@@ -121,6 +129,7 @@ export const LINE_SCREEN: EffectConfig = {
 export const CROSS_HATCH: EffectConfig = {
   tag: "cross-hatch",
   script: "/cross-hatch.js",
+  version: 2,
   download: "linerate-cross-hatch.png",
   previewLabel:
     "Live preview: the sample photograph rendered as geometric cross-hatching",
