@@ -1,10 +1,9 @@
 /*
- * Page-load intro (concept 06). An amber veil fills the screen, a black bar
- * slides in from the left until its right edge sits on the centre line (its
- * left edge stays cut off by the viewport), holds a beat, then scales up fast
- * until it covers everything. Because the bar is exactly --page, "covering
- * everything" already looks like the site, so the veil just fades out and the
- * hero animates in through the hand-off. The whole thing runs 2.5s.
+ * Page-load intro (concept 06). An amber veil fills the screen, then a 24px
+ * rule is drawn out from the left edge to the centre line, holds a beat, and
+ * opens vertically to the full height of the viewport. It is exactly --page, so
+ * by the time it is full height the screen already reads as the site, and the
+ * veil fades out under the hero as that animates in. The whole thing runs 2.5s.
  *
  * The animation is pure CSS so it plays before hydration, and it fails safe:
  * the resting state is hidden and only the keyframes reveal it, so if animation
@@ -27,7 +26,7 @@ export function PageIntro() {
   return (
     <>
       <div className="lr-intro" aria-hidden="true">
-        <span className="lr-intro-bar" />
+        <span className="lr-intro-line" />
       </div>
       <script dangerouslySetInnerHTML={{ __html: RETIRE }} />
     </>
