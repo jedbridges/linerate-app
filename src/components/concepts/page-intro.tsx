@@ -1,7 +1,3 @@
-"use client";
-
-import * as React from "react";
-
 /*
  * Page-load intro (concept 06). An amber veil fills the screen, a black bar
  * slides in from the left until its right edge sits on the centre line (its
@@ -16,27 +12,24 @@ import * as React from "react";
  * behind a veil that never lifts. Content timing is shared via --intro-offset
  * (see globals.css).
  *
- * The effect covers the whole viewport, so there's a second, independent guard:
- * once mounted we hard-retire it just after the run. CSS alone only protects
- * against animations never starting; this also covers them starting and then
- * stalling (a backgrounded tab, a stalled compositor), which would otherwise
- * strand an amber veil over the page.
+ * Because this covers the whole viewport, there is a second, independent guard.
+ * CSS alone only protects against animations never starting; it does not cover
+ * them starting and then stalling, which would strand an amber veil over the
+ * page. The inline script below retires the veil just after the run. It is
+ * deliberately inline rather than an effect so the guard does not depend on
+ * hydration — the veil must be able to lift even if React never boots.
  */
-const RUN_MS = 2500;
+const RETIRE_MS = 2650;
+
+const RETIRE = `setTimeout(function(){var e=document.querySelector('.lr-intro');if(e){e.style.display='none';}},${RETIRE_MS})`;
 
 export function PageIntro() {
-  const [done, setDone] = React.useState(false);
-
-  React.useEffect(() => {
-    const t = setTimeout(() => setDone(true), RUN_MS + 150);
-    return () => clearTimeout(t);
-  }, []);
-
-  if (done) return null;
-
   return (
-    <div className="lr-intro" aria-hidden="true">
-      <span className="lr-intro-bar" />
-    </div>
+    <>
+      <div className="lr-intro" aria-hidden="true">
+        <span className="lr-intro-bar" />
+      </div>
+      <script dangerouslySetInnerHTML={{ __html: RETIRE }} />
+    </>
   );
 }
