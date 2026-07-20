@@ -43,7 +43,9 @@ export function Reveal({
   const style: React.CSSProperties = {};
   if (y != null) (style as Record<string, string>)["--reveal-y"] = `${y}px`;
   if (variant === "load") {
-    style.animationDelay = `${delay}ms`;
+    // A custom property rather than animation-delay directly, so the stylesheet
+    // can add a page-intro offset on top of the per-element stagger.
+    (style as Record<string, string>)["--enter-delay"] = `${delay}ms`;
   } else if (delay) {
     (style as Record<string, string>)["--reveal-i"] = String(
       Math.round(delay / 80),

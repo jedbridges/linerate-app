@@ -651,6 +651,87 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* ── Page-load intro (concept 06) ────────────────────────────────────────────
+   2.5s in four beats: hold on amber, the bar slides in from the left and lands
+   with its right edge on the centre line, a short settle, then it scales up
+   fast until it covers the viewport. The bar is exactly --page, so once it
+   covers, the screen already *is* the site and the veil can just fade out
+   under the incoming hero (see --intro-offset above).
+
+   Fails safe: the resting state is hidden and only the keyframes reveal it, so
+   if animation never runs the page renders normally rather than staying behind
+   an amber veil. Transform/opacity only, so it stays on the compositor. */
+.lr-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--accent);
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+}
+.lr-intro-bar {
+  position: absolute;
+  top: 0;
+  /* 6vw of the bar hangs off the left edge, so when it lands at translateX(0)
+     its right edge is on the centre line and its left edge is still cut off. */
+  left: -6vw;
+  width: 56vw;
+  height: 100%;
+  background: var(--page);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+@keyframes lr-intro-veil {
+  0%,
+  64% {
+    opacity: 1;
+    visibility: visible;
+  }
+  76% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes lr-intro-bar {
+  /* hold on amber */
+  0%,
+  6% {
+    transform: translateX(-115%) scale(1);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* slid to centre, expo-out so it arrives snappily */
+  36%,
+  44% {
+    transform: translateX(0) scale(1);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
+  }
+  /* grows rapidly into the page, expo-in so it launches */
+  68%,
+  100% {
+    transform: translateX(0) scale(8);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lr-intro {
+    animation: lr-intro-veil 2.5s both;
+  }
+  .lr-intro-bar {
+    animation: lr-intro-bar 2.5s both;
+  }
+  /* Hold the hero back until the bar covers (1.6s), so the content resolves
+     through the veil's fade instead of after it. The last stagger lands around
+     2.4s, just inside the intro's 2.5s. */
+  main[data-intro] {
+    --intro-offset: 1600ms;
+  }
+}
+
 /* How-it-works progress rail (concept 06 desktop): a faint dotted track threads
    the numbered nodes; the amber fill grows to the active node with the same
    650ms ease as the preview swap, so it reaches the next digit exactly as that
@@ -842,6 +923,10 @@ body:has([data-no-grid-lines]) .grid-lines {
   @media (prefers-reduced-motion: no-preference) {
     .lr-enter {
       animation: lr-reveal 0.6s cubic-bezier(0.2, 0, 0, 1) both;
+      /* --enter-delay is the per-element stagger; --intro-offset holds the
+         whole group back until the load intro has handed over (0 when there
+         is no intro, so pages without one are unaffected). */
+      animation-delay: calc(var(--intro-offset, 0ms) + var(--enter-delay, 0ms));
     }
     @supports (animation-timeline: view()) {
       .lr-reveal {
@@ -872,12 +957,15 @@ body:has([data-no-grid-lines]) .grid-lines {
        ledger assembles itself. Base state is visible (set only here), so it
        fails safe when motion is unsupported or reduced. */
     .lr-cm-anim {
-      animation: lr-cm-frame 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+      animation: lr-cm-frame 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: calc(var(--intro-offset, 0ms) + 0.28s);
     }
     .lr-cm-anim .lr-cm-part {
       opacity: 0;
       animation: lr-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-      animation-delay: calc(0.58s + var(--cm-i, 0) * 0.07s);
+      animation-delay: calc(
+        var(--intro-offset, 0ms) + 0.58s + var(--cm-i, 0) * 0.07s
+      );
       --reveal-y: 8px;
     }
     .lr-flow-rail {

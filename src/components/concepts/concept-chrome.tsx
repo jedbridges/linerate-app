@@ -9,6 +9,7 @@ import { Reveal } from "./reveal";
 import { Positioning } from "./positioning";
 import { RequestAccessForm } from "./request-access-form";
 import { CtaLineScreen } from "./cta-line-screen";
+import { PageIntro } from "./page-intro";
 import { type ConceptSlug } from "./concepts";
 
 /*
@@ -33,6 +34,7 @@ export function ConceptChrome({
   positioningFeature = false,
   ctaShader = false,
   hideSwitcher = false,
+  intro = false,
 }: {
   slug: ConceptSlug;
   children: React.ReactNode;
@@ -69,6 +71,9 @@ export function ConceptChrome({
   /** Hide the concept-switcher dropdown for a clean product header
    *  (concept 06). */
   hideSwitcher?: boolean;
+  /** Play the 2.5s amber-to-black load intro and hold the hero's entrance
+   *  until it hands over (concept 06). */
+  intro?: boolean;
 }) {
   return (
     <>
@@ -76,8 +81,13 @@ export function ConceptChrome({
       {ctaShader && (
         <Script src={withBase("/line-screen.js")} strategy="afterInteractive" />
       )}
+      {intro && <PageIntro />}
       <ConceptNav active={slug} hideSwitcher={hideSwitcher} />
-      <main data-motion={motion}>{children}</main>
+      {/* data-intro sets --intro-offset, which holds the hero's load entrance
+          back until the intro's bar has covered the screen. */}
+      <main data-motion={motion} data-intro={intro ? "" : undefined}>
+        {children}
+      </main>
 
       {/* Shared positioning: what LineRate is + trust strip */}
       <Positioning
