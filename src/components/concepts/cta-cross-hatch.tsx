@@ -41,7 +41,7 @@ export function CtaCrossHatch({ className }: { className?: string }) {
         ink="#000000"
         paper="#df8e2a"
         accent="#DF8E2A"
-        style={{ display: "block", width: "100%", aspectRatio: "2.4 / 1" }}
+        style={{ display: "block", width: "100%", aspectRatio: "32 / 9" }}
       />
     </div>
   );
