@@ -95,7 +95,7 @@ function ModelPreview() {
         <span className="truncate text-sm text-foreground">
           Master agreement.pdf
         </span>
-        <span className="ledger ml-auto shrink-0 text-[11px] text-foreground-subtle">
+        <span className="ml-auto shrink-0 text-[11px] text-foreground-subtle">
           parsed
         </span>
       </div>
@@ -201,7 +201,7 @@ function VersionRow({
       {done ? (
         <CheckDot />
       ) : (
-        <span className="pill--accent rounded-md px-2.5 py-1 text-[11px] font-medium">
+        <span className="pill pill--accent">
           Approve
         </span>
       )}
@@ -266,7 +266,7 @@ function AuditPreview() {
     { label: "Approval", value: "Operator + Counterparty" },
   ];
   return (
-    <PreviewFrame title="Audit trail" hint="traced">
+    <PreviewFrame title="Audit trail" hint="4 links">
       <div className="mb-3 flex items-center justify-between rounded-lg border border-border bg-page/40 px-3 py-2">
         <span className="text-sm text-foreground">Uptime true-up</span>
         <span className="ledger text-sm text-accent">+$18,400</span>
@@ -426,7 +426,7 @@ export function HowItWorks() {
                   className={cn(
                     "relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border text-sm transition-colors duration-300",
                     i === active
-                      ? "border-accent bg-accent text-neutral-950"
+                      ? "border-accent bg-accent text-accent-on-color"
                       : "border-border bg-page text-foreground-subtle",
                   )}
                 >
@@ -488,7 +488,7 @@ export function HowItWorks() {
         {STEPS.map((s) => (
           <div key={s.step}>
             <div className="flex items-center gap-4">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm text-neutral-950">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm text-accent-on-color">
                 {s.step}
               </span>
               <h3 className="text-lg font-medium text-foreground">{s.title}</h3>

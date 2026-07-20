@@ -29,7 +29,7 @@ export const CONCEPTS: {
 ];
 
 /* Proof metrics. $500M+ is real (mining); MWh is the intended lead stat,
-   figure pending — placeholder shown. */
+   figure pending, placeholder shown. */
 export const METRICS = [
   { value: "$500M+", label: "Settled to date" },
   { value: "480k", label: "MWh transacted", note: "placeholder" },

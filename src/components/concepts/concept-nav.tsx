@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
 import { ChevronDown, Check } from "lucide-react";
 
@@ -94,7 +93,7 @@ export function ConceptNav({
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <a href="#how">How it works</a>
           </Button>
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="[@media(pointer:coarse)]:min-h-11">
             <a href="#contact">Request access</a>
           </Button>
         </div>

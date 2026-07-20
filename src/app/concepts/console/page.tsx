@@ -36,7 +36,7 @@ const FEATURES = [
 ];
 
 /*
- * Concept 03 — Operating console. Linear-style craft: product-forward,
+ * Concept 03: Operating console. Linear-style craft: product-forward,
  * restrained, precise. Leads on operator relief (reconciliation disappears)
  * and shows the real console as proof.
  */
@@ -78,7 +78,7 @@ export default function ConsoleConcept() {
         </Reveal>
       </section>
 
-      {/* Product proof — the real console, framed 16:9 and tilted back to the
+      {/* Product proof: the real console, framed 16:9 and tilted back to the
           horizon; it snaps upright as it scrolls into place */}
       <section className="mx-auto max-w-6xl px-6 pb-24 pt-6">
         <TiltFrame label="LineRate settlement console, scrollable">

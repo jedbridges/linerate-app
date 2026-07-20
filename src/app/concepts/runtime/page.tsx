@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 };
 
 /*
- * Concept 01 — Runtime. Anduril-style conviction: declarative, cinematic,
+ * Concept 01: Runtime. Anduril-style conviction: declarative, cinematic,
  * type-forward. Leads on the core idea (contracts that run themselves) with
  * big statements and generous negative space.
  */
 export default function RuntimeConcept() {
   return (
     <ConceptChrome slug="runtime">
-      {/* Hero — the headline fills the space above a full-width image, both
+      {/* Hero: the headline fills the space above a full-width image, both
           sharing the first viewport below the sticky nav. The copy is pinned to
           the bottom of its area so it sits just above the image. */}
       <div className="flex min-h-[calc(100svh-5.25rem)] flex-col">
@@ -88,7 +88,7 @@ export default function RuntimeConcept() {
         </div>
       </section>
 
-      {/* Neutrality — the declarative moment */}
+      {/* Neutrality: the declarative moment */}
       <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <Reveal as="p" className="eyebrow mb-6">

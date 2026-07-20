@@ -157,7 +157,7 @@ export function ConceptChrome({
         </Reveal>
       </section>
 
-      {/* Footer — its own full-bleed band, lifted a shade off the page with a
+      {/* Footer: its own full-bleed band, lifted a shade off the page with a
           hairline top border so it reads as a distinct element. */}
       <footer className="border-t border-border bg-surface">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 sm:flex-row sm:items-center sm:justify-between">
@@ -174,11 +174,17 @@ export function ConceptChrome({
                 <span>Neutral system of record</span>
               </>
             )}
-            <a href="#" className="transition-colors hover:text-foreground">
+            <a
+              href="#"
+              className="inline-flex items-center transition-colors hover:text-foreground [@media(pointer:coarse)]:min-h-11"
+            >
               Terms
             </a>
             {footerTagline && (
-              <a href="#" className="transition-colors hover:text-foreground">
+              <a
+                href="#"
+                className="inline-flex items-center transition-colors hover:text-foreground [@media(pointer:coarse)]:min-h-11"
+              >
                 Privacy
               </a>
             )}

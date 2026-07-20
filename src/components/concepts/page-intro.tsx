@@ -15,7 +15,7 @@
  * so none of them depend on hydration:
  *
  *  1. Session gate. Client-side navigation remounts this component, so without
- *     a gate the intro replays on every return to the page — the repeat visitor
+ *     a gate the intro replays on every return to the page, and the repeat visitor
  *     pays the most, which is backwards. It plays once per session.
  *  2. Skip. Any pointer or key press ends it immediately. A brand moment should
  *     never be something you have to sit through.

@@ -54,7 +54,7 @@ export function PreviewGlow({
     const onMove = (e: PointerEvent) => {
       // Where the cursor sits in the viewport, not where it sits relative to the
       // orb. Measuring against the orb's own rect made the target depend on
-      // scroll position — the orb lives in a sticky/scrolling container, so
+      // scroll position: the orb lives in a sticky/scrolling container, so
       // scrolling moved its rect without firing this handler (stale target) and
       // pushed the computed offset up without bound as the orb travelled away
       // from the cursor, which then crawled into place. This is

@@ -27,7 +27,7 @@ const OBJECTIONS = [
 ];
 
 /*
- * Concept 02 — Neutral ledger. Column-style institutional: structured,
+ * Concept 02: Neutral ledger. Column-style institutional: structured,
  * ledger-ruled, financial-rails credibility. Leads on neutrality as the
  * organizing idea, with the operator / LineRate / counterparty relationship
  * made literal.
@@ -74,14 +74,14 @@ export default function NeutralConcept() {
           </Reveal>
         </div>
 
-        {/* Neutrality diagram — animated to show continuous flow through the
+        {/* Neutrality diagram: animated to show continuous flow through the
             neutral centre */}
         <Reveal variant="load" delay={320} className="lg:col-span-5">
           <NeutralityDiagram />
         </Reveal>
       </section>
 
-      {/* Metrics — ledger-ruled */}
+      {/* Metrics: ledger-ruled */}
       <section className="border-y border-border">
         <div className="mx-auto grid max-w-6xl grid-cols-2 px-6 sm:grid-cols-4">
           {METRICS.map((m, i) => (

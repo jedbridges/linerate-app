@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 /*
- * Concept 04 — Outcomes. Built from client feedback on rounds 01-03:
+ * Concept 04: Outcomes. Built from client feedback on rounds 01-03:
  *  - Runtime's narrative structure, but with Neutral's denser split hero so
  *    the first screen isn't mostly negative space.
  *  - No product dashboard on the page (the UI will keep changing, and it's
@@ -65,7 +65,7 @@ const STEPS = [
 export default function OutcomesConcept() {
   return (
     <ConceptChrome slug="outcomes">
-      {/* Hero — split layout (per feedback: Runtime's hero read as mostly
+      {/* Hero: split layout (per feedback: Runtime's hero read as mostly
           negative space; this borrows Neutral's denser two-column shape) */}
       <section className="mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 sm:pt-24 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-6">
@@ -126,7 +126,7 @@ export default function OutcomesConcept() {
         </div>
       </section>
 
-      {/* Benefits — the value prop, stated as outcomes */}
+      {/* Benefits: the value prop, stated as outcomes */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal as="p" className="eyebrow mb-3">
           What changes
@@ -157,7 +157,7 @@ export default function OutcomesConcept() {
         </div>
       </section>
 
-      {/* How it works — kept short and in plain terms */}
+      {/* How it works: kept short and in plain terms */}
       <section id="how">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <Reveal as="p" className="eyebrow mb-3">
@@ -186,7 +186,7 @@ export default function OutcomesConcept() {
         </div>
       </section>
 
-      {/* Neutrality — the declarative moment, kept from Runtime */}
+      {/* Neutrality: the declarative moment, kept from Runtime */}
       <section>
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <Reveal as="p" className="eyebrow mb-6">

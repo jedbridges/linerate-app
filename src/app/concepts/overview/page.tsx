@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 };
 
 /*
- * Concept 06 — Overview. Built from the client's "Linerate Overview" content
- * draft (broader positioning: hosting, energy, critical IT, GPU — not just
+ * Concept 06: Overview. Built from the client's "Linerate Overview" content
+ * draft (broader positioning: hosting, energy, critical IT, GPU: not just
  * compute). Reuses concept 05's hero (HeroPanelTilt + ContractModel), amber
  * CTA panel, and email capture, and adds two new signature moments: a markets
  * icon grid and a vertical animated process timeline for the 5 steps. Client
@@ -145,7 +145,7 @@ export default function OverviewConcept() {
         </div>
       </section>
 
-      {/* Proof stats — "One agreement. One model. One record." */}
+      {/* Proof stats: "One agreement. One model. One record." */}
       <section className="mx-auto max-w-6xl px-6 py-16">
         <Reveal
           as="h2"
@@ -156,7 +156,7 @@ export default function OverviewConcept() {
         <StatsCounter />
       </section>
 
-      {/* Markets — signature moment: broader positioning across four markets */}
+      {/* Markets: signature moment: broader positioning across four markets */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal
           as="h2"
@@ -187,7 +187,7 @@ export default function OverviewConcept() {
         </div>
       </section>
 
-      {/* How it works — signature moment: scroll-driven walkthrough where a
+      {/* How it works: signature moment: scroll-driven walkthrough where a
           sticky, angled product-UI panel swaps as each step becomes active. */}
       <section id="how" className="mx-auto max-w-6xl px-6 py-24">
         <Reveal
