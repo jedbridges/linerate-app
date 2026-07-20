@@ -116,9 +116,14 @@ export function ConceptChrome({
         <Reveal
           className={cn(
             "relative text-center",
-            ctaPanel && "lr-cta-amber overflow-hidden",
+            // .lr-cta-amber paints var(--surface) as its base layer. With the
+            // shader it would cover .lr-cta-band on the section below and land
+            // the fade on exactly the footer colour, so concept 06 opts out and
+            // lets the band show through. Its amber radial is redundant there
+            // anyway: the shader banner already fills the top of the panel.
+            ctaPanel && !ctaShader && "lr-cta-amber overflow-hidden",
             ctaShader
-              ? "border-0 pb-40 sm:pb-56"
+              ? "overflow-hidden border-0 pb-40 sm:pb-56"
               : ctaPanel
                 ? "mx-auto max-w-4xl rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
                 : "mx-auto max-w-3xl",
