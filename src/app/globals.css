@@ -692,11 +692,11 @@ body:has([data-no-grid-lines]) .grid-lines {
    underneath as its own elements animate in. */
 @keyframes lr-intro-veil {
   0%,
-  66% {
+  75% {
     opacity: 1;
     visibility: visible;
   }
-  82% {
+  92% {
     opacity: 0;
     visibility: visible;
   }
@@ -706,37 +706,42 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 @keyframes lr-intro-line {
-  /* hold on amber */
-  0%,
-  6% {
+  /* draws straight away: the amber reads during the draw, so an opening hold
+     was just dead air */
+  0% {
     transform: scaleX(0) scaleY(1);
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  /* drawn out to the centre (half the viewport), then a beat */
-  38%,
-  46% {
+  /* out to the centre (half the viewport), then straight into the takeover */
+  45% {
     transform: scaleX(0.5) scaleY(1);
     animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
   }
   /* takes over the whole screen: full width and past full height
      (24px x 120 clears any display) */
-  66%,
+  75%,
   100% {
     transform: scaleX(1) scaleY(120);
   }
 }
 @media (prefers-reduced-motion: no-preference) {
   .lr-intro {
-    animation: lr-intro-veil 2.5s both;
+    animation: lr-intro-veil 1.1s both;
   }
   .lr-intro-line {
-    animation: lr-intro-line 2.5s both;
+    animation: lr-intro-line 1.1s both;
   }
-  /* Elements start animating in as the takeover completes and the veil begins
-     dropping to zero, so the page resolves into view rather than appearing
-     after it. */
+  /* Elements start while the takeover is still closing, so the page is already
+     resolving when the veil lifts. Kept as short as the choreography allows:
+     .lr-enter fills backwards, so this delay is also a floor on when the LCP
+     element can paint. */
   main[data-intro] {
-    --intro-offset: 1550ms;
+    --intro-offset: 650ms;
+  }
+  /* Skipped, or already seen this session: no veil, and no reason to hold the
+     content back either. */
+  html[data-intro-done] main[data-intro] {
+    --intro-offset: 0ms;
   }
 }
 
