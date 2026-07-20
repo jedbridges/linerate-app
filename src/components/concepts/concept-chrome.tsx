@@ -8,7 +8,8 @@ import { ConceptNav } from "./concept-nav";
 import { Reveal } from "./reveal";
 import { Positioning } from "./positioning";
 import { RequestAccessForm } from "./request-access-form";
-import { CtaLineScreen } from "./cta-line-screen";
+import { CROSS_HATCH } from "@/components/effects/effects";
+import { CtaCrossHatch } from "./cta-cross-hatch";
 import { PageIntro } from "./page-intro";
 import { type ConceptSlug } from "./concepts";
 
@@ -77,9 +78,15 @@ export function ConceptChrome({
 }) {
   return (
     <>
-      {/* Load the <line-screen> element for the CTA background (concept 06). */}
+      {/* Load the <cross-hatch> element for the CTA background (concept 06).
+          Versioned like the effects routes: /public isn't content-hashed, so
+          without the cache-buster a shader change never reaches anyone who has
+          already loaded the page. */}
       {ctaShader && (
-        <Script src={withBase("/line-screen.js")} strategy="afterInteractive" />
+        <Script
+          src={`${withBase(CROSS_HATCH.script)}?v=${CROSS_HATCH.version}`}
+          strategy="afterInteractive"
+        />
       )}
       {intro && <PageIntro />}
       <ConceptNav active={slug} hideSwitcher={hideSwitcher} />
@@ -117,7 +124,7 @@ export function ConceptChrome({
                 : "mx-auto max-w-3xl",
           )}
         >
-          {ctaShader && <CtaLineScreen />}
+          {ctaShader && <CtaCrossHatch />}
           <div
             className={cn(
               "relative z-10",
