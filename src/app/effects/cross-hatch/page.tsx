@@ -51,9 +51,10 @@ export default function CrossHatchPage() {
             Cross hatch
           </h1>
           <p className="mt-4 max-w-[620px] text-base leading-relaxed text-foreground-muted">
-            A WebGL fragment shader that rebuilds any photograph out of hatched
-            strokes. Tone is sampled once per grid cell and built up in angled
-            passes, so the marks sit on a lattice and read as constructed rather
+            A WebGL fragment shader that rebuilds any photograph out of
+            horizontal and vertical rules. Tone is sampled once per grid cell,
+            then built up by interleaving lines between the ones already there,
+            so the marks stay on a square lattice and read as constructed rather
             than photographic. Interactive: the cursor tightens the lattice until
             the photo resolves, and pools amber into the ink.
           </p>

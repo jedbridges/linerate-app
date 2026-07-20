@@ -847,9 +847,27 @@ body:has([data-no-grid-lines]) .grid-lines {
    percentage of the ledger container) so it travels the full height
    regardless of its own 1px height. Off-canvas and invisible at the end
    frame, so the global reduced-motion cap parks it out of sight. */
+/* Execution scan (concept 05/06 hero). The travel rides a full-height track
+   (inset-0), so translateY percentages resolve against the parent's height and
+   reproduce the old top: -2% -> 102% exactly, but on the compositor instead of
+   forcing layout every frame. linear because it loops: an ease-in-out made each
+   pass accelerate then decelerate and then hard-restart at full speed, which
+   read as a stutter once per cycle. Opacity hides the ends, so a constant speed
+   reads as one continuous sweep. */
+.lr-scan-track {
+  /* Invisible at rest, so it never parks as a visible band if animation is
+     unsupported or unwanted. */
+  opacity: 0;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lr-scan-track {
+    animation: lr-scan 5.6s linear infinite;
+  }
+}
 @keyframes lr-scan {
   0% {
-    top: -2%;
+    transform: translateY(-2%);
     opacity: 0;
   }
   12% {
@@ -859,7 +877,7 @@ body:has([data-no-grid-lines]) .grid-lines {
     opacity: 1;
   }
   100% {
-    top: 102%;
+    transform: translateY(102%);
     opacity: 0;
   }
 }

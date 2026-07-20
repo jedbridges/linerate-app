@@ -1,8 +1,9 @@
 /**
  * <cross-hatch>
- * A WebGL fragment shader that renders any photograph as geometric cross-hatching.
- * Tone is sampled once per grid cell and built up in angled passes, so the marks
- * sit on a lattice and read as constructed rather than photographic.
+ * A WebGL fragment shader that renders any photograph as geometric cross-hatching
+ * built from horizontal and vertical lines. Tone is sampled once per grid cell and
+ * built up in passes, so the marks sit on a lattice and read as constructed rather
+ * than photographic.
  * Interactive: cursor tightens the lattice and bleeds an amber accent.
  *
  * Deliberately standalone (it duplicates the plumbing in line-screen.js) so the
@@ -17,7 +18,7 @@
  *   grid        cells across the short edge   (default 40)
  *   levels      hatch passes, 1-6             (default 4)
  *   weight      stroke weight, share of cell  (default 0.26)
- *   angle       first pass angle in radians   (default 0.7854)
+ *   angle       lattice rotation in radians, 0 = horizontal + vertical (default 0)
  *   contrast    tonal contrast               (default 1.15)
  *   exposure    tonal lift                   (default 0.12)
  *   bleed       amber bleed under cursor     (default 0.85)
@@ -101,19 +102,28 @@ void main() {
   lum = clamp((lum - 0.5) * uContrast + 0.5 + uLift, 0.0, 1.0);
   float dark = 1.0 - lum;
 
-  // Build tone in passes: each one adds a stroke set rotated a further
-  // PI/levels, and only switches on once tone crosses its tier. Strokes are
-  // measured against global p (not the cell) so they run continuously across
-  // the image and align cell to cell.
+  // Build tone in passes. Every pass runs in one of exactly TWO perpendicular
+  // directions (horizontal or vertical at uAngle 0), alternating between them.
+  // Density comes from interleaving offset lines between the existing ones, not
+  // from rotating to new angles, so the result stays a square lattice and never
+  // grows diagonals. Strokes are measured against global p (not the cell) so
+  // they run continuously across the image and align cell to cell.
   float ink = 0.0;
   for (int i = 0; i < MAX_LEVELS; i++) {
     float fi = float(i);
     float active = step(fi + 0.5, uLevels);
     float t = clamp(dark * uLevels - fi, 0.0, 1.0) * active;
 
-    float a = uAngle + fi * PI / uLevels;
+    // Even passes run one way, odd passes the perpendicular way.
+    float dir = mod(fi, 2.0);
+    // Each generation of two passes lays its lines between the previous ones:
+    // generation 0 on the cell grid, 1 at the half offset, 2 at the quarter.
+    float gen = floor(fi * 0.5);
+    float phase = step(0.5, gen) * 0.5 / max(gen, 1.0);
+
+    float a = uAngle + dir * PI * 0.5;
     vec2 n = vec2(-sin(a), cos(a));
-    float q = dot(p, n) / cell;
+    float q = dot(p, n) / cell + phase;
     float tri = abs(fract(q) - 0.5) * 2.0;   // 0 on a stroke's centre line
 
     // Weight ramps with the tier so tone climbs smoothly inside a pass instead
@@ -132,7 +142,7 @@ const DEFAULTS = {
   grid: 40,
   levels: 4,
   weight: 0.26,
-  angle: 0.7854,
+  angle: 0,
   contrast: 1.15,
   exposure: 0.12,
   bleed: 0.85,

@@ -115,7 +115,8 @@ export const LINE_SCREEN: EffectConfig = {
  * Cross hatch. "Grid" sets the lattice tone is sampled on and is the control
  * that decides how constructed the result reads: coarse grids give the blocky,
  * drawn look, fine grids resolve back toward the photograph. "Hatch passes" is
- * how many angled stroke sets stack up in the shadows.
+ * how many line sets stack up in the shadows: each one alternates between the
+ * two perpendicular directions and lays its rules between the previous set's.
  */
 export const CROSS_HATCH: EffectConfig = {
   tag: "cross-hatch",
@@ -136,15 +137,17 @@ export const CROSS_HATCH: EffectConfig = {
     { id: "bleed", label: "Amber bleed", min: 0, max: 1, step: 0.01, val: 0.85 },
     { id: "focus", label: "Cursor focus", min: 0, max: 1, step: 0.01, val: 0.5 },
   ],
+  /* Rotates the whole lattice. The construction is always two perpendicular
+     line families, so 0 is horizontal + vertical and 45° is the same grid
+     turned on its corner. It never introduces a third direction. */
   toggle: {
     id: "angle",
-    label: "Hatch angle",
-    val: 0.7854,
+    label: "Lattice rotation",
+    val: 0,
     decimals: 4,
     options: [
-      { label: "Diagonal", value: 0.7854 },
-      { label: "Orthogonal", value: 0 },
-      { label: "22.5°", value: 0.3927 },
+      { label: "Horizontal & vertical", value: 0 },
+      { label: "45°", value: 0.7854 },
     ],
   },
   meta: [

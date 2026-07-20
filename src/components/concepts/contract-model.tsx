@@ -113,33 +113,38 @@ export function ContractModel({
             reduced motion, so nothing parks as a visible band. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 h-14 -translate-y-1/2"
-          style={{
-            background:
-              "radial-gradient(72% 130% at 50% 50%, color-mix(in oklab, var(--accent) 28%, transparent) 0%, color-mix(in oklab, var(--accent) 8%, transparent) 45%, transparent 78%)",
-            // feather the top and bottom so the sweep fades in/out vertically
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent)",
-            maskImage:
-              "linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent)",
-            opacity: 0,
-            animation: "lr-scan 5.6s cubic-bezier(0.4,0,0.2,1) infinite",
-          }}
-        />
+          className="lr-scan-track pointer-events-none absolute inset-0"
+        >
+          <span
+            className="absolute inset-x-0 top-0 h-14 -translate-y-1/2"
+            style={{
+              background:
+                "radial-gradient(72% 130% at 50% 50%, color-mix(in oklab, var(--accent) 28%, transparent) 0%, color-mix(in oklab, var(--accent) 8%, transparent) 45%, transparent 78%)",
+              // feather the top and bottom so the sweep fades in/out vertically
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent)",
+              maskImage:
+                "linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent)",
+            }}
+          />
+        </span>
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-6 h-2 -translate-y-1/2 sm:inset-x-8"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 80%, transparent) 50%, transparent)",
-            // feather the core streak vertically so it has no hard edge
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent, #000, transparent)",
-            maskImage: "linear-gradient(to bottom, transparent, #000, transparent)",
-            opacity: 0,
-            animation: "lr-scan 5.6s cubic-bezier(0.4,0,0.2,1) infinite",
-          }}
-        />
+          className="lr-scan-track pointer-events-none absolute inset-0"
+        >
+          <span
+            className="absolute inset-x-6 top-0 h-2 -translate-y-1/2 sm:inset-x-8"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 80%, transparent) 50%, transparent)",
+              // feather the core streak vertically so it has no hard edge
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent, #000, transparent)",
+              maskImage:
+                "linear-gradient(to bottom, transparent, #000, transparent)",
+            }}
+          />
+        </span>
 
         <div className="relative flex h-full flex-col justify-evenly gap-px">
           {ROWS.map((r, i) => (
