@@ -123,7 +123,7 @@ export function ConceptChrome({
             // anyway: the shader banner already fills the top of the panel.
             ctaPanel && !ctaShader && "lr-cta-amber overflow-hidden",
             ctaShader
-              ? "overflow-hidden border-0 pb-40 sm:pb-56"
+              ? "overflow-hidden border-0 pb-24 sm:pb-32"
               : ctaPanel
                 ? "mx-auto max-w-4xl rounded-3xl px-6 py-16 sm:px-16 sm:py-20"
                 : "mx-auto max-w-3xl",
@@ -133,7 +133,12 @@ export function ConceptChrome({
           <div
             className={cn(
               "relative z-10",
-              ctaShader && "mx-auto -mt-[11vw] max-w-3xl px-6",
+              // The banner is 32/9, so its height is 28.1vw. At -11vw the
+              // headline landed 61% down the mask, where it is still ~78%
+              // opaque, and the muted subhead lower still at ~45%. -4vw puts
+              // the copy past 85%, under 0.15 alpha, so type reads on a flat
+              // band while the dissolve stays an image effect.
+              ctaShader && "mx-auto -mt-[4vw] max-w-3xl px-6",
             )}
           >
             {!hideEyebrows && <p className="eyebrow mb-4">Request access</p>}
