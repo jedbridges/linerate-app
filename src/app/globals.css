@@ -38,6 +38,8 @@
   /* Neutral scale (Onyx <-> Paper ramp, cool grayscale) */
   --color-neutral-0:   #ffffff;
   --color-neutral-50:  #fafafa;
+  /* Light-mode counterpart to 925: one step off --surface, away from --page. */
+  --color-neutral-75:  #f5f5f5;
   --color-neutral-100: #f4f4f4;
   --color-neutral-200: #e5e5e5;
   --color-neutral-300: #d4d4d4;
@@ -50,6 +52,10 @@
   --color-neutral-700: #3f3f3f;
   --color-neutral-800: #262626;
   --color-neutral-900: #1a1a1a;
+  /* Half-step between 900 and 950, for a band that sits just off a --surface
+     element without dropping all the way to --page (concept 06's closing CTA
+     against the footer). */
+  --color-neutral-925: #151515;
   --color-neutral-950: #101010;
 
   /* Amber ramp, derived from #DF8E2A */
@@ -140,6 +146,10 @@
   /* Backgrounds */
   --page: var(--color-neutral-0);
   --surface: var(--color-neutral-50);
+  /* A shade just off --surface, for a full-bleed band that needs to read as
+     distinct from an adjacent --surface element (concept 06's closing CTA
+     sitting directly on the footer). */
+  --band: var(--color-neutral-75);
   --raised: var(--color-neutral-0);
   --muted: var(--color-neutral-100);
   --inverse: var(--color-neutral-950);
@@ -201,6 +211,7 @@
   /* Backgrounds */
   --page: var(--color-neutral-950);
   --surface: var(--color-neutral-900);
+  --band: var(--color-neutral-925);
   --raised: var(--color-neutral-800);
   --muted: var(--color-neutral-800);
   --inverse: var(--color-neutral-0);
@@ -264,6 +275,7 @@
 @theme inline {
   --color-page: var(--page);
   --color-surface: var(--surface);
+  --color-band: var(--band);
   --color-raised: var(--raised);
   --color-muted: var(--muted);
   --color-inverse: var(--inverse);
@@ -1024,12 +1036,13 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 
   /* Closing-CTA band (concept 06). The cross-hatch banner masks down into this
-     colour rather than into --page, so the fade lands on a shade adjacent to
-     the footer instead of dropping to the darkest value on the page. Mixed off
-     --surface (the footer) toward --page, which keeps it a step off the footer
-     in both themes rather than hard-coding a hex. */
+     rather than into --page, so the fade lands a step off the footer instead
+     of dropping to the darkest value on the page. Deliberately not a
+     color-mix: lightningcss emits the first colour as an unguarded fallback
+     and wraps the mix in @supports, so on any engine that fails that test the
+     band would resolve to exactly --surface, the footer colour. */
   .lr-cta-band {
-    background: color-mix(in oklab, var(--surface) 70%, var(--page));
+    background: var(--band);
   }
 
   /* Flow rail base (concept 05 steps). A dotted line of amber dots; the dots
