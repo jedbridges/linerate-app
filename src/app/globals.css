@@ -673,12 +673,13 @@ body:has([data-no-grid-lines]) .grid-lines {
 }
 .lr-intro-line {
   position: absolute;
-  /* A 24px rule on the centre line, anchored to the left edge. scaleX draws it
-     out to the centre (origin left), then scaleY opens it about its own middle
-     to fill the viewport height. */
+  /* A 24px rule on the centre line, anchored to the left edge and a full
+     viewport wide, so scaleX is a direct fraction of the screen: 0.5 draws it
+     out to the centre, 1 spans edge to edge. Origin is left centre, so it draws
+     rightward and opens about its own middle. */
   top: 50%;
   left: 0;
-  width: 50vw;
+  width: 100vw;
   height: var(--intro-line-h, 24px);
   margin-top: calc(var(--intro-line-h, 24px) / -2);
   background: var(--page);
@@ -686,13 +687,16 @@ body:has([data-no-grid-lines]) .grid-lines {
   transform: scaleX(0);
   will-change: transform;
 }
+/* Both the amber field and the black rule ride the veil's opacity, so they
+   reach zero together the moment the takeover completes, and the page resolves
+   underneath as its own elements animate in. */
 @keyframes lr-intro-veil {
   0%,
-  68% {
+  66% {
     opacity: 1;
     visibility: visible;
   }
-  84% {
+  82% {
     opacity: 0;
     visibility: visible;
   }
@@ -708,14 +712,15 @@ body:has([data-no-grid-lines]) .grid-lines {
     transform: scaleX(0) scaleY(1);
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  /* drawn out to the centre, expo-out so it arrives snappily, then a beat */
+  /* drawn out to the centre (half the viewport), then a beat */
   38%,
   46% {
-    transform: scaleX(1) scaleY(1);
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scaleX(0.5) scaleY(1);
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
   }
-  /* opens to full viewport height (24px x 120 clears any display) */
-  68%,
+  /* takes over the whole screen: full width and past full height
+     (24px x 120 clears any display) */
+  66%,
   100% {
     transform: scaleX(1) scaleY(120);
   }
@@ -727,10 +732,11 @@ body:has([data-no-grid-lines]) .grid-lines {
   .lr-intro-line {
     animation: lr-intro-line 2.5s both;
   }
-  /* Start the hero while the line is still opening, so it is already resolving
-     when the veil lifts at 1.7s rather than starting from nothing after it. */
+  /* Elements start animating in as the takeover completes and the veil begins
+     dropping to zero, so the page resolves into view rather than appearing
+     after it. */
   main[data-intro] {
-    --intro-offset: 1500ms;
+    --intro-offset: 1550ms;
   }
 }
 

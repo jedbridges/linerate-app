@@ -1,9 +1,9 @@
 /*
  * Page-load intro (concept 06). An amber veil fills the screen, then a 24px
  * rule is drawn out from the left edge to the centre line, holds a beat, and
- * opens vertically to the full height of the viewport. It is exactly --page, so
- * by the time it is full height the screen already reads as the site, and the
- * veil fades out under the hero as that animates in. The whole thing runs 2.5s.
+ * scales up on both axes until black has taken over the whole viewport. At that
+ * point the amber and the rule both drop to zero opacity together and the page
+ * resolves underneath, its own elements animating into place. Runs 2.5s.
  *
  * The animation is pure CSS so it plays before hydration, and it fails safe:
  * the resting state is hidden and only the keyframes reveal it, so if animation

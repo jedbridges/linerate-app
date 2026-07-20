@@ -5,24 +5,24 @@ import Script from "next/script";
 import { withBase } from "@/lib/utils";
 import { HomeLink } from "@/components/home-link";
 import { EffectLab } from "@/components/effects/effect-lab";
-import { LINE_SCREEN } from "@/components/effects/effects";
+import { CROSS_HATCH } from "@/components/effects/effects";
 
 export const metadata: Metadata = {
-  title: "Line screen · LineRate design system",
+  title: "Cross hatch · LineRate design system",
   description:
-    "A WebGL line-halftone effect as a zero-dependency <line-screen> custom element, with a live tuner and copy-paste embed.",
+    "A WebGL cross-hatching effect as a zero-dependency <cross-hatch> custom element, with a live tuner and copy-paste embed.",
 };
 
 /*
- * Effects / Line screen. A documentation tab and the source of truth for the
- * shippable <line-screen> custom element. The element script is loaded once
+ * Effects / Cross hatch. A documentation tab and the source of truth for the
+ * shippable <cross-hatch> custom element. The element script is loaded once
  * here (afterInteractive) via withBase so it resolves under the Pages base
  * path; the interactive tuner lives in EffectLab (client).
  */
-export default function LineScreenPage() {
+export default function CrossHatchPage() {
   return (
     <>
-      <Script src={withBase(LINE_SCREEN.script)} strategy="afterInteractive" />
+      <Script src={withBase(CROSS_HATCH.script)} strategy="afterInteractive" />
 
       <div className="mx-auto max-w-5xl px-6 pb-24">
         {/* Top bar: wordmark home + mono breadcrumb */}
@@ -38,7 +38,7 @@ export default function LineScreenPage() {
             <span className="opacity-40">/</span>
             <span>Effects</span>
             <span className="opacity-40">/</span>
-            <span className="text-foreground">Line screen</span>
+            <span className="text-foreground">Cross hatch</span>
           </nav>
         </header>
 
@@ -46,18 +46,20 @@ export default function LineScreenPage() {
         <div className="pt-14 pb-12">
           <h1 className="flex items-start gap-4 text-[clamp(2.25rem,1.6rem+2vw,3.25rem)] font-medium tracking-tight text-foreground">
             <span className="pt-3 font-mono text-xs font-normal tracking-wide text-foreground-subtle">
-              E.01
+              E.02
             </span>
-            Line screen
+            Cross hatch
           </h1>
           <p className="mt-4 max-w-[620px] text-base leading-relaxed text-foreground-muted">
-            A WebGL fragment shader that renders any photograph as a coarse line
-            halftone. Interactive: cursor tightens line density so the photo
-            resolves, and pools amber into the ink.
+            A WebGL fragment shader that rebuilds any photograph out of hatched
+            strokes. Tone is sampled once per grid cell and built up in angled
+            passes, so the marks sit on a lattice and read as constructed rather
+            than photographic. Interactive: the cursor tightens the lattice until
+            the photo resolves, and pools amber into the ink.
           </p>
         </div>
 
-        <EffectLab config={LINE_SCREEN} />
+        <EffectLab config={CROSS_HATCH} />
       </div>
     </>
   );
