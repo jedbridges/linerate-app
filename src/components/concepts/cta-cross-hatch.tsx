@@ -30,8 +30,8 @@ export function CtaCrossHatch({ className }: { className?: string }) {
     >
       <cross-hatch
         src={withBase("/handshake.jpg")}
-        grid="240"
-        levels="4"
+        grid="49"
+        levels="6"
         weight="0.24"
         contrast="1"
         exposure="0.17"
