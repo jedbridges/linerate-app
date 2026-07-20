@@ -82,7 +82,7 @@ export function MarketsGrid() {
       {MARKETS.map((m, i) => (
         <Reveal key={m.title} delay={i * 80} className="flex">
           <div className="group flex flex-1 overflow-hidden rounded-xl border border-border bg-surface transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted">
-            <div className="flex w-24 shrink-0 items-center justify-center border-r border-border bg-page sm:w-28">
+            <div className="flex aspect-square shrink-0 items-center justify-center border-r border-border bg-page">
               <m.Icon
                 weight="duotone"
                 style={{ ["--icon-i" as string]: i } as React.CSSProperties}
