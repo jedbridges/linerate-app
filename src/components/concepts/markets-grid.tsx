@@ -16,9 +16,14 @@ import { Reveal } from "./reveal";
 
 /*
  * Markets grid for concept 06. Each card carries a square amber-duotone
- * halftone illustration (public/markets/*, 640px squares) instead of an icon;
- * the same brand treatment as the CTA cross-hatch, so the grid and the closing
- * band read as one family.
+ * halftone illustration (public/markets/*) instead of an icon; the same brand
+ * treatment as the CTA cross-hatch, so the grid and the closing band read as
+ * one family.
+ *
+ * The art ships as 384px WebP, not the 640px JPEG it started as. It renders at
+ * 111-128 CSS px in the card and 128 in the dialog, so 384 still covers a DPR 3
+ * phone while the JPEGs were ~2.9x oversized: 716KB total for four images shown
+ * at ~111px. WebP at 384 is 162KB, a 77% cut.
  *
  * The illustrations play a one-shot clip wipe (not scroll-scrubbed) when the
  * grid first enters view: an IntersectionObserver arms them hidden (while
@@ -44,7 +49,7 @@ import { Reveal } from "./reveal";
  */
 const MARKETS = [
   {
-    image: "/markets/hosting.jpg",
+    image: "/markets/hosting.webp",
     title: "Hosting services",
     body: "Between hosting service providers and crypto miners.",
     more: [
@@ -65,7 +70,7 @@ const MARKETS = [
     },
   },
   {
-    image: "/markets/energy.jpg",
+    image: "/markets/energy.webp",
     title: "Energy supply",
     body: "Electricity and gas agreements between suppliers and offtakers.",
     more: [
@@ -86,7 +91,7 @@ const MARKETS = [
     },
   },
   {
-    image: "/markets/infrastructure.jpg",
+    image: "/markets/infrastructure.webp",
     title: "Critical IT infrastructure",
     body: "Critical IT lease agreements between operators and tenants.",
     more: [
@@ -107,7 +112,7 @@ const MARKETS = [
     },
   },
   {
-    image: "/markets/gpu.jpg",
+    image: "/markets/gpu.webp",
     title: "GPU capacity",
     body: "Rental and consumption agreements between compute lessors and their customers.",
     more: [
@@ -318,8 +323,8 @@ export function MarketsGrid() {
               <img
                 src={withBase(m.image)}
                 alt=""
-                width={640}
-                height={640}
+                width={384}
+                height={384}
                 loading="lazy"
                 style={{ ["--icon-i" as string]: i } as React.CSSProperties}
                 className="lr-market-icon absolute inset-0 size-full object-cover transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] group-hover:scale-105"
@@ -384,8 +389,8 @@ export function MarketsGrid() {
               <img
                 src={withBase(open.image)}
                 alt=""
-                width={640}
-                height={640}
+                width={384}
+                height={384}
                 className="lr-dialog-art size-32 rounded-lg border border-border object-cover"
                 aria-hidden
               />
