@@ -1,5 +1,7 @@
 "use client";
 
+import * as React from "react";
+
 import { cn, withBase } from "@/lib/utils";
 
 /*
@@ -41,16 +43,55 @@ const FADE = `linear-gradient(to bottom, #000 0%, #000 40%, ${[
   .map(([pos, a]) => `rgba(0,0,0,${a}) ${pos}%`)
   .join(", ")})`;
 
+/*
+ * The shader counts its grid across the banner's height, and the banner's
+ * height is a fixed share of its width, so a single grid value renders at wildly
+ * different physical sizes: 111 cells is a 3.6px mark on a 1440px desktop and a
+ * 1px mark on a 390px phone, which is why it turned to mush there. Scale the
+ * grid with the width instead, and deliberately land phones on a coarser mark
+ * (~6px vs ~3.6px) so the weave reads as construction rather than noise at the
+ * size it's actually seen. Coarser than this and the handshake stops reading as
+ * a handshake, so 36 is the floor. 1440 still resolves to the tuned 111.
+ */
+const GRID_AT = { minW: 390, minGrid: 36, maxW: 1440, maxGrid: 111 };
+
+function gridForWidth(w: number) {
+  const { minW, minGrid, maxW, maxGrid } = GRID_AT;
+  const t = (w - minW) / (maxW - minW);
+  return Math.round(
+    Math.max(minGrid, Math.min(maxGrid, minGrid + t * (maxGrid - minGrid))),
+  );
+}
+
 export function CtaCrossHatch({ className }: { className?: string }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  // Starts at the desktop value so SSR and first client render agree; the
+  // observer corrects it after mount.
+  const [grid, setGrid] = React.useState(GRID_AT.maxGrid);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      const w = entry.contentRect.width;
+      if (w > 0) setGrid(gridForWidth(w));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div
+      ref={ref}
       aria-hidden
       className={cn("relative z-0 w-full overflow-hidden", className)}
       style={{ WebkitMaskImage: FADE, maskImage: FADE }}
     >
+      {/* Taller on phones: at 32/9 a 390px screen leaves a 110px strip, too
+          little room for the handshake to read at all. */}
       <cross-hatch
         src={withBase("/handshake.jpg")}
-        grid="111"
+        grid={String(grid)}
         levels="2"
         weight="0.5"
         contrast="1.95"
@@ -61,7 +102,7 @@ export function CtaCrossHatch({ className }: { className?: string }) {
         ink="#000000"
         paper="#df8e2a"
         accent="#DF8E2A"
-        style={{ display: "block", width: "100%", aspectRatio: "32 / 9" }}
+        className="block aspect-[16/9] w-full sm:aspect-[32/9]"
       />
     </div>
   );

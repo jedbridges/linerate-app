@@ -34,7 +34,10 @@ export function ConceptNav({
 
   return (
     <header className="sticky top-0 z-40 px-4 pt-3 pb-5 sm:px-6">
-      <div className="glass mx-auto flex h-13 max-w-6xl items-center justify-between gap-3 rounded-xl border px-4 shadow-lg sm:px-5">
+      {/* pr-0 + overflow-hidden on mobile: the CTA runs to the bar's right edge
+          and the bar's own radius clips it, so it reads as part of the bar
+          rather than a button floating inside it. Desktop keeps its inset. */}
+      <div className="glass mx-auto flex h-13 max-w-6xl items-center justify-between gap-3 overflow-hidden rounded-xl border pl-4 shadow-lg sm:px-5">
         <div className="flex min-w-0 items-center gap-3 sm:gap-4">
           {/* Wordmark hidden on mobile when the switcher is present (so switcher
               + CTA fit); shown on all breakpoints once the switcher is gone. */}
@@ -89,11 +92,15 @@ export function ConceptNav({
           )}
         </div>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+        <div className="flex h-full shrink-0 items-center gap-1.5 sm:gap-2">
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <a href="#how">How it works</a>
           </Button>
-          <Button asChild size="sm" className="[@media(pointer:coarse)]:min-h-11">
+          <Button
+            asChild
+            size="sm"
+            className="h-full rounded-none px-5 sm:h-8 sm:rounded-md sm:px-3"
+          >
             <a href="#contact">Request access</a>
           </Button>
         </div>
