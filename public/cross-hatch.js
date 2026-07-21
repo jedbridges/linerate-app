@@ -191,6 +191,7 @@ class CrossHatch extends HTMLElement {
     this._raf = 0;
     this._visible = true;
     this._interactive = true;
+    this._connected = false;
     this._reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this._onMove = this._onMove.bind(this);
@@ -207,6 +208,7 @@ class CrossHatch extends HTMLElement {
     this._interactive = this.getAttribute('interactive') !== 'false';
 
     this._initGL();
+    this._connected = true;
     if (!this._gl) {
       if (this.hasAttribute('src')) {
         this._fbImg.src = this.getAttribute('src');
@@ -249,7 +251,12 @@ class CrossHatch extends HTMLElement {
     if (oldV === newV) return;
     if (name === 'src') {
       if (this._gl && newV) this._loadImage(newV);
-      else if (!this._gl && newV) { this._fbImg.src = newV; }
+      // Guarded on _connected: during upgrade this callback runs BEFORE
+      // connectedCallback calls _initGL, so _gl is still undefined and this
+      // branch would point the hidden fallback <img> at src, downloading the
+      // whole image a second time in parallel with the WebGL load.
+      // connectedCallback sets the fallback itself when GL is truly missing.
+      else if (this._connected && !this._gl && newV) { this._fbImg.src = newV; }
       return;
     }
     if (name === 'interactive') {

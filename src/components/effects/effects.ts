@@ -87,7 +87,7 @@ export const COLOR_DEFAULTS: Colors = {
 export const LINE_SCREEN: EffectConfig = {
   tag: "line-screen",
   script: "/line-screen.js",
-  version: 4,
+  version: 5,
   download: "linerate-line-screen.png",
   previewLabel:
     "Live preview: the sample photograph rendered as a line halftone",
@@ -135,7 +135,7 @@ export const LINE_SCREEN: EffectConfig = {
 export const CROSS_HATCH: EffectConfig = {
   tag: "cross-hatch",
   script: "/cross-hatch.js",
-  version: 4,
+  version: 5,
   download: "linerate-cross-hatch.png",
   previewLabel:
     "Live preview: the sample photograph rendered as geometric cross-hatching",
