@@ -8,6 +8,7 @@ import { ContractModel } from "@/components/concepts/contract-model";
 import { HeroPanelTilt } from "@/components/concepts/hero-panel-tilt";
 import { HowItWorks } from "@/components/concepts/how-it-works";
 import { MarketsGrid } from "@/components/concepts/markets-grid";
+import { NeutralRecord } from "@/components/concepts/neutral-record";
 import { PreviewGlow } from "@/components/concepts/preview-glow";
 import { StatsCounter } from "@/components/concepts/stats-counter";
 import { Reveal } from "@/components/concepts/reveal";
@@ -222,6 +223,17 @@ export default function OverviewConcept() {
             against. Our platform is neutral to the outcome and accountable to
             the agreement.
           </Reveal>
+
+          {/* The claim, performed. This was the only major section on the page
+              carrying no visual, so it deflated between two rich ones. The
+              record lands, then each party confirms it in turn: "jointly
+              controlled" becomes something you watch rather than read.
+              aspect-auto so the card hugs its content instead of sitting in the
+              4:3 box the side-by-side layout on /concepts/neutral needs. */}
+          <NeutralRecord
+            animateIn
+            className="mx-auto mt-14 aspect-auto max-w-md text-left"
+          />
         </div>
       </section>
 
