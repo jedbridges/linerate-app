@@ -658,6 +658,41 @@ body:has([data-no-grid-lines]) .grid-lines {
     transform: none;
   }
 }
+/* Neutral record (concept 06). The parts stage in on an expo ease-out, ordered
+   by --nr-i, so the record lands, its figure computes, then each party's tick
+   draws itself. Base state is visible and only overridden here, so a record
+   whose observer never fires stays readable rather than stranded blank. The
+   ticks are Lucide's stroked Check, drawn with stroke-dashoffset; 24 comfortably
+   exceeds the path length, so any remainder is simply already offscreen. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-record-anim="armed"] .lr-nr-part {
+    opacity: 0;
+  }
+  [data-record-anim="armed"] .lr-nr-check {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+  }
+  [data-record-anim="play"] .lr-nr-part {
+    animation: lr-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--nr-i, 0) * 0.14s);
+    --reveal-y: 12px;
+  }
+  [data-record-anim="play"] .lr-nr-check {
+    stroke-dasharray: 24;
+    animation: lr-nr-draw 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    /* after the row it sits in has landed */
+    animation-delay: calc(0.2s + var(--nr-i, 0) * 0.14s);
+  }
+}
+@keyframes lr-nr-draw {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @keyframes lr-pill-confirm {
   from {
     opacity: 0;

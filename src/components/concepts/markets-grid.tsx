@@ -5,6 +5,7 @@ import { Plus, X } from "@phosphor-icons/react";
 
 import { withBase } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useCountUp } from "@/lib/use-count-up";
 import {
   Dialog,
   DialogClose,
@@ -134,41 +135,6 @@ const MARKETS = [
   },
 ];
 
-/* The dialog's cycle total counts up over ~700ms, so the settlement computes
-   in front of you the way the product's own console would show it. Tabular
-   mono figures keep the width stable while the digits run. Only dollar totals
-   animate; anything else (or reduced motion) renders static. */
-function useSettledFigure(raw: string) {
-  // Static cases (non-dollar values, reduced motion) are decided in the
-  // initializer, so the effect never has to set state synchronously. The
-  // dialog mounts on click, client-side only, so matchMedia is available.
-  const animate =
-    /^\$[\d,]+\.\d{2}$/.test(raw) &&
-    typeof window !== "undefined" &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const [text, setText] = React.useState(animate ? "$0.00" : raw);
-  React.useEffect(() => {
-    if (!animate) return;
-    const target = parseFloat(raw.replace(/[$,]/g, ""));
-    const fmt = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    });
-    const t0 = performance.now();
-    const dur = 700;
-    let raf = 0;
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - t0) / dur);
-      const eased = 1 - Math.pow(1 - p, 4);
-      setText(fmt.format(target * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [raw, animate]);
-  return text;
-}
-
 /* The settlement-slip vignette inside each dialog. Values are illustrative,
    but they follow the product's ledger rules: every figure mono + tabular,
    labels sans, the last row carrying the cycle total. */
@@ -178,7 +144,8 @@ function MarketExample({
   example: (typeof MARKETS)[number]["example"];
 }) {
   const total = example.rows[example.rows.length - 1];
-  const settled = useSettledFigure(total[1]);
+  // Shared hook: the same money animation as the neutral record.
+  const settled = useCountUp(total[1]);
   return (
     <figure className="m-0">
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
