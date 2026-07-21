@@ -673,8 +673,13 @@ body:has([data-no-grid-lines]) .grid-lines {
    component measures that card at click time and hands us --from-dx/dy (the
    offset from viewport centre to card centre) and --from-scale (how much
    smaller the card is), so this is a real shared-element move rather than a
-   generic zoom from nowhere. The base Radix content keeps translate(-50%,-50%)
-   for centring, so the keyframes compose onto it.
+   generic zoom from nowhere.
+
+   These keyframes carry ONLY the delta and the scale, never the centring.
+   Tailwind v4 compiles -translate-x-1/2/-translate-y-1/2 to the standalone
+   `translate` property, and the spec applies translate before transform, so
+   restating translate(-50%,-50%) here would compose with it and shove the
+   dialog a full width and height off-centre (it clipped off-screen on phones).
 
    The selector is deliberately specific enough to beat the base component's
    zoom-in-95 utility, and the animate-in variables are neutralised so the two
@@ -701,24 +706,22 @@ body:has([data-no-grid-lines]) .grid-lines {
 @keyframes lr-market-dialog-in {
   from {
     opacity: 0;
-    transform: translate(-50%, -50%)
-      translate(var(--from-dx, 0px), var(--from-dy, 0px))
+    transform: translate(var(--from-dx, 0px), var(--from-dy, 0px))
       scale(var(--from-scale, 0.9));
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1);
   }
 }
 @keyframes lr-market-dialog-out {
   from {
     opacity: 1;
-    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1);
   }
   to {
     opacity: 0;
-    transform: translate(-50%, -50%)
-      translate(var(--from-dx, 0px), var(--from-dy, 0px))
+    transform: translate(var(--from-dx, 0px), var(--from-dy, 0px))
       scale(var(--from-scale, 0.9));
   }
 }
