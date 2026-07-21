@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { openGraphFor, twitterFor } from "@/lib/site-metadata";
 
 import { Button } from "@/components/ui/button";
 import { ConceptChrome } from "@/components/concepts/concept-chrome";
@@ -10,9 +11,14 @@ export const metadata: Metadata = {
   title: "LineRate · Contract automation for power-intensive compute",
   description:
     "The contract automation platform for power-intensive compute. Model the agreement, run it on live data, settle continuously, with deposits reduced and every figure auditable by both parties.",
-  openGraph: {
-    title: "LineRate · Contract automation for power-intensive compute",
-  },
+  // openGraphFor, not a bare object: Next replaces the parent's openGraph
+  // wholesale, so writing { title } here silently dropped og:image.
+  openGraph: openGraphFor(
+    "LineRate · Contract automation for power-intensive compute",
+  ),
+  twitter: twitterFor(
+    "LineRate · Contract automation for power-intensive compute",
+  ),
 };
 
 /*

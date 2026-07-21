@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { openGraphFor, twitterFor } from "@/lib/site-metadata";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,10 @@ export const metadata: Metadata = {
   title: "LineRate · Overview",
   description:
     "LineRate turns complex agreements into self-executing systems that integrate every input, calculate each party's obligations, and coordinate settlement in one neutral, auditable platform.",
-  openGraph: { title: "LineRate · Overview" },
+  // openGraphFor, not a bare object: Next replaces the parent's openGraph
+  // wholesale, so writing { title } here silently dropped og:image.
+  openGraph: openGraphFor("LineRate · Overview"),
+  twitter: twitterFor("LineRate · Overview"),
 };
 
 /*

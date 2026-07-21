@@ -1,11 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 
 import { GridLines } from "@/components/grid-lines";
 import { ConsoleStamp } from "@/components/console-stamp";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { withBase } from "@/lib/utils";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_ORIGIN,
+  openGraphFor,
+  twitterFor,
+} from "@/lib/site-metadata";
 import "./globals.css";
 
 /*
@@ -45,42 +51,25 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_DESCRIPTION =
-  "Settlement infrastructure for nine-figure hosting agreements. Daily settlement, automated counterparty payments, real-time collateral, audit-ready reporting.";
-
-// Absolute origin so crawlers resolve og:image to a full URL. The basePath is
-// applied by Next on top of this; override via NEXT_PUBLIC_SITE_URL if the host
-// changes (e.g. a custom domain).
-const SITE_ORIGIN =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://jedbridges.github.io";
-
-// Absolute URL to the committed share image. Built from origin + basePath so
-// crawlers (which don't resolve relative paths or apply basePath) get a URL
-// that resolves on the Pages project sub-path.
-const OG_IMAGE = {
-  url: `${SITE_ORIGIN}${withBase("/og.png")}`,
-  width: 1200,
-  height: 630,
-  alt: "LineRate design system",
-};
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: "LineRate",
   description: SITE_DESCRIPTION,
-  openGraph: {
-    title: "LineRate design system",
-    description: SITE_DESCRIPTION,
-    siteName: "LineRate",
-    type: "website",
-    images: [OG_IMAGE],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "LineRate design system",
-    description: SITE_DESCRIPTION,
-    images: [OG_IMAGE],
-  },
+  applicationName: SITE_NAME,
+  openGraph: openGraphFor(),
+  twitter: twitterFor(),
+  appleWebApp: { title: SITE_NAME, capable: true, statusBarStyle: "black" },
+};
+
+/* Mobile browser chrome matches the page surface per scheme, so the address bar
+   dissolves into the page instead of banding above it. Deliberately not Amber:
+   the accent is rationed to one or two elements per screen, and spending it on
+   OS chrome would put a permanent bright band over a dark-first product. */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#101010" },
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+  ],
 };
 
 export default function RootLayout({
