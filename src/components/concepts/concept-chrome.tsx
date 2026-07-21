@@ -170,30 +170,38 @@ export function ConceptChrome({
             <Wordmark className="h-3.5 w-auto" />
             <span className="text-xs text-foreground-subtle">by OpenNode</span>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-foreground-subtle">
-            {footerTagline ? (
-              <span>{footerTagline}</span>
-            ) : (
-              <>
-                <span>Auditable by design</span>
-                <span>Neutral system of record</span>
-              </>
-            )}
-            <a
-              href="#"
-              className="inline-flex items-center transition-colors hover:text-foreground [@media(pointer:coarse)]:min-h-11"
-            >
-              Terms
-            </a>
-            {footerTagline && (
+          {/* Tagline and links are separate groups, not one wrapping row. In a
+              single row the tagline's length decided where the links broke, so
+              on a phone "Terms" rode up onto the tagline line and the rest
+              dropped below it. Stacked on mobile, inline from sm. */}
+          <div className="flex flex-col gap-4 text-xs text-foreground-subtle sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
+              {footerTagline ? (
+                <span>{footerTagline}</span>
+              ) : (
+                <>
+                  <span>Auditable by design</span>
+                  <span>Neutral system of record</span>
+                </>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
               <a
                 href="#"
                 className="inline-flex items-center transition-colors hover:text-foreground [@media(pointer:coarse)]:min-h-11"
               >
-                Privacy
+                Terms
               </a>
-            )}
-            <span>© LineRate</span>
+              {footerTagline && (
+                <a
+                  href="#"
+                  className="inline-flex items-center transition-colors hover:text-foreground [@media(pointer:coarse)]:min-h-11"
+                >
+                  Privacy
+                </a>
+              )}
+              <span>© LineRate</span>
+            </div>
           </div>
         </div>
       </footer>

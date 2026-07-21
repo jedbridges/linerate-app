@@ -223,7 +223,9 @@ export default function OverviewConcept() {
 
       {/* Proof quote */}
       <section className="mx-auto max-w-6xl px-6 py-24">
-        <Reveal as="figure" className="mx-auto max-w-3xl text-center">
+        {/* Left-aligned on phones (centred long-form is hard to track at that
+            measure), centred from sm where the lines are shorter. */}
+        <Reveal as="figure" className="mx-auto max-w-3xl text-left sm:text-center">
           {/* Square avatar. Placeholder headshot until an attributed photo can
               replace it; the quote is still illustrative. */}
           <img
@@ -231,9 +233,15 @@ export default function OverviewConcept() {
             alt=""
             width={56}
             height={56}
-            className="mx-auto mb-8 size-14 rounded-md border border-border object-cover"
+            className="mb-8 size-14 rounded-md border border-border object-cover sm:mx-auto"
           />
-          <blockquote className="text-balance text-2xl font-medium leading-snug text-foreground-muted sm:text-3xl">
+          {/* Hanging opening quote on mobile: a negative first-line indent pulls
+              the &ldquo; into the margin so the prose itself starts flush with
+              every line below it. text-indent is used rather than CSS
+              hanging-punctuation because only Safari implements that property.
+              Cleared from sm, where the block is centred and an indent would
+              just shift the first line off-centre. */}
+          <blockquote className="text-pretty text-2xl font-medium leading-snug text-foreground-muted [text-indent:-0.44em] sm:text-balance sm:text-3xl sm:[text-indent:0]">
             &ldquo;
             {QUOTE.parts.map((p, i) =>
               p.em ? (
