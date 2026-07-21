@@ -169,7 +169,9 @@ class CrossHatch extends HTMLElement {
     const r = this.attachShadow({ mode: 'open' });
     r.innerHTML = `
       <style>
-        :host { display: block; position: relative; contain: layout paint; }
+        /* pan-y so a vertical drag still scrolls the page while a horizontal
+           drag drives the cursor effect on touch; pinch-zoom stays available. */
+        :host { display: block; position: relative; contain: layout paint; touch-action: pan-y pinch-zoom; }
         canvas { display: block; width: 100%; height: 100%; }
         .fb { position:absolute; inset:0; display:none; align-items:center; justify-content:center; text-align:center; padding:20px; color:#666; font: 12px ui-monospace, monospace; background:#EFEBDD; }
         .fb.on { display:flex; }

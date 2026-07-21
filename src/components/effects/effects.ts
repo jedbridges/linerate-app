@@ -51,7 +51,12 @@ export type EffectConfig = {
   download: string;
   previewLabel: string;
   aspect: string;
+  /* hint is shown on fine pointers, hintTouch on coarse ones. The effect does
+     respond to a touch drag (verified), so the difference is only in naming the
+     gesture: telling a phone to "move the cursor" describes something that
+     doesn't exist there. */
   hint: string;
+  hintTouch: string;
   /* Short form for the meta table, long form for the prose below the embed. */
   size: string;
   sizeLong: string;
@@ -82,12 +87,13 @@ export const COLOR_DEFAULTS: Colors = {
 export const LINE_SCREEN: EffectConfig = {
   tag: "line-screen",
   script: "/line-screen.js",
-  version: 3,
+  version: 4,
   download: "linerate-line-screen.png",
   previewLabel:
     "Live preview: the sample photograph rendered as a line halftone",
   aspect: "32 / 9",
   hint: "Move the cursor over the image above",
+  hintTouch: "Drag across the image above",
   size: "~5KB gz",
   sizeLong: "~5KB gzipped",
   params: [
@@ -129,12 +135,13 @@ export const LINE_SCREEN: EffectConfig = {
 export const CROSS_HATCH: EffectConfig = {
   tag: "cross-hatch",
   script: "/cross-hatch.js",
-  version: 3,
+  version: 4,
   download: "linerate-cross-hatch.png",
   previewLabel:
     "Live preview: the sample photograph rendered as geometric cross-hatching",
   aspect: "32 / 9",
   hint: "Move the cursor over the image above",
+  hintTouch: "Drag across the image above",
   size: "~5KB gz",
   sizeLong: "~5KB gzipped",
   params: [

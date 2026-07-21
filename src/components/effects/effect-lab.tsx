@@ -200,8 +200,14 @@ export function EffectLab({ config }: { config: EffectConfig }) {
           <span className="mr-3 font-mono text-xs text-foreground-subtle">01</span>
           Tune
         </h2>
+        {/* Both strings render; CSS picks by pointer type. Doing it in CSS
+            rather than JS keeps it out of hydration and correct for hybrid
+            devices that change input mid-session. */}
         <span className="ml-auto text-xs text-foreground-subtle">
-          {config.hint}
+          <span className="[@media(pointer:coarse)]:hidden">{config.hint}</span>
+          <span className="hidden [@media(pointer:coarse)]:inline">
+            {config.hintTouch}
+          </span>
         </span>
       </div>
 
