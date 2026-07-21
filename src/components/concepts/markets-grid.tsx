@@ -180,12 +180,11 @@ function MarketExample({
           style={{ ["--row-i" as string]: 0 } as React.CSSProperties}
           className="lr-slip-row flex items-center justify-between border-b border-border px-5 py-3.5"
         >
-          <span className="text-xs tracking-wide text-foreground-subtle uppercase">
-            {example.eyebrow}
-          </span>
-          <span className="lr-slip-pill rounded-sm border border-border px-2 py-0.5 text-[10px] font-medium tracking-wide text-foreground-muted uppercase">
-            {example.pill}
-          </span>
+          {/* System classes, not inline re-creations: .eyebrow for the label,
+              .pill in its success tone for the settled state (amber is
+              reserved for pending, per the status rules). */}
+          <span className="eyebrow">{example.eyebrow}</span>
+          <span className="lr-slip-pill pill pill--success">{example.pill}</span>
         </div>
         <dl>
           {example.rows.map(([label, value], i) => (
@@ -260,6 +259,7 @@ export function MarketsGrid() {
             type="button"
             onClick={() => setOpenIdx(i)}
             aria-haspopup="dialog"
+            aria-expanded={openIdx === i}
             className="group relative flex flex-1 cursor-pointer overflow-hidden rounded-xl border border-border bg-surface text-left transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted"
           >
             {/* The art is absolutely positioned so its intrinsic 640px size
@@ -326,7 +326,7 @@ export function MarketsGrid() {
 
               {open.more.map((p) => (
                 <p
-                  key={p.slice(0, 24)}
+                  key={p}
                   className="mt-4 max-w-[60ch] text-base leading-relaxed text-foreground-muted"
                 >
                   {p}
