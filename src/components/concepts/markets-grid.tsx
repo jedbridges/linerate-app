@@ -4,6 +4,7 @@ import * as React from "react";
 import { Plus, X } from "@phosphor-icons/react";
 
 import { withBase } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -239,6 +240,13 @@ export function MarketsGrid() {
   const [origin, setOrigin] = React.useState({ dx: 0, dy: 0, scale: 0.9 });
   const open = MARKETS[shownIdx];
 
+  /* Set when the dialog closes via its Request access button. Radix wants to
+     return focus to the card that opened the dialog; on this path we prevent
+     that in onCloseAutoFocus and hand focus to the email input in the closing
+     CTA instead, scrolling it into view. Focus moves with preventScroll so the
+     scroll position is driven by scrollIntoView alone. */
+  const toRequestAccess = React.useRef(false);
+
   const openCard = React.useCallback(
     (i: number, el: HTMLElement) => {
       const r = el.getBoundingClientRect();
@@ -345,6 +353,23 @@ export function MarketsGrid() {
       >
         <DialogContent
           showCloseButton={false}
+          onCloseAutoFocus={(e) => {
+            if (!toRequestAccess.current) return;
+            toRequestAccess.current = false;
+            e.preventDefault();
+            const section = document.getElementById("contact");
+            const input = section?.querySelector<HTMLInputElement>(
+              'input[type="email"]',
+            );
+            const reduce = window.matchMedia(
+              "(prefers-reduced-motion: reduce)",
+            ).matches;
+            section?.scrollIntoView({
+              behavior: reduce ? "auto" : "smooth",
+              block: "center",
+            });
+            input?.focus({ preventScroll: true });
+          }}
           style={
             {
               "--from-dx": `${origin.dx}px`,
@@ -361,7 +386,7 @@ export function MarketsGrid() {
                 alt=""
                 width={640}
                 height={640}
-                className="lr-dialog-art size-20 rounded-lg border border-border object-cover"
+                className="lr-dialog-art size-32 rounded-lg border border-border object-cover"
                 aria-hidden
               />
               <DialogTitle className="mt-4 text-2xl">{open.title}</DialogTitle>
@@ -381,6 +406,21 @@ export function MarketsGrid() {
               <div className="mt-8">
                 <MarketExample example={open.example} />
               </div>
+
+              {/* The takeover's one true CTA: close, then land the reader on
+                  the email capture with focus already in the field, so the
+                  next keystroke is their address. The pinned circle below is
+                  chrome, not a competing action. */}
+              <Button
+                size="lg"
+                className="mt-8 w-full"
+                onClick={() => {
+                  toRequestAccess.current = true;
+                  setOpenIdx(null);
+                }}
+              >
+                Request access
+              </Button>
             </div>
 
             {/* The pinned close: sticky inside the scroll container, so it
