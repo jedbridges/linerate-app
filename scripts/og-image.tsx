@@ -1,6 +1,4 @@
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 
 import { WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/wordmark";
 
@@ -18,43 +16,43 @@ import { WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/wordmark";
  *   3. cp out/opengraph-image public/og.png
  *   4. rm src/app/opengraph-image.tsx
  *
- * On-brand by construction: the Onyx field, the signature vertical hairline
- * grid, the LINERATE wordmark (drawn from the same exported path data the app
- * uses, so geometry never drifts), a mono eyebrow, one rare amber accent, and
- * the hero line. Colors are the literal brand hex values (this is a static
- * build artifact, not a themed runtime surface, so it doesn't read tokens).
+ * The card is a flat Amber field with the LINERATE wordmark and nothing else.
+ * A share card is seen at thumbnail size in a feed, so it has one job: be
+ * unmistakably this brand at a glance. Amber is the one colour nothing else in
+ * the category owns, and stripping the eyebrow, tagline and URL means the mark
+ * reads at any size instead of turning into grey mush.
  *
- * Satori can't rasterize woff2, so the eyebrow/line use vendored JetBrains
- * Mono TTFs from /assets, which is the brand's label/eyebrow face anyway.
+ * The wordmark is Onyx, not Paper: on Amber, Onyx clears ~8:1 while Paper is
+ * ~2.6:1, and ink-on-amber is the same pairing the closing CTA band uses.
+ *
+ * Geometry comes from the exported wordmark path data the app itself draws, so
+ * it can never drift from the real mark. No font files are needed now that the
+ * mono type is gone, which also means Satori has nothing left to rasterize.
  */
 
 // Required for `output: export`: render this image once at build time.
 export const dynamic = "force-static";
 
+// Kept in step with OG_IMAGE.alt in src/app/layout.tsx, which is what actually
+// ships in the meta tags (this export only applies to the route convention).
 export const alt = "LineRate design system";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const ONYX = "#101010";
-const PAPER = "#FFFFFF";
-const CHALK = "#E5E5E5";
-const GRAPHITE = "#838383";
 const AMBER = "#DF8E2A";
 
 export default async function Image() {
-  const [mono, monoMedium] = await Promise.all([
-    readFile(join(process.cwd(), "assets/JetBrainsMono-Regular.ttf")),
-    readFile(join(process.cwd(), "assets/JetBrainsMono-Medium.ttf")),
-  ]);
-
-  const wordmarkSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WORDMARK_VIEWBOX.width} ${WORDMARK_VIEWBOX.height}" fill="${PAPER}">${WORDMARK_PATHS.map(
+  const wordmarkSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WORDMARK_VIEWBOX.width} ${WORDMARK_VIEWBOX.height}" fill="${ONYX}">${WORDMARK_PATHS.map(
     (d) => `<path d="${d}"/>`
   ).join("")}</svg>`;
   const wordmarkSrc = `data:image/svg+xml;base64,${Buffer.from(
     wordmarkSvg
   ).toString("base64")}`;
 
-  const wordmarkWidth = 720;
+  // 620 of 1200 leaves the mark generous air on both sides, so it still reads
+  // as a stamp rather than a banner when the card is scaled down in a feed.
+  const wordmarkWidth = 620;
   const wordmarkHeight = Math.round(
     (wordmarkWidth * WORDMARK_VIEWBOX.height) / WORDMARK_VIEWBOX.width
   );
@@ -66,42 +64,11 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
+          alignItems: "center",
           justifyContent: "center",
-          backgroundColor: ONYX,
-          fontFamily: "JetBrains Mono",
-          padding: 96,
-          position: "relative",
+          backgroundColor: AMBER,
         }}
       >
-        {/* Signature vertical hairline grid */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            backgroundImage:
-              "linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
-            backgroundSize: "120px 100%",
-          }}
-        />
-
-        {/* Eyebrow: amber tick + mono label */}
-        <div style={{ display: "flex", alignItems: "center", marginBottom: 40 }}>
-          <div style={{ width: 18, height: 18, backgroundColor: AMBER }} />
-          <div
-            style={{
-              marginLeft: 18,
-              color: GRAPHITE,
-              fontSize: 26,
-              fontWeight: 500,
-              letterSpacing: 6,
-            }}
-          >
-            DESIGN SYSTEM
-          </div>
-        </div>
-
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={wordmarkSrc}
@@ -109,49 +76,8 @@ export default async function Image() {
           height={wordmarkHeight}
           alt="LINERATE"
         />
-
-        <div
-          style={{
-            marginTop: 44,
-            color: CHALK,
-            fontSize: 30,
-            whiteSpace: "nowrap",
-            lineHeight: 1.35,
-          }}
-        >
-          The voice of the brand &amp; the voice of the ledger.
-        </div>
-
-        {/* Baseline: hairline rule + URL */}
-        <div
-          style={{
-            position: "absolute",
-            left: 96,
-            right: 96,
-            bottom: 80,
-            display: "flex",
-            alignItems: "center",
-            borderTop: "1px solid rgba(255,255,255,0.12)",
-            paddingTop: 28,
-          }}
-        >
-          <div style={{ color: GRAPHITE, fontSize: 24 }}>
-            jedbridges.github.io/linerate-app
-          </div>
-        </div>
       </div>
     ),
-    {
-      ...size,
-      fonts: [
-        { name: "JetBrains Mono", data: mono, style: "normal", weight: 400 },
-        {
-          name: "JetBrains Mono",
-          data: monoMedium,
-          style: "normal",
-          weight: 500,
-        },
-      ],
-    }
+    { ...size }
   );
 }
