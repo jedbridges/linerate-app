@@ -4,7 +4,7 @@ import * as React from "react";
 import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { useCountUp } from "@/lib/use-count-up";
+import { CountUpFigure } from "@/lib/use-count-up";
 
 /*
  * Neutral concept supporting visual: the one auditable record both sides settle
@@ -59,11 +59,6 @@ export function NeutralRecord({
     return () => io.disconnect();
   }, [animateIn]);
 
-  // Hold at zero until the sequence actually plays. The static usage on the
-  // neutral concept page ignores this entirely and prints the figure, so
-  // turning animateIn off cannot leave a counting number behind.
-  const counted = useCountUp(FIGURE, played);
-  const figure = animateIn ? counted : FIGURE;
 
   return (
     <div
@@ -80,8 +75,16 @@ export function NeutralRecord({
         className="lr-nr-part rounded-lg border border-accent bg-page p-4"
       >
         <p className="eyebrow text-foreground-subtle">Cycle 4271 · T+0</p>
-        <p className="ledger mt-2 text-2xl font-medium tabular-nums text-foreground">
-          {figure}
+        {/* .ledger already sets tnum, so no tabular-nums utility is needed to
+            keep the digits from jittering while they run. The static usage
+            prints the figure outright, so turning animateIn off can never leave
+            a counting number behind. */}
+        <p className="ledger mt-2 text-2xl font-medium text-foreground">
+          {animateIn ? (
+            <CountUpFigure value={FIGURE} active={played} />
+          ) : (
+            FIGURE
+          )}
         </p>
         <p className="mt-1 font-mono text-xs text-foreground-subtle">
           sha256 0x9f3c…a71e

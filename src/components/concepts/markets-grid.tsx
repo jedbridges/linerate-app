@@ -5,7 +5,7 @@ import { Plus, X } from "@phosphor-icons/react";
 
 import { withBase } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useCountUp } from "@/lib/use-count-up";
+import { CountUpFigure } from "@/lib/use-count-up";
 import {
   Dialog,
   DialogClose,
@@ -143,9 +143,6 @@ function MarketExample({
 }: {
   example: (typeof MARKETS)[number]["example"];
 }) {
-  const total = example.rows[example.rows.length - 1];
-  // Shared hook: the same money animation as the neutral record.
-  const settled = useCountUp(total[1]);
   return (
     <figure className="m-0">
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
@@ -178,7 +175,12 @@ function MarketExample({
                     : "font-mono text-sm tabular-nums text-foreground"
                 }
               >
-                {i === example.rows.length - 1 ? settled : value}
+                {/* Counts up; exposes the true figure to assistive tech. */}
+                {i === example.rows.length - 1 ? (
+                  <CountUpFigure value={value} />
+                ) : (
+                  value
+                )}
               </dd>
             </div>
           ))}
