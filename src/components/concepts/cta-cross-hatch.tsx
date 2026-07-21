@@ -49,11 +49,11 @@ const FADE = `linear-gradient(to bottom, #000 0%, #000 40%, ${[
  * different physical sizes: 111 cells is a 3.6px mark on a 1440px desktop and a
  * 1px mark on a 390px phone, which is why it turned to mush there. Scale the
  * grid with the width instead, and deliberately land phones on a coarser mark
- * (~6px vs ~3.6px) so the weave reads as construction rather than noise at the
- * size it's actually seen. Coarser than this and the handshake stops reading as
- * a handshake, so 36 is the floor. 1440 still resolves to the tuned 111.
+ * (~5px vs ~3.6px) so the weave reads as construction rather than noise at the
+ * size it's actually seen, without tipping into blocky. Below about 36 the
+ * handshake stops reading as a handshake. 1440 still resolves to the tuned 111.
  */
-const GRID_AT = { minW: 390, minGrid: 36, maxW: 1440, maxGrid: 111 };
+const GRID_AT = { minW: 390, minGrid: 42, maxW: 1440, maxGrid: 111 };
 
 function gridForWidth(w: number) {
   const { minW, minGrid, maxW, maxGrid } = GRID_AT;
