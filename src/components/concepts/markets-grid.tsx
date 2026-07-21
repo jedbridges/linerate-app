@@ -226,7 +226,34 @@ export function MarketsGrid() {
     undefined,
   );
   const [openIdx, setOpenIdx] = React.useState<number | null>(null);
-  const open = openIdx === null ? null : MARKETS[openIdx];
+  /* shownIdx lags openIdx: it keeps the dialog's content mounted through the
+     close animation, which openIdx alone can't do because it drops to null the
+     instant you dismiss. openSeq re-keys the body on each open so the slip
+     re-posts and the total re-counts when the same card is reopened. */
+  const [shownIdx, setShownIdx] = React.useState(0);
+  const [openSeq, setOpenSeq] = React.useState(0);
+  /* Where the dialog should grow from: the delta from the viewport centre to
+     the clicked card's centre, plus how much smaller the card is than the
+     dialog. Measured at click time, so the takeover expands out of the card
+     you actually pressed rather than materialising in the middle. */
+  const [origin, setOrigin] = React.useState({ dx: 0, dy: 0, scale: 0.9 });
+  const open = MARKETS[shownIdx];
+
+  const openCard = React.useCallback(
+    (i: number, el: HTMLElement) => {
+      const r = el.getBoundingClientRect();
+      const dialogW = Math.min(576, window.innerWidth - 32);
+      setOrigin({
+        dx: Math.round(r.left + r.width / 2 - window.innerWidth / 2),
+        dy: Math.round(r.top + r.height / 2 - window.innerHeight / 2),
+        scale: +Math.max(0.5, Math.min(0.95, r.width / dialogW)).toFixed(3),
+      });
+      setShownIdx(i);
+      setOpenSeq((n) => n + 1);
+      setOpenIdx(i);
+    },
+    [],
+  );
 
   React.useEffect(() => {
     const el = ref.current;
@@ -260,7 +287,7 @@ export function MarketsGrid() {
         <Reveal key={m.title} delay={i * 80} className="flex">
           <button
             type="button"
-            onClick={() => setOpenIdx(i)}
+            onClick={(e) => openCard(i, e.currentTarget)}
             aria-haspopup="dialog"
             aria-expanded={openIdx === i}
             className="group relative flex min-h-28 flex-1 cursor-pointer overflow-hidden rounded-xl border border-border bg-surface text-left transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted sm:min-h-32"
@@ -316,11 +343,18 @@ export function MarketsGrid() {
           if (!o) setOpenIdx(null);
         }}
       >
-        {open && (
-          <DialogContent
-            showCloseButton={false}
-            className="block max-h-[85dvh] w-full max-w-[calc(100%-2rem)] gap-0 overflow-y-auto rounded-xl p-0 sm:max-w-xl"
-          >
+        <DialogContent
+          showCloseButton={false}
+          style={
+            {
+              "--from-dx": `${origin.dx}px`,
+              "--from-dy": `${origin.dy}px`,
+              "--from-scale": origin.scale,
+            } as React.CSSProperties
+          }
+          className="lr-market-dialog block max-h-[85dvh] w-full max-w-[calc(100%-2rem)] gap-0 overflow-y-auto rounded-xl p-0 sm:max-w-xl"
+        >
+          <div key={openSeq}>
             <div className="p-6 pb-0 sm:p-8 sm:pb-0">
               <img
                 src={withBase(open.image)}
@@ -352,12 +386,16 @@ export function MarketsGrid() {
             {/* The pinned close: sticky inside the scroll container, so it
                 floats over the content near the bottom edge no matter how far
                 the dialog has scrolled. pointer-events split so the dead
-                space either side of the button still scrolls/clicks through. */}
+                space either side of the button still scrolls/clicks through.
+
+                Filled with the primary pair rather than glass: Paper on Onyx in
+                dark, Onyx on Paper in light. It reads as the one action in the
+                takeover instead of dissolving into whatever it floats over. */}
             <div className="lr-dialog-close-in pointer-events-none sticky bottom-0 flex justify-center pt-6 pb-5">
               <DialogClose asChild>
                 <button
                   type="button"
-                  className="glass glass-strong pointer-events-auto flex size-11 cursor-pointer items-center justify-center rounded-full border border-border text-foreground-muted transition-colors hover:text-foreground active:scale-95 [&:hover_svg]:rotate-90"
+                  className="pointer-events-auto flex size-11 cursor-pointer items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-transform duration-200 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:scale-105 active:scale-95 [&:hover_svg]:rotate-90"
                 >
                   <X
                     className="size-5 transition-transform duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)]"
@@ -367,8 +405,8 @@ export function MarketsGrid() {
                 </button>
               </DialogClose>
             </div>
-          </DialogContent>
-        )}
+          </div>
+        </DialogContent>
       </Dialog>
     </div>
   );

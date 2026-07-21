@@ -669,6 +669,76 @@ body:has([data-no-grid-lines]) .grid-lines {
   }
 }
 
+/* Market takeover: the dialog expands out of the card that opened it. The
+   component measures that card at click time and hands us --from-dx/dy (the
+   offset from viewport centre to card centre) and --from-scale (how much
+   smaller the card is), so this is a real shared-element move rather than a
+   generic zoom from nowhere. The base Radix content keeps translate(-50%,-50%)
+   for centring, so the keyframes compose onto it.
+
+   The selector is deliberately specific enough to beat the base component's
+   zoom-in-95 utility, and the animate-in variables are neutralised so the two
+   can't compound. Opening eases out over 300ms; closing is quicker at 200ms
+   and eases in, so dismissing feels like a release rather than a rewind. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-slot="dialog-content"].lr-market-dialog[data-state="open"] {
+    --tw-enter-opacity: initial;
+    --tw-enter-scale: initial;
+    animation: lr-market-dialog-in 300ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  [data-slot="dialog-content"].lr-market-dialog[data-state="closed"] {
+    --tw-exit-opacity: initial;
+    --tw-exit-scale: initial;
+    animation: lr-market-dialog-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
+  }
+  [data-slot="dialog-overlay"][data-state="open"] {
+    animation: lr-scrim-in 300ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  [data-slot="dialog-overlay"][data-state="closed"] {
+    animation: lr-scrim-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
+  }
+}
+@keyframes lr-market-dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%)
+      translate(var(--from-dx, 0px), var(--from-dy, 0px))
+      scale(var(--from-scale, 0.9));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+  }
+}
+@keyframes lr-market-dialog-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%)
+      translate(var(--from-dx, 0px), var(--from-dy, 0px))
+      scale(var(--from-scale, 0.9));
+  }
+}
+@keyframes lr-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes lr-scrim-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /* How-it-works mobile cards (concept 06): each step's example UI fades and
    un-blurs into place as it scrolls in, mirroring the desktop panel's swap.
    Rides a view() timeline so it plays once on entry; where scroll timelines or
