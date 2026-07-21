@@ -68,7 +68,12 @@ export function RequestAccessForm() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@company.com"
             aria-label="Work email"
-            className="h-12 flex-1 bg-page/60 px-4 text-base"
+            /* flex-1 only once the form is a row. In the mobile column layout
+               the main axis is vertical, so flex-1 sets flex-basis:0 on the
+               HEIGHT and collapses the field to its 40px min-content height,
+               silently overriding h-12 and dropping it under the 44px touch
+               minimum. */
+            className="h-12 bg-page/60 px-4 text-base sm:flex-1"
           />
           <Button type="submit" size="lg" className="shrink-0">
             Request access

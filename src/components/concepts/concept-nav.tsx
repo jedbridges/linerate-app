@@ -44,7 +44,13 @@ export function ConceptNav({
           <Link
             href="/concepts"
             aria-label="LineRate concepts"
-            className={cn("shrink-0", !hideSwitcher && "hidden sm:block")}
+            /* min-h-11 on touch so the wordmark clears the 44px tap minimum
+               (the mark itself is only 14-16px tall). Matches the coarse-pointer
+               treatment already used on this bar's CTA. */
+            className={cn(
+              "flex shrink-0 items-center [@media(pointer:coarse)]:min-h-11",
+              !hideSwitcher && "hidden sm:flex",
+            )}
           >
             <Wordmark className="h-3.5 w-auto sm:h-4" />
           </Link>
