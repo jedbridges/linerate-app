@@ -251,7 +251,10 @@ export function MarketsGrid() {
     <div
       ref={ref}
       data-market-anim={anim}
-      className="mt-14 grid gap-4 sm:grid-cols-2"
+      /* Two columns only from lg. At the old sm breakpoint a 352px card left
+         the copy ~176px wide once the art panel took its share, wrapping every
+         description to four lines. */
+      className="mt-14 grid gap-4 lg:grid-cols-2"
     >
       {MARKETS.map((m, i) => (
         <Reveal key={m.title} delay={i * 80} className="flex">
@@ -260,15 +263,23 @@ export function MarketsGrid() {
             onClick={() => setOpenIdx(i)}
             aria-haspopup="dialog"
             aria-expanded={openIdx === i}
-            className="group relative flex flex-1 cursor-pointer overflow-hidden rounded-xl border border-border bg-surface text-left transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted"
+            className="group relative flex min-h-28 flex-1 cursor-pointer overflow-hidden rounded-xl border border-border bg-surface text-left transition-[background-color,border-color,transform] duration-300 [transition-timing-function:cubic-bezier(0.2,0,0,1)] hover:-translate-y-1 hover:border-border-strong hover:bg-muted sm:min-h-32"
           >
-            {/* The art is absolutely positioned so its intrinsic 640px size
-                never enters layout: the card keeps taking its height from the
-                text column, and aspect-square derives the panel's width from
-                that stretched height (same mechanism as the icon version).
-                The wipe class and --icon-i drive the same staggered entrance
-                the icons had; hover zooms the art inside the clipped square. */}
-            <div className="relative aspect-square shrink-0 overflow-hidden border-r border-border bg-page">
+            {/* Explicit width, NOT aspect-square. The panel used to derive its
+                width from aspect-ratio against its stretched flex height;
+                Chrome resolves that, but Safari treats a stretched height as
+                indefinite and collapsed the panel to zero, so the art vanished
+                on the cards while the dialog's (independently sized) copy still
+                rendered. A definite width needs no inference in either engine.
+
+                An in-flow square spacer then gives the panel a real height
+                (w-full resolves against that definite width, aspect-square
+                squares it), so the panel is never zero-height even before
+                stretching. Nothing depends on a stretched height being treated
+                as definite, which is the assumption Safari does not share. The
+                art fills whatever height the card settles on. */}
+            <div className="relative w-28 shrink-0 self-stretch overflow-hidden border-r border-border bg-page sm:w-32">
+              <div className="aspect-square w-full" aria-hidden />
               <img
                 src={withBase(m.image)}
                 alt=""
